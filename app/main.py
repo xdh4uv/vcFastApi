@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
+from .config import settings
 from .database import Base, engine
 from .routers import auth, profile
 
@@ -13,18 +14,18 @@ app = FastAPI(title="vcFastApi Auth")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-    ],
+    allow_origins=settings.cors_origin_list,
+    allow_origin_regex=settings.cors_origin_regex or None,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-UPLOADS_DIR = Path("uploads")
-UPLOADS_DIR.mkdir(exist_ok=True)
+# NOTE: local-disk uploads. Ephemeral on platforms like Render/Fly/Railway —
+# avatars disappear on redeploy. For persistence: mount a volume + set
+# UPLOADS_DIR env var to the mount path, or swap to object storage (S3/R2).
+UPLOADS_DIR = Path(settings.uploads_dir)
+UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 (UPLOADS_DIR / "avatars").mkdir(exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 

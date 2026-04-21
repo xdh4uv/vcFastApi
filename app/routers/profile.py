@@ -5,6 +5,7 @@ from uuid import uuid4
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
+from ..config import settings
 from ..country_codes import COUNTRY_CODES
 from ..database import get_db
 from ..models import User
@@ -13,7 +14,7 @@ from ..security import get_current_user
 
 router = APIRouter(prefix="/profile", tags=["profile"])
 
-UPLOAD_DIR = Path("uploads/avatars")
+UPLOAD_DIR = Path(settings.uploads_dir) / "avatars"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 ALLOWED_MIME = {"image/png": "png", "image/jpeg": "jpg", "image/webp": "webp"}

@@ -48,12 +48,16 @@ def login(
     db: Session = Depends(get_db),
 ) -> Token:
     user = db.query(User).filter(User.email == form_data.username).first()
-    if not user or not verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    invalid = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    # Google-only accounts have hashed_password=NULL; passlib.verify crashes on None.
+    if not user or not user.hashed_password:
+        raise invalid
+    if not verify_password(form_data.password, user.hashed_password):
+        raise invalid
     token = create_access_token(subject=str(user.id))
     return Token(access_token=token)
 
@@ -76,6 +80,11 @@ def _unique_username(db: Session, base: str) -> str:
 
 @router.post("/google", response_model=Token)
 def google_login(payload: GoogleLoginIn, db: Session = Depends(get_db)) -> Token:
+    if not settings.google_client_id:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Google Sign-In not configured",
+        )
     try:
         claims = google_id_token.verify_oauth2_token(
             payload.credential,
