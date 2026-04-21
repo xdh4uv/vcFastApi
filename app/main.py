@@ -1,8 +1,11 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from .database import Base, engine
-from .routers import auth
+from .routers import auth, profile
 
 Base.metadata.create_all(bind=engine)
 
@@ -20,7 +23,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+UPLOADS_DIR = Path("uploads")
+UPLOADS_DIR.mkdir(exist_ok=True)
+(UPLOADS_DIR / "avatars").mkdir(exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
+
 app.include_router(auth.router)
+app.include_router(profile.router)
 
 
 @app.get("/health")
