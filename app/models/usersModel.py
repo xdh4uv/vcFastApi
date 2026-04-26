@@ -1,12 +1,12 @@
 from sqlalchemy import Boolean, Column, Date, DateTime, Integer, String, Text
 from sqlalchemy.sql import func
 
-from .database import Base
+from ..core.database import Base
 
 
 class User(Base):
     __tablename__ = "users"
-    __table_args__ = {"schema": "public"}
+    __table_args__ = {"schema": "security"}
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(255), unique=True, index=True, nullable=False)

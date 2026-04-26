@@ -3,7 +3,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, model_validator
 
-from .country_codes import DIAL_CODES
+from ..utils.country_codes import DIAL_CODES
 
 
 GenderLiteral = Literal["Female", "Male", "Nonbinary", "Prefer not to say", "Other"]
