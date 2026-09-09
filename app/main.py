@@ -11,7 +11,7 @@ from .routers import auth, profile
 
 Base.metadata.create_all(
     bind=engine,
-    tables=[t for t in Base.metadata.sorted_tables if t.schema is None],
+    tables=[t for t in Base.metadata.sorted_tables if t.schema in (None, "public")],
 )
 
 app = FastAPI(title="vcFastApi Auth")

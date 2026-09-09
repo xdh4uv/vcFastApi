@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from ..core.config import settings
 from ..utils.country_codes import COUNTRY_CODES
 from ..core.database import get_db
-from ..models import usersModel as User
+from ..models.usersModel import User
 from ..schemas.schemas import OnboardingIn, ProfileOut, ProfileUpdate
 from ..core.security import get_current_user
 

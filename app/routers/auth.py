@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from ..core.config import settings
 from ..core.database import get_db
-from ..models import usersModel as User
+from ..models.usersModel import User
 from ..schemas.schemas import GoogleLoginIn, Token, UserCreate, UserOut
 from ..core.security import (
     create_access_token,
