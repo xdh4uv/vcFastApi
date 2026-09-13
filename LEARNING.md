@@ -64,7 +64,17 @@ Attempt and reset writes lock the same user/course progress row. Reset deletes o
 
 Final eligibility requires a submitted test for every distinct chapter, regardless of score. The server checks this when opening, starting and submitting the final. No browser-local results are imported as authoritative completion.
 
-## Verification
+## Loading performance
+
+PostgreSQL uses SQLAlchemy's QueuePool with 5 retained connections, up to 5 overflow connections, a 10-second checkout timeout, 5-minute recycling and pre-ping. Limits apply per worker/process; account for instance and worker counts when sizing Cloud Run. Normal requests continue using the configured pooled Neon URL. SQLite regression fixtures keep their own pool settings.
+
+`GET /learning/subjects/{name}?include_course=true` returns the saved subject level plus the authenticated user's course overview and progress in one response. Omit the flag for the original response. This reads the database on every request; it does not cache coursework. Level listings select only course IDs and levels, without fetching the complete question bank.
+
+The frontend shares session verification for 60 seconds in memory, preloads public subject metadata with a 30-second memory lifetime, and retains server authentication on all protected routes. Region alignment remains a deployment task: verify Cloud Run's actual DB endpoint, then place the backend near the database. No minimum-instance or region settings are changed by this patch.
+
+Read-only local-to-Neon comparison on 13 September 2026 (four requests per mode): warm median 817 ms with NullPool versus 471 ms with connection reuse. This measures the connection/query path from the developer machine, not production end-to-end latency.
+
+## Verification checks
 
 ```text
 python -m unittest discover -s tests -v

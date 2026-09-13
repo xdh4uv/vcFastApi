@@ -82,6 +82,17 @@ class LearningTests(unittest.TestCase):
         self.call(learning.set_level, self.subject.sub_module_id, LevelSelection(level="high-school"))
         self.assertEqual(len(self.call(learning.get_course, COURSE)["progress"]["history"]), 1)
 
+    def test_combined_subject_overview_is_fresh_scoped_and_redacts_questions(self):
+        self.assertIsNone(learning.get_subject("Maths", self.db, self.user, True)["course"])
+        self.call(learning.set_level, self.subject.sub_module_id, LevelSelection(level="high-school"))
+        self.submit(self.start("ch-01"))
+        view = learning.get_subject("Maths", self.db, self.user, True)
+        self.assertEqual(view["course"], self.call(learning.get_course, COURSE))
+        self.assertEqual(len(view["course"]["progress"]["history"]), 1)
+        self.assertNotIn("questions", json.dumps(view["course"], default=str))
+        self.assertIsNone(learning.get_subject("Maths", self.db, self.other, True)["course"])
+        self.assertNotIn("course", self.call(learning.get_subject, "Maths"))
+
     def test_material_reads_database_and_never_exposes_test_keys(self):
         row = self.db.get(LearningCourse, COURSE)
         content = deepcopy(row.content)

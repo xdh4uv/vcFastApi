@@ -53,7 +53,7 @@ def load_course(db, course_id):
 
 
 def subject_view(db, user, subject):
-    courses = db.query(LearningCourse).filter_by(subject_id=subject.sub_module_id).all()
+    courses = db.query(LearningCourse.level, LearningCourse.course_id).filter_by(subject_id=subject.sub_module_id).all()
     available = {c.level: c.course_id for c in courses}
     preference = db.get(LearningPreference, (user.id, subject.sub_module_id))
     selected = preference.level if preference else None
@@ -64,13 +64,16 @@ def subject_view(db, user, subject):
 
 
 @router.get("/subjects/{subject_name}")
-def get_subject(subject_name: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
+def get_subject(subject_name: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user), include_course: bool = False):
     name = subject_name.strip().lower()
     aliases = ["math", "maths", "mathematics"] if name in ("math", "maths", "mathematics") else [name]
     subject = db.query(SubModuleMaster).filter(func.lower(SubModuleMaster.sub_module_name).in_(aliases)).first()
     if not subject:
         raise HTTPException(404, "Subject not found.")
-    return subject_view(db, user, subject)
+    result = subject_view(db, user, subject)
+    if include_course:
+        result["course"] = get_course(result["courseId"], db, user) if result["courseId"] else None
+    return result
 
 
 @router.get("/preferences")
