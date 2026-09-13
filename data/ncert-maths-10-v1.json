@@ -1,0 +1,1462 @@
+{
+  "id": "ncert-maths-10-v1",
+  "title": "Class 10 Mathematics",
+  "chapters": [
+    {
+      "title": "Real Numbers",
+      "goal": "Use prime factors to find common factors and reason about irrational numbers.",
+      "concepts": [
+        "Every integer greater than 1 has a unique prime factorisation, apart from the order of its factors. HCF uses shared primes with the smaller powers; LCM uses every prime with the larger powers.",
+        "For two positive integers, HCF × LCM equals their product. A number is rational if it can be written as p/q with integers p, q and q ≠ 0. To prove √p irrational for a prime p, assume a reduced fraction represents it; squaring forces p to divide both numerator and denominator, a contradiction."
+      ],
+      "example": {
+        "problem": "Find the HCF and LCM of 84 and 126.",
+        "steps": [
+          "84 = 2² × 3 × 7; 126 = 2 × 3² × 7.",
+          "HCF = 2 × 3 × 7 = 42. LCM = 2² × 3² × 7 = 252.",
+          "Check: 42 × 252 = 84 × 126 = 10,584."
+        ]
+      },
+      "watchFor": "The product rule above is for two positive integers. Do not automatically apply it to three numbers.",
+      "questions": [
+        {
+          "id": "ch-01-q1",
+          "concept": "prime factors",
+          "prompt": "Which is the prime factorisation of 180?",
+          "options": [
+            "2² × 3² × 5",
+            "2 × 3 × 5",
+            "2³ × 3 × 5",
+            "2² × 3 × 5²"
+          ],
+          "answer": 0,
+          "explanation": "180 = 18 × 10 = 2² × 3² × 5.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-01-q2",
+          "concept": "HCF",
+          "prompt": "What is the HCF of 48 and 72?",
+          "options": [
+            "12",
+            "24",
+            "36",
+            "144"
+          ],
+          "answer": 1,
+          "explanation": "48 = 2⁴ × 3 and 72 = 2³ × 3². Shared minimum powers give 24.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-01-q3",
+          "concept": "LCM",
+          "prompt": "What is the LCM of 18 and 30?",
+          "options": [
+            "6",
+            "60",
+            "90",
+            "540"
+          ],
+          "answer": 2,
+          "explanation": "Use 2 × 3² × 5 = 90.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-01-q4",
+          "concept": "irrational numbers",
+          "prompt": "Which number is irrational?",
+          "options": [
+            "√49",
+            "0.125",
+            "22/7",
+            "√11"
+          ],
+          "answer": 3,
+          "explanation": "11 is prime, so √11 is irrational. The other three values are rational.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-01-q5",
+          "concept": "HCF–LCM relation",
+          "prompt": "Two positive integers have HCF 9 and LCM 180. One is 45. Find the other.",
+          "options": [
+            "36",
+            "20",
+            "81",
+            "180"
+          ],
+          "answer": 0,
+          "explanation": "The other integer is (9 × 180)/45 = 36.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-01",
+      "finalQuestion": {
+        "id": "ch-01-q6",
+        "concept": "HCF–LCM relation",
+        "prompt": "Find the LCM of 32 and 40.",
+        "options": [
+          "8",
+          "80",
+          "160",
+          "1280"
+        ],
+        "answer": 2,
+        "explanation": "Their HCF is 8, so LCM = 32 × 40 / 8 = 160.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Polynomials",
+      "goal": "Connect zeroes, factors, coefficients and graph intersections.",
+      "concepts": [
+        "A zero k satisfies p(k) = 0. On the graph y = p(x), real zeroes are the x-coordinates where the graph meets the x-axis. A nonzero polynomial of degree n has at most n distinct real zeroes.",
+        "For ax² + bx + c with a ≠ 0, the sum of its two zeroes is −b/a and their product is c/a. A monic quadratic with zeroes r and s is (x − r)(x − s). Check signs by expanding."
+      ],
+      "example": {
+        "problem": "Find the zeroes of x² − 9x + 20 and check the coefficient relations.",
+        "steps": [
+          "20 = 4 × 5 and 4 + 5 = 9, so x² − 9x + 20 = (x − 4)(x − 5).",
+          "The zeroes are 4 and 5.",
+          "Sum = 9 = −(−9)/1; product = 20 = 20/1."
+        ]
+      },
+      "watchFor": "A zero is an x-value, not the y-intercept. The minus sign in −b/a matters.",
+      "questions": [
+        {
+          "id": "ch-02-q1",
+          "concept": "zeroes",
+          "prompt": "Find the zero of 4x − 12.",
+          "options": [
+            "−3",
+            "3",
+            "4",
+            "12"
+          ],
+          "answer": 1,
+          "explanation": "4x − 12 = 0 gives x = 3.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-02-q2",
+          "concept": "degree",
+          "prompt": "What is the degree of 7x³ − x + 2?",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "7"
+          ],
+          "answer": 2,
+          "explanation": "The highest power with a nonzero coefficient is 3.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-02-q3",
+          "concept": "sum of zeroes",
+          "prompt": "Find the sum of the zeroes of 2x² − 7x + 3.",
+          "options": [
+            "−7/2",
+            "3/2",
+            "7",
+            "7/2"
+          ],
+          "answer": 3,
+          "explanation": "−b/a = −(−7)/2 = 7/2.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-02-q4",
+          "concept": "forming polynomials",
+          "prompt": "Which monic polynomial has zeroes −2 and 5?",
+          "options": [
+            "x² − 3x − 10",
+            "x² + 3x − 10",
+            "x² − 7x + 10",
+            "x² − 3x + 10"
+          ],
+          "answer": 0,
+          "explanation": "(x + 2)(x − 5) = x² − 3x − 10.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-02-q5",
+          "concept": "coefficient relations",
+          "prompt": "One zero of x² − 8x + k is 3. Find k.",
+          "options": [
+            "5",
+            "11",
+            "15",
+            "24"
+          ],
+          "answer": 2,
+          "explanation": "The other zero is 8 − 3 = 5. Their product k is 15.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-02",
+      "finalQuestion": {
+        "id": "ch-02-q6",
+        "concept": "coefficient relations",
+        "prompt": "For 3x² + 2x − 8, what is the product of the zeroes?",
+        "options": [
+          "−8/3",
+          "8/3",
+          "−2/3",
+          "2/3"
+        ],
+        "answer": 0,
+        "explanation": "The product is c/a = −8/3.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Pair of Linear Equations in Two Variables",
+      "goal": "Solve two conditions together and recognise inconsistent or dependent equations.",
+      "concepts": [
+        "A solution (x, y) must satisfy both equations. Two intersecting lines have one solution; distinct parallel lines have none; coincident lines have infinitely many.",
+        "Substitution replaces one variable using an equation. Elimination adds or subtracts multiples of equations to remove a variable. When coefficient ratios are defined, unequal a₁/a₂ and b₁/b₂ give a unique solution; equal coefficient ratios with a different constant ratio give none."
+      ],
+      "example": {
+        "problem": "Solve x + y = 11 and 2x − y = 4.",
+        "steps": [
+          "Add the equations: 3x = 15, so x = 5.",
+          "Substitute: 5 + y = 11, so y = 6.",
+          "Check both: 5 + 6 = 11 and 2(5) − 6 = 4."
+        ]
+      },
+      "watchFor": "When subtracting an equation, change every sign. Check your pair in both original equations.",
+      "questions": [
+        {
+          "id": "ch-03-q1",
+          "concept": "solution pairs",
+          "prompt": "Solve x + y = 9 and x − y = 3.",
+          "options": [
+            "(3, 6)",
+            "(6, 3)",
+            "(9, 3)",
+            "(3, 3)"
+          ],
+          "answer": 1,
+          "explanation": "Adding gives 2x = 12; then y = 3.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-03-q2",
+          "concept": "graph interpretation",
+          "prompt": "Two distinct parallel lines represent how many common solutions?",
+          "options": [
+            "One",
+            "Two",
+            "None",
+            "Infinitely many"
+          ],
+          "answer": 2,
+          "explanation": "Distinct parallel lines never meet.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-03-q3",
+          "concept": "dependent equations",
+          "prompt": "How many solutions do x + 2y = 7 and 2x + 4y = 14 have?",
+          "options": [
+            "Zero",
+            "One",
+            "Two",
+            "Infinitely many"
+          ],
+          "answer": 3,
+          "explanation": "The second equation is twice the first.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-03-q4",
+          "concept": "elimination",
+          "prompt": "Solve 3x + 2y = 16 and x + y = 6.",
+          "options": [
+            "(4, 2)",
+            "(2, 4)",
+            "(6, 0)",
+            "(3, 3)"
+          ],
+          "answer": 0,
+          "explanation": "Subtract twice the second equation from the first: x = 4; y = 2.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-03-q5",
+          "concept": "modelling",
+          "prompt": "Two pens and one notebook cost ₹46. One pen and one notebook cost ₹31. Find the notebook price.",
+          "options": [
+            "₹15",
+            "₹16",
+            "₹30",
+            "₹31"
+          ],
+          "answer": 1,
+          "explanation": "Subtract: one pen costs ₹15. Notebook = 31 − 15 = ₹16.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-03",
+      "finalQuestion": {
+        "id": "ch-03-q6",
+        "concept": "elimination",
+        "prompt": "Solve 2x + y = 13 and x − y = 2.",
+        "options": [
+          "(3, 5)",
+          "(4, 5)",
+          "(5, 3)",
+          "(6, 1)"
+        ],
+        "answer": 2,
+        "explanation": "Adding gives 3x = 15, so x = 5 and y = 3.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Quadratic Equations",
+      "goal": "Solve quadratic equations and interpret their real roots.",
+      "concepts": [
+        "Write the equation as ax² + bx + c = 0, a ≠ 0. If it factors into two linear factors, the product is zero only when at least one factor is zero.",
+        "The discriminant D = b² − 4ac determines the real roots: D > 0 gives two distinct roots, D = 0 one repeated root, and D < 0 no real roots. The quadratic formula is x = (−b ± √D)/(2a). Reject roots that violate the original situation, such as negative lengths."
+      ],
+      "example": {
+        "problem": "Solve x² + x − 30 = 0.",
+        "steps": [
+          "Find two integers whose sum is 1 and product is −30: 6 and −5.",
+          "(x + 6)(x − 5) = 0.",
+          "Thus x = −6 or x = 5. Substitution confirms both."
+        ]
+      },
+      "watchFor": "Do not divide by x unless x ≠ 0 is established; you may lose a root.",
+      "questions": [
+        {
+          "id": "ch-04-q1",
+          "concept": "factorisation",
+          "prompt": "What are the roots of x² − 7x + 12 = 0?",
+          "options": [
+            "−3 and −4",
+            "2 and 6",
+            "3 and 4",
+            "1 and 12"
+          ],
+          "answer": 2,
+          "explanation": "(x − 3)(x − 4) = 0.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-04-q2",
+          "concept": "discriminant",
+          "prompt": "Find the discriminant of x² − 6x + 9 = 0.",
+          "options": [
+            "36",
+            "9",
+            "−36",
+            "0"
+          ],
+          "answer": 3,
+          "explanation": "D = (−6)² − 4(1)(9) = 0.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-04-q3",
+          "concept": "nature of roots",
+          "prompt": "How many real roots does x² + 4x + 8 = 0 have?",
+          "options": [
+            "None",
+            "One repeated root",
+            "Two distinct roots",
+            "Infinitely many"
+          ],
+          "answer": 0,
+          "explanation": "D = 16 − 32 = −16, so there are no real roots.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-04-q4",
+          "concept": "zero product",
+          "prompt": "Solve 2x² − 10x = 0.",
+          "options": [
+            "5 only",
+            "0 and 5",
+            "0 and −5",
+            "2 and 5"
+          ],
+          "answer": 1,
+          "explanation": "Factor as 2x(x − 5) = 0; both 0 and 5 are roots.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-04-q5",
+          "concept": "modelling",
+          "prompt": "A rectangle has width x cm, length x + 2 cm and area 48 cm². Find its width.",
+          "options": [
+            "4 cm",
+            "8 cm",
+            "6 cm",
+            "−8 cm"
+          ],
+          "answer": 2,
+          "explanation": "x² + 2x − 48 = (x + 8)(x − 6). Only x = 6 is a positive width.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-04",
+      "finalQuestion": {
+        "id": "ch-04-q6",
+        "concept": "factorisation",
+        "prompt": "Solve x² − 3x − 18 = 0.",
+        "options": [
+          "3 and −6",
+          "6 and −3",
+          "9 and −2",
+          "−6 and −3"
+        ],
+        "answer": 1,
+        "explanation": "(x − 6)(x + 3) = 0.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Arithmetic Progressions",
+      "goal": "Find terms and sums in sequences with a constant difference.",
+      "concepts": [
+        "An arithmetic progression (AP) adds the same common difference d at every step. With first term a, the nth term is aₙ = a + (n − 1)d. The first term corresponds to n = 1.",
+        "The first n terms sum to Sₙ = n[2a + (n − 1)d]/2, or n(a + l)/2 when the last term l is known. Differences may be negative; the formulas still work."
+      ],
+      "example": {
+        "problem": "Find the 12th term and first-12-term sum of 7, 11, 15, …",
+        "steps": [
+          "Here a = 7, d = 4.",
+          "a₁₂ = 7 + 11 × 4 = 51.",
+          "S₁₂ = 12(7 + 51)/2 = 348."
+        ]
+      },
+      "watchFor": "Use n − 1 jumps to reach the nth term. A constant ratio describes a different kind of sequence.",
+      "questions": [
+        {
+          "id": "ch-05-q1",
+          "concept": "common difference",
+          "prompt": "Find d for 14, 9, 4, −1, …",
+          "options": [
+            "5",
+            "−4",
+            "−5",
+            "9"
+          ],
+          "answer": 2,
+          "explanation": "9 − 14 = −5, repeated at every step.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-05-q2",
+          "concept": "nth term",
+          "prompt": "Find the 8th term of 3, 7, 11, …",
+          "options": [
+            "28",
+            "35",
+            "32",
+            "31"
+          ],
+          "answer": 3,
+          "explanation": "3 + (8 − 1) × 4 = 31.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-05-q3",
+          "concept": "sum",
+          "prompt": "Find the sum of the first 10 positive even integers.",
+          "options": [
+            "110",
+            "100",
+            "90",
+            "120"
+          ],
+          "answer": 0,
+          "explanation": "The sequence runs from 2 to 20; sum = 10(2 + 20)/2 = 110.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-05-q4",
+          "concept": "term position",
+          "prompt": "Which term of 5, 8, 11, … is 44?",
+          "options": [
+            "13th",
+            "14th",
+            "15th",
+            "16th"
+          ],
+          "answer": 1,
+          "explanation": "5 + (n − 1)3 = 44 gives n = 14.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-05-q5",
+          "concept": "recovering an AP",
+          "prompt": "An AP has a₃ = 12 and a₇ = 28. Find its first term.",
+          "options": [
+            "2",
+            "3",
+            "4",
+            "8"
+          ],
+          "answer": 2,
+          "explanation": "Four gaps total 16, so d = 4. Then a = 12 − 2(4) = 4.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-05",
+      "finalQuestion": {
+        "id": "ch-05-q6",
+        "concept": "sum",
+        "prompt": "Find the sum of the first 6 terms of 4, 9, 14, …",
+        "options": [
+          "84",
+          "90",
+          "96",
+          "99"
+        ],
+        "answer": 3,
+        "explanation": "The sixth term is 29, so S₆ = 6(4 + 29)/2 = 99.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Triangles",
+      "goal": "Use similarity and proportional sides to solve geometric problems.",
+      "concepts": [
+        "Similar triangles have equal corresponding angles and proportional corresponding sides. AA, SSS similarity and SAS similarity are sufficient criteria. Keep the order of corresponding vertices consistent.",
+        "A line parallel to one side of a triangle divides the other two sides in the same ratio (basic proportionality theorem); its converse also holds. Similarity proves relationships, so explain which angles or ratios justify it before solving for a length."
+      ],
+      "example": {
+        "problem": "In triangle ABC, D lies on AB and E on AC, with DE parallel to BC. AD = 3, DB = 5 and AE = 6. Find EC.",
+        "steps": [
+          "Parallelism gives AD/DB = AE/EC.",
+          "3/5 = 6/EC, so 3EC = 30.",
+          "EC = 10 units. The ratio uses the two parts, not a part and a whole."
+        ]
+      },
+      "watchFor": "Proportional sides must correspond. Do not compare unrelated sides merely because they look similar in a drawing.",
+      "questions": [
+        {
+          "id": "ch-06-q1",
+          "concept": "similarity criteria",
+          "prompt": "Two angles of one triangle equal two angles of another. Which similarity criterion applies?",
+          "options": [
+            "SSS",
+            "SAS",
+            "AA",
+            "RHS congruence"
+          ],
+          "answer": 2,
+          "explanation": "Two matching angles establish AA similarity.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-06-q2",
+          "concept": "scale factor",
+          "prompt": "Corresponding sides of similar triangles are in ratio 2:3. A side of the smaller is 8 cm. Find the matching larger side.",
+          "options": [
+            "10 cm",
+            "16 cm",
+            "24 cm",
+            "12 cm"
+          ],
+          "answer": 3,
+          "explanation": "Multiply 8 by 3/2 to get 12 cm.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-06-q3",
+          "concept": "proportionality",
+          "prompt": "In triangle ABC, D lies on AB and E on AC, with DE ∥ BC. AD = 4, DB = 6, AE = 8. Find EC.",
+          "options": [
+            "12",
+            "10",
+            "14",
+            "16"
+          ],
+          "answer": 0,
+          "explanation": "4/6 = 8/EC, so EC = 12.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-06-q4",
+          "concept": "SSS similarity",
+          "prompt": "Which set of sides forms a triangle similar to one with sides 3, 4, 5?",
+          "options": [
+            "6, 7, 8",
+            "6, 8, 10",
+            "3, 4, 6",
+            "9, 12, 16"
+          ],
+          "answer": 1,
+          "explanation": "All three sides are multiplied by the same factor, 2.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-06-q5",
+          "concept": "part and whole",
+          "prompt": "In triangle ABC, D lies on AB and E on AC, with DE ∥ BC. AD = 6, AB = 15 and AC = 20. Find AE.",
+          "options": [
+            "5",
+            "6",
+            "8",
+            "12"
+          ],
+          "answer": 2,
+          "explanation": "Triangles ADE and ABC are similar: AE/20 = 6/15, giving AE = 8.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-06",
+      "finalQuestion": {
+        "id": "ch-06-q6",
+        "concept": "proportionality",
+        "prompt": "In triangle ABC, D lies on AB and E on AC, with DE ∥ BC. AD = 5, DB = 10 and EC = 14. Find AE.",
+        "options": [
+          "7",
+          "10",
+          "14",
+          "28"
+        ],
+        "answer": 0,
+        "explanation": "AD/DB = AE/EC gives 5/10 = AE/14, so AE = 7.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Coordinate Geometry",
+      "goal": "Calculate distances and internal division points using coordinates.",
+      "concepts": [
+        "Between (x₁, y₁) and (x₂, y₂), distance = √[(x₂ − x₁)² + (y₂ − y₁)²]. The horizontal and vertical changes form the legs of a right triangle.",
+        "If P divides AB internally with AP:PB = m:n, its coordinates are ((mx₂ + nx₁)/(m + n), (my₂ + ny₁)/(m + n)). The midpoint averages the two x-values and the two y-values. A division point should lie between the endpoints."
+      ],
+      "example": {
+        "problem": "Find the distance and midpoint between A(−2, 1) and B(4, 9).",
+        "steps": [
+          "The coordinate changes are 6 and 8.",
+          "Distance = √(36 + 64) = 10 units.",
+          "Midpoint = ((−2 + 4)/2, (1 + 9)/2) = (1, 5)."
+        ]
+      },
+      "watchFor": "In the section formula, the weight m multiplies B’s coordinates when AP:PB = m:n.",
+      "questions": [
+        {
+          "id": "ch-07-q1",
+          "concept": "distance",
+          "prompt": "Find the distance between (1, 2) and (4, 6).",
+          "options": [
+            "3",
+            "4",
+            "7",
+            "5"
+          ],
+          "answer": 3,
+          "explanation": "√(3² + 4²) = 5.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-07-q2",
+          "concept": "midpoint",
+          "prompt": "Find the midpoint of (−4, 6) and (2, 0).",
+          "options": [
+            "(−1, 3)",
+            "(1, 3)",
+            "(−2, 6)",
+            "(−3, 1)"
+          ],
+          "answer": 0,
+          "explanation": "Average each coordinate: (−1, 3).",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-07-q3",
+          "concept": "section formula",
+          "prompt": "P divides A(0, 0), B(9, 6) with AP:PB = 1:2. Find P.",
+          "options": [
+            "(6, 4)",
+            "(3, 2)",
+            "(4.5, 3)",
+            "(2, 3)"
+          ],
+          "answer": 1,
+          "explanation": "P is one third of the way from A to B: (3, 2).",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-07-q4",
+          "concept": "distance",
+          "prompt": "Find the distance of (−8, 15) from the origin.",
+          "options": [
+            "7",
+            "23",
+            "17",
+            "√161"
+          ],
+          "answer": 2,
+          "explanation": "√(64 + 225) = √289 = 17.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-07-q5",
+          "concept": "equal distances",
+          "prompt": "Point (x, 0) is equidistant from (−2, 0) and (8, 0). Find x.",
+          "options": [
+            "2",
+            "4",
+            "5",
+            "3"
+          ],
+          "answer": 3,
+          "explanation": "On the x-axis the required point is the midpoint: (−2 + 8)/2 = 3.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-07",
+      "finalQuestion": {
+        "id": "ch-07-q6",
+        "concept": "section formula",
+        "prompt": "P divides A(2, 1), B(12, 6) with AP:PB = 2:3. Find P.",
+        "options": [
+          "(8, 4)",
+          "(6, 3)",
+          "(7, 3.5)",
+          "(4, 2)"
+        ],
+        "answer": 1,
+        "explanation": "P = ((2×12 + 3×2)/5, (2×6 + 3×1)/5) = (6, 3).",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Introduction to Trigonometry",
+      "goal": "Use right-triangle ratios, standard angles and identities.",
+      "concepts": [
+        "Relative to an acute angle θ in a right triangle, sin θ = opposite/hypotenuse, cos θ = adjacent/hypotenuse and tan θ = opposite/adjacent. cosec, sec and cot are their reciprocals where defined.",
+        "The identities sin²θ + cos²θ = 1, 1 + tan²θ = sec²θ and 1 + cot²θ = cosec²θ connect ratios. Useful values include sin 30° = 1/2, cos 60° = 1/2, tan 45° = 1 and tan 60° = √3."
+      ],
+      "example": {
+        "problem": "An acute angle has opposite side 8 and hypotenuse 17. Find cos θ and tan θ.",
+        "steps": [
+          "Adjacent side = √(17² − 8²) = √225 = 15.",
+          "cos θ = 15/17.",
+          "tan θ = 8/15."
+        ]
+      },
+      "watchFor": "Opposite and adjacent depend on the chosen angle. sin²θ means (sin θ)², not sin(θ²).",
+      "questions": [
+        {
+          "id": "ch-08-q1",
+          "concept": "standard angles",
+          "prompt": "What is sin 30°?",
+          "options": [
+            "1/2",
+            "√3/2",
+            "1",
+            "0"
+          ],
+          "answer": 0,
+          "explanation": "In a 30°–60°–90° triangle, the side opposite 30° is half the hypotenuse.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-08-q2",
+          "concept": "ratios",
+          "prompt": "Opposite = 5 and adjacent = 12 for an acute angle. Find tan θ.",
+          "options": [
+            "12/5",
+            "5/12",
+            "5/13",
+            "12/13"
+          ],
+          "answer": 1,
+          "explanation": "tan θ = opposite/adjacent = 5/12.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-08-q3",
+          "concept": "identities",
+          "prompt": "What is sin²θ + cos²θ?",
+          "options": [
+            "0",
+            "2",
+            "1",
+            "tan θ"
+          ],
+          "answer": 2,
+          "explanation": "The Pythagorean trigonometric identity gives 1.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-08-q4",
+          "concept": "identities",
+          "prompt": "If tan θ = 3/4, what is sec²θ?",
+          "options": [
+            "9/16",
+            "7/16",
+            "16/25",
+            "25/16"
+          ],
+          "answer": 3,
+          "explanation": "sec²θ = 1 + 9/16 = 25/16.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-08-q5",
+          "concept": "ratios",
+          "prompt": "θ is acute and sin θ = 7/25. Find cos θ.",
+          "options": [
+            "24/25",
+            "18/25",
+            "7/24",
+            "25/24"
+          ],
+          "answer": 0,
+          "explanation": "cos θ is positive; √(1 − 49/625) = 24/25.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-08",
+      "finalQuestion": {
+        "id": "ch-08-q6",
+        "concept": "standard angles",
+        "prompt": "Evaluate 2 cos 60° + tan 45°.",
+        "options": [
+          "1",
+          "3/2",
+          "2",
+          "3"
+        ],
+        "answer": 2,
+        "explanation": "2(1/2) + 1 = 2.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Some Applications of Trigonometry",
+      "goal": "Model heights and distances with right triangles.",
+      "concepts": [
+        "An angle of elevation is measured upwards from the observer’s horizontal line; depression is measured downwards. Draw a vertical height, a horizontal distance and the line of sight before choosing a ratio.",
+        "For height above eye level h and horizontal distance d, tan θ = h/d. Add the observer’s eye height when finding total height. For two observation points, express the same height in two ways. State assumptions such as level ground and a vertical object."
+      ],
+      "example": {
+        "problem": "From 18 m away on level ground, the top of a vertical tower is at elevation 45°. Eye height is 1.5 m. Find tower height.",
+        "steps": [
+          "Height above the eyes = 18 tan 45° = 18 m.",
+          "Total height = 18 + 1.5 = 19.5 m.",
+          "The horizontal distance is measured to the tower’s base."
+        ]
+      },
+      "watchFor": "The line of sight is usually the hypotenuse, not the horizontal distance.",
+      "questions": [
+        {
+          "id": "ch-09-q1",
+          "concept": "elevation",
+          "prompt": "An observer looks up from a horizontal line to a tower top. What is the angle called?",
+          "options": [
+            "Depression",
+            "Elevation",
+            "Reflex angle",
+            "Exterior angle"
+          ],
+          "answer": 1,
+          "explanation": "An upward angle from the horizontal is an angle of elevation.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-09-q2",
+          "concept": "height",
+          "prompt": "From a point on level ground 12 m from a pole, elevation to its top is 45°. Ignore eye height. Find pole height.",
+          "options": [
+            "6 m",
+            "24 m",
+            "12 m",
+            "12√3 m"
+          ],
+          "answer": 2,
+          "explanation": "h = 12 tan 45° = 12 m.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-09-q3",
+          "concept": "distance",
+          "prompt": "A tower is 15√3 m tall. Elevation from ground level is 60°. Find horizontal distance.",
+          "options": [
+            "45 m",
+            "15√3 m",
+            "5 m",
+            "15 m"
+          ],
+          "answer": 3,
+          "explanation": "d = h/tan 60° = 15√3/√3 = 15 m.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-09-q4",
+          "concept": "eye height",
+          "prompt": "Eye height is 1.6 m. From 10 m away, elevation to a tree top is 45°. Find total tree height.",
+          "options": [
+            "11.6 m",
+            "10 m",
+            "8.4 m",
+            "16 m"
+          ],
+          "answer": 0,
+          "explanation": "Height above eyes is 10 m, so total height is 11.6 m.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-09-q5",
+          "concept": "two observation points",
+          "prompt": "Elevation to a tower is 45°. Moving 10 m directly away makes it 30°. Ignore eye height. Find tower height.",
+          "options": [
+            "5(√3 − 1) m",
+            "5(√3 + 1) m",
+            "10√3 m",
+            "10 m"
+          ],
+          "answer": 1,
+          "explanation": "Let initial distance and height both be h. Then h/(h + 10) = 1/√3, giving h = 5(√3 + 1).",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-09",
+      "finalQuestion": {
+        "id": "ch-09-q6",
+        "concept": "height",
+        "prompt": "A tower is viewed from ground level 21 m away at 30° elevation. Find its height.",
+        "options": [
+          "21√3 m",
+          "21 m",
+          "7 m",
+          "7√3 m"
+        ],
+        "answer": 3,
+        "explanation": "h = 21 tan 30° = 21/√3 = 7√3 m.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Circles",
+      "goal": "Use tangent properties and distinguish tangents from secants.",
+      "concepts": [
+        "A tangent meets a circle at exactly one point and is perpendicular to the radius at that point. A secant intersects at two points.",
+        "Two tangent segments drawn from the same external point have equal lengths. Joining the centre to that point creates two congruent right triangles. The tangent length can be found from PT² = OP² − r², where OP is the distance to the centre."
+      ],
+      "example": {
+        "problem": "A point P is 26 cm from the centre of a circle of radius 10 cm. Find tangent length PT.",
+        "steps": [
+          "OT is perpendicular to PT, so triangle OTP is right-angled at T.",
+          "PT² = OP² − OT² = 26² − 10² = 576.",
+          "PT = 24 cm; tangent lengths are positive."
+        ]
+      },
+      "watchFor": "Equal tangents must start from the same external point. A radius is perpendicular at the point of contact.",
+      "questions": [
+        {
+          "id": "ch-10-q1",
+          "concept": "tangent radius",
+          "prompt": "What angle does a tangent make with the radius at contact?",
+          "options": [
+            "45°",
+            "60°",
+            "90°",
+            "180°"
+          ],
+          "answer": 2,
+          "explanation": "The tangent is perpendicular to that radius.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-10-q2",
+          "concept": "equal tangents",
+          "prompt": "PA and PB touch the same circle. PA = 11 cm. Find PB.",
+          "options": [
+            "5.5 cm",
+            "22 cm",
+            "Cannot be found",
+            "11 cm"
+          ],
+          "answer": 3,
+          "explanation": "Tangents from the same external point are equal.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-10-q3",
+          "concept": "tangent count",
+          "prompt": "How many tangents to a circle pass through a point strictly inside it?",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Infinitely many"
+          ],
+          "answer": 0,
+          "explanation": "Every line through an interior point crosses the circle at two points.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-10-q4",
+          "concept": "tangent length",
+          "prompt": "P is 13 cm from the centre O of a circle of radius 5 cm. Find the tangent length from P.",
+          "options": [
+            "8 cm",
+            "12 cm",
+            "18 cm",
+            "√194 cm"
+          ],
+          "answer": 1,
+          "explanation": "PT = √(13² − 5²) = 12 cm.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-10-q5",
+          "concept": "angles",
+          "prompt": "Tangents PA and PB enclose 70° at P. Find the smaller central angle AOB.",
+          "options": [
+            "70°",
+            "90°",
+            "110°",
+            "140°"
+          ],
+          "answer": 2,
+          "explanation": "In quadrilateral OAPB, the contact angles are 90° each, so angle AOB = 180° − 70°.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-10",
+      "finalQuestion": {
+        "id": "ch-10-q6",
+        "concept": "tangent length",
+        "prompt": "P is 25 cm from the centre O of a circle of radius 7 cm. Find the tangent length from P.",
+        "options": [
+          "18 cm",
+          "32 cm",
+          "√674 cm",
+          "24 cm"
+        ],
+        "answer": 3,
+        "explanation": "√(25² − 7²) = √576 = 24 cm.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Areas Related to Circles",
+      "goal": "Find arc lengths, sectors and segments with correct units.",
+      "concepts": [
+        "A circle of radius r has circumference 2πr and area πr². For central angle θ in degrees, arc length is (θ/360)2πr and sector area is (θ/360)πr².",
+        "A minor segment is bounded by a chord and its minor arc. Its area equals the corresponding minor sector area minus the triangle formed by the two radii and chord. In composite regions, draw the parts and decide which areas to add or subtract."
+      ],
+      "example": {
+        "problem": "Find the area and arc length of a 60° sector of radius 12 cm.",
+        "steps": [
+          "The sector is 60/360 = 1/6 of a circle.",
+          "Area = (1/6)π(12²) = 24π cm².",
+          "Arc length = (1/6)2π(12) = 4π cm."
+        ]
+      },
+      "watchFor": "Sector perimeter includes two radii as well as the arc. Area and length use different units.",
+      "questions": [
+        {
+          "id": "ch-11-q1",
+          "concept": "circle area",
+          "prompt": "Find the area of a circle with radius 7 cm. Use π = 22/7.",
+          "options": [
+            "44 cm²",
+            "49 cm²",
+            "77 cm²",
+            "154 cm²"
+          ],
+          "answer": 3,
+          "explanation": "πr² = (22/7)49 = 154 cm².",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-11-q2",
+          "concept": "sector area",
+          "prompt": "Find the area of a 90° sector of radius 8 cm.",
+          "options": [
+            "16π cm²",
+            "8π cm²",
+            "32π cm²",
+            "64π cm²"
+          ],
+          "answer": 0,
+          "explanation": "It is one quarter of π(8²), giving 16π.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-11-q3",
+          "concept": "arc length",
+          "prompt": "Find the length of a 120° arc in a circle of radius 9 cm.",
+          "options": [
+            "3π cm",
+            "6π cm",
+            "9π cm",
+            "27π cm"
+          ],
+          "answer": 1,
+          "explanation": "(120/360)2π(9) = 6π cm.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-11-q4",
+          "concept": "sector perimeter",
+          "prompt": "Find the perimeter of a semicircle of radius 5 cm.",
+          "options": [
+            "5π cm",
+            "10π cm",
+            "(5π + 10) cm",
+            "(10π + 10) cm"
+          ],
+          "answer": 2,
+          "explanation": "The boundary is the semicircular arc plus the diameter: 5π + 10.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-11-q5",
+          "concept": "segment area",
+          "prompt": "A 90° sector has radius 6 cm. Find its minor segment area.",
+          "options": [
+            "9π cm²",
+            "(9π + 18) cm²",
+            "(36π − 18) cm²",
+            "(9π − 18) cm²"
+          ],
+          "answer": 3,
+          "explanation": "Sector area is 9π; its right triangle has area 6×6/2 = 18. Subtract.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-11",
+      "finalQuestion": {
+        "id": "ch-11-q6",
+        "concept": "sector area",
+        "prompt": "Find the area of a 150° sector with radius 6 cm.",
+        "options": [
+          "15π cm²",
+          "12π cm²",
+          "18π cm²",
+          "30π cm²"
+        ],
+        "answer": 0,
+        "explanation": "(150/360)π(36) = 15π cm².",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Surface Areas and Volumes",
+      "goal": "Combine familiar solids and count only exposed surfaces.",
+      "concepts": [
+        "For radius r and height h: cylinder volume = πr²h; cone volume = πr²h/3; sphere volume = 4πr³/3. A hemisphere has half a sphere’s volume. Volumes add for joined solids without overlap.",
+        "Curved areas are 2πrh for a cylinder, πrl for a cone (l = √(r² + h²)), and 2πr² for a hemisphere. For a composite solid, joined faces are hidden and must not count in exposed area. Include bases only when exposed."
+      ],
+      "example": {
+        "problem": "A solid cylinder of radius 3 cm and height 8 cm has a hemisphere of radius 3 cm on top. Find its volume.",
+        "steps": [
+          "Cylinder volume = π(3²)(8) = 72π cm³.",
+          "Hemisphere volume = (2/3)π(3³) = 18π cm³.",
+          "They meet at a flat face without overlap; total volume = 90π cm³."
+        ]
+      },
+      "watchFor": "Use slant height for a cone’s curved area, vertical height for its volume. Do not count a joined circular face twice.",
+      "questions": [
+        {
+          "id": "ch-12-q1",
+          "concept": "cylinder volume",
+          "prompt": "Find the volume of a cylinder with r = 2 cm and h = 7 cm.",
+          "options": [
+            "14π cm³",
+            "28π cm³",
+            "56π cm³",
+            "9π cm³"
+          ],
+          "answer": 1,
+          "explanation": "πr²h = π(4)(7) = 28π.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-12-q2",
+          "concept": "cone volume",
+          "prompt": "Find the volume of a cone with r = 3 cm and h = 4 cm.",
+          "options": [
+            "36π cm³",
+            "9π cm³",
+            "12π cm³",
+            "15π cm³"
+          ],
+          "answer": 2,
+          "explanation": "π(9)(4)/3 = 12π.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-12-q3",
+          "concept": "hemisphere area",
+          "prompt": "Find the curved surface area of a hemisphere of radius 4 cm.",
+          "options": [
+            "16π cm²",
+            "48π cm²",
+            "64π cm²",
+            "32π cm²"
+          ],
+          "answer": 3,
+          "explanation": "Curved area = 2πr² = 32π; the base is excluded.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-12-q4",
+          "concept": "combined volume",
+          "prompt": "A cylinder (r = 2, h = 6) has a cone (r = 2, h = 3) on top. Find total volume.",
+          "options": [
+            "28π",
+            "36π",
+            "24π",
+            "12π"
+          ],
+          "answer": 0,
+          "explanation": "Cylinder: 24π. Cone: 4π. Sum: 28π cubic units.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-12-q5",
+          "concept": "exposed area",
+          "prompt": "A cylinder (r = 3, h = 5) has a hemisphere of radius 3 on top. Including the exposed bottom, find total exposed area.",
+          "options": [
+            "48π",
+            "57π",
+            "66π",
+            "75π"
+          ],
+          "answer": 1,
+          "explanation": "Cylinder curved area 30π + hemisphere curved area 18π + bottom 9π = 57π square units.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-12",
+      "finalQuestion": {
+        "id": "ch-12-q6",
+        "concept": "combined volume",
+        "prompt": "A cylinder (r = 3, h = 4) has a cone (r = 3, h = 6) on top. Find total volume.",
+        "options": [
+          "36π",
+          "45π",
+          "54π",
+          "90π"
+        ],
+        "answer": 2,
+        "explanation": "36π + (1/3)π(9)(6) = 54π cubic units.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Statistics",
+      "goal": "Estimate mean, median and mode from grouped frequency tables.",
+      "concepts": [
+        "Replace each interval by its midpoint xᵢ to estimate the grouped mean: Σ(fᵢxᵢ)/Σfᵢ. The midpoint assumption loses information. Cumulative frequency is a running total of frequencies.",
+        "For continuous equal-width classes, median = l + [(N/2 − cf)/f]h. Here l is the median class’s lower boundary, cf the cumulative frequency before it, f its frequency and h its width. Mode = l + [(f₁ − f₀)/(2f₁ − f₀ − f₂)]h for a unique modal class, with preceding, modal and following frequencies f₀, f₁, f₂."
+      ],
+      "example": {
+        "problem": "Intervals 0–10, 10–20, 20–30 have frequencies 2, 5, 3. Estimate the mean.",
+        "steps": [
+          "Midpoints are 5, 15, 25. Total frequency N = 10.",
+          "Weighted sum = 2(5) + 5(15) + 3(25) = 160.",
+          "Mean ≈ 160/10 = 16. Exact raw-data mean is not recoverable from these intervals alone."
+        ]
+      },
+      "watchFor": "For the median formula, cf excludes the median class. Use class boundaries consistently.",
+      "questions": [
+        {
+          "id": "ch-13-q1",
+          "concept": "class marks",
+          "prompt": "Find the class mark of 20–30.",
+          "options": [
+            "20",
+            "30",
+            "25",
+            "10"
+          ],
+          "answer": 2,
+          "explanation": "(20 + 30)/2 = 25.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-13-q2",
+          "concept": "cumulative frequency",
+          "prompt": "Frequencies are 4, 7, 9. Find cumulative frequency through the second class.",
+          "options": [
+            "7",
+            "9",
+            "20",
+            "11"
+          ],
+          "answer": 3,
+          "explanation": "Add the first two frequencies: 4 + 7 = 11.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-13-q3",
+          "concept": "grouped mean",
+          "prompt": "Midpoints are 10, 20, 30 and frequencies are 1, 2, 1. Find the grouped mean.",
+          "options": [
+            "20",
+            "15",
+            "25",
+            "60"
+          ],
+          "answer": 0,
+          "explanation": "(10 + 40 + 30)/4 = 20.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-13-q4",
+          "concept": "grouped median",
+          "prompt": "For a median class: l = 20, N = 40, cf = 12, f = 16, h = 10. Find the median.",
+          "options": [
+            "24",
+            "25",
+            "28",
+            "30"
+          ],
+          "answer": 1,
+          "explanation": "20 + [(20 − 12)/16]10 = 25.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-13-q5",
+          "concept": "grouped mode",
+          "prompt": "A modal class has l = 10, h = 10, f₀ = 4, f₁ = 10, f₂ = 6. Find the mode.",
+          "options": [
+            "14",
+            "15",
+            "16",
+            "20"
+          ],
+          "answer": 2,
+          "explanation": "10 + [(10 − 4)/(20 − 4 − 6)]10 = 16.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-13",
+      "finalQuestion": {
+        "id": "ch-13-q6",
+        "concept": "grouped mean",
+        "prompt": "Intervals 0–10, 10–20, 20–30 have frequencies 3, 4, 3. Find the estimated mean.",
+        "options": [
+          "10",
+          "12",
+          "20",
+          "15"
+        ],
+        "answer": 3,
+        "explanation": "(3×5 + 4×15 + 3×25)/10 = 15.",
+        "difficulty": "standard"
+      }
+    },
+    {
+      "title": "Probability",
+      "goal": "Count equally likely outcomes and use complementary events.",
+      "concepts": [
+        "For a finite set of equally likely outcomes, P(E) = favourable outcomes / total outcomes. List the sample space carefully: two dice have 36 ordered outcomes, not 12.",
+        "Probabilities lie from 0 to 1. An impossible event has probability 0; a certain event has probability 1. The complementary event “not E” has probability 1 − P(E). Equal likelihood must be justified, for example by specifying a fair die or a uniform random draw."
+      ],
+      "example": {
+        "problem": "A bag contains 5 red, 4 blue and 3 green identical-sized counters. Draw one uniformly at random. Find P(not blue).",
+        "steps": [
+          "There are 12 equally likely counters.",
+          "P(blue) = 4/12 = 1/3.",
+          "P(not blue) = 1 − 1/3 = 2/3; equivalently, 8/12."
+        ]
+      },
+      "watchFor": "Different sums of two dice are not equally likely. Count ordered outcomes before taking a ratio.",
+      "questions": [
+        {
+          "id": "ch-14-q1",
+          "concept": "equally likely outcomes",
+          "prompt": "Roll a fair six-sided die. Find P(an even number).",
+          "options": [
+            "1/2",
+            "1/3",
+            "1/6",
+            "2/3"
+          ],
+          "answer": 0,
+          "explanation": "The favourable outcomes 2, 4, 6 are three of six.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-14-q2",
+          "concept": "complement",
+          "prompt": "P(E) = 0.35. Find P(not E).",
+          "options": [
+            "0.35",
+            "0.65",
+            "1.35",
+            "0.75"
+          ],
+          "answer": 1,
+          "explanation": "Complement probability = 1 − 0.35 = 0.65.",
+          "difficulty": "foundation"
+        },
+        {
+          "id": "ch-14-q3",
+          "concept": "random draw",
+          "prompt": "A bag has 6 white and 4 black identical-sized balls. Draw uniformly. Find P(black).",
+          "options": [
+            "3/5",
+            "1/4",
+            "2/5",
+            "2/3"
+          ],
+          "answer": 2,
+          "explanation": "4 out of 10 balls are black: 4/10 = 2/5.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-14-q4",
+          "concept": "sample space",
+          "prompt": "Toss two independent fair coins. Find P(exactly one head).",
+          "options": [
+            "1/4",
+            "3/4",
+            "1",
+            "1/2"
+          ],
+          "answer": 3,
+          "explanation": "HT and TH are two of the four equally likely outcomes.",
+          "difficulty": "standard"
+        },
+        {
+          "id": "ch-14-q5",
+          "concept": "two dice",
+          "prompt": "Roll two independent fair six-sided dice. Find P(sum = 9).",
+          "options": [
+            "1/9",
+            "1/6",
+            "1/12",
+            "1/18"
+          ],
+          "answer": 0,
+          "explanation": "The pairs (3,6), (4,5), (5,4), (6,3) give 4/36 = 1/9.",
+          "difficulty": "challenge"
+        }
+      ],
+      "id": "ch-14",
+      "finalQuestion": {
+        "id": "ch-14-q6",
+        "concept": "complement",
+        "prompt": "Choose an integer uniformly from 1 to 20 inclusive. Find P(not a multiple of 4).",
+        "options": [
+          "1/4",
+          "1/2",
+          "3/4",
+          "4/5"
+        ],
+        "answer": 2,
+        "explanation": "Five integers are multiples of 4. The other 15 give 15/20 = 3/4.",
+        "difficulty": "standard"
+      }
+    }
+  ]
+}

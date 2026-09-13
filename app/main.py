@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .core.config import settings
 from .core.database import Base, engine
-from .routers import auth, profile
+from .routers import auth, profile, learning
 
 Base.metadata.create_all(
     bind=engine,
@@ -36,6 +36,7 @@ app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 app.include_router(auth.router)
 app.include_router(profile.router)
 app.include_router(moduleMaster.router)
+app.include_router(learning.router)
 
 @app.get("/health")
 def health() -> dict[str, str]:
