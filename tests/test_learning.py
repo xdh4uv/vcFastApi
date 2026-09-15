@@ -13,7 +13,7 @@ from fastapi import HTTPException
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 from test_auth import create_test_engine
-from app.models.learningCourseModel import LearningAttempt, LearningCourse, LearningPreference, LearningProgress
+from app.models.learningCourseModel import LearningAttempt, LearningCourse, LearningPreference, LearningProgress, LearningConcept, PracticeQuestion
 from app.models.subModuleMasterModel import SubModuleMaster
 from app.models.usersModel import User
 from app.routers import learning
@@ -26,7 +26,7 @@ COURSE = CONTENT["id"]
 class LearningTests(unittest.TestCase):
     def setUp(self):
         self.engine = create_test_engine().execution_options(schema_translate_map={"public": None, "modules": None})
-        for model in (SubModuleMaster, LearningCourse, LearningPreference, LearningProgress, LearningAttempt):
+        for model in (SubModuleMaster, LearningCourse, LearningPreference, LearningProgress, LearningAttempt, LearningConcept, PracticeQuestion):
             model.__table__.create(self.engine)
         self.db = Session(self.engine)
         self.user = User(email="first@example.com", username="first", onboarding_completed=True)

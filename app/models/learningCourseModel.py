@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 import uuid
 
-from sqlalchemy import Column, DateTime, ForeignKey, Index, Integer, JSON, String, UniqueConstraint, text
+from sqlalchemy import Column, DateTime, ForeignKey, ForeignKeyConstraint, Index, Integer, JSON, String, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from ..core.database import Base
@@ -39,7 +39,7 @@ class LearningAttempt(Base):
     __tablename__ = "learning_attempts"
     __table_args__ = (
         Index("ix_learning_attempt_owner_course", "user_id", "course_id"),
-        Index("uq_learning_active_draft", "user_id", "course_id", "test_id", unique=True,
+        Index("uq_learning_active_draft", "user_id", "course_id", "test_id", "kind", unique=True,
               postgresql_where=text("submitted_at IS NULL"), sqlite_where=text("submitted_at IS NULL")),
         {"schema": "modules"},
     )
@@ -47,6 +47,8 @@ class LearningAttempt(Base):
     user_id = Column(Integer, ForeignKey("public.users.id", ondelete="CASCADE"), nullable=False)
     course_id = Column(String(100), ForeignKey("modules.learning_courses.course_id"), nullable=False)
     test_id = Column(String(40), nullable=False)
+    kind = Column(String(20), nullable=False, default="chapter", server_default="chapter")
+    selection_metadata = Column(document, nullable=False, default=dict, server_default=text("'{}'"))
     questions = Column(document, nullable=False)
     answers = Column(document, nullable=False, default=dict)
     revision = Column(Integer, nullable=False, default=0)
@@ -54,3 +56,30 @@ class LearningAttempt(Base):
     total = Column(Integer, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc))
     submitted_at = Column(DateTime(timezone=True), nullable=True)
+
+
+class LearningConcept(Base):
+    __tablename__ = "learning_concepts"
+    __table_args__ = {"schema": "modules"}
+    course_id = Column(String(100), ForeignKey("modules.learning_courses.course_id"), primary_key=True)
+    chapter_id = Column(String(40), primary_key=True)
+    concept_id = Column(String(60), primary_key=True)
+    material = Column(document, nullable=False)
+
+
+class PracticeQuestion(Base):
+    __tablename__ = "learning_practice_questions"
+    __table_args__ = (
+        ForeignKeyConstraint(["course_id", "chapter_id", "concept_id"],
+                             ["modules.learning_concepts.course_id", "modules.learning_concepts.chapter_id", "modules.learning_concepts.concept_id"]),
+        Index("ix_practice_selection", "course_id", "chapter_id", "status", "concept_id", "difficulty"),
+        {"schema": "modules"},
+    )
+    id = Column(String(100), primary_key=True)
+    course_id = Column(String(100), nullable=False)
+    chapter_id = Column(String(40), nullable=False)
+    concept_id = Column(String(60), nullable=False)
+    difficulty = Column(String(20), nullable=False)
+    status = Column(String(20), nullable=False, default="approved")
+    source = Column(String(30), nullable=False, default="authored")
+    content = Column(document, nullable=False)

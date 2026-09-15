@@ -9,7 +9,8 @@ from sqlalchemy.orm import Session
 
 from ..core.database import get_db
 from ..core.security import get_current_user
-from ..models.learningCourseModel import LearningAttempt, LearningCourse, LearningPreference, LearningProgress
+from ..models.learningCourseModel import LearningAttempt, LearningCourse, LearningPreference, LearningProgress, LearningConcept
+from ..services.adaptive import load_insights, select_questions
 from ..models.subModuleMasterModel import SubModuleMaster
 from ..models.usersModel import User
 from ..schemas.learning import AnswerSubmission, Course, LevelSelection, ResetRequest
@@ -111,15 +112,16 @@ def lock_progress(db, user_id, course_id):
     return db.query(LearningProgress).filter_by(user_id=user_id, course_id=course_id).with_for_update().populate_existing().one()
 
 
-def history_rows(db, user_id, course_id, test_id=None):
+def history_rows(db, user_id, course_id, test_id=None, kind=None):
     query = db.query(LearningAttempt).filter_by(user_id=user_id, course_id=course_id).filter(LearningAttempt.submitted_at.is_not(None))
+    query = query.filter(LearningAttempt.kind == kind) if kind else query.filter(LearningAttempt.kind != "adaptive")
     if test_id is not None:
         query = query.filter_by(test_id=test_id)
     return query.order_by(LearningAttempt.submitted_at, LearningAttempt.id).all()
 
 
 def summary(attempt):
-    return {"id": str(attempt.id), "testId": attempt.test_id, "submittedAt": attempt.submitted_at,
+    return {"id": str(attempt.id), "testId": attempt.test_id, "kind": attempt.kind, "selection": attempt.selection_metadata, "submittedAt": attempt.submitted_at,
             "correct": attempt.correct, "total": attempt.total,
             "percent": round(attempt.correct / attempt.total * 100)}
 
@@ -149,7 +151,8 @@ def find_chapter(course, chapter_id):
 @router.get("/courses/{course_id}/chapters/{chapter_id}")
 def get_chapter(course_id: str, chapter_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
     chapter = find_chapter(load_course(db, course_id), chapter_id)
-    return {**chapter.model_dump(exclude={"questions", "finalQuestion"}), "questionCount": len(chapter.questions)}
+    adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=chapter_id).first() is not None
+    return {**chapter.model_dump(exclude={"questions", "finalQuestion"}), "questionCount": len(chapter.questions), "adaptiveAvailable": adaptive}
 
 
 @router.put("/courses/{course_id}/chapters/{chapter_id}/read")
@@ -171,7 +174,7 @@ def test_questions(db, user, course, test_id):
 
 
 def attempt_view(attempt):
-    result = {"id": str(attempt.id), "testId": attempt.test_id, "revision": attempt.revision,
+    result = {"id": str(attempt.id), "testId": attempt.test_id, "kind": attempt.kind, "selection": attempt.selection_metadata, "revision": attempt.revision,
               "answers": attempt.answers, "submittedAt": attempt.submitted_at,
               "questions": [{k: v for k, v in q.items() if k not in ("answer", "explanation")} for q in attempt.questions]}
     if attempt.submitted_at:
@@ -185,10 +188,12 @@ def get_test(course_id: str, test_id: str, db: Session = Depends(learning_db), u
     course = load_course(db, course_id)
     questions = test_questions(db, user, course, test_id)
     history = history_rows(db, user.id, course_id, test_id)
-    draft = db.query(LearningAttempt).filter_by(user_id=user.id, course_id=course_id, test_id=test_id, submitted_at=None).first()
+    draft = db.query(LearningAttempt).filter_by(user_id=user.id, course_id=course_id, test_id=test_id, submitted_at=None).filter(LearningAttempt.kind != "adaptive").first()
+    adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=test_id).first() is not None
     return {"testId": test_id, "title": "Final course test" if test_id == "final" else find_chapter(course, test_id).title + " · Practice",
             "questionCount": len(questions), "attempt": attempt_view(draft or history[-1]) if draft or history else None,
-            "history": [summary(a) for a in history]}
+            "history": [summary(a) for a in history], "adaptiveAvailable": adaptive,
+            "insights": load_insights(db, user.id, course_id, test_id)[0] if adaptive and history and not draft else None}
 
 
 @router.post("/courses/{course_id}/tests/{test_id}/attempts")
@@ -196,12 +201,14 @@ def start_attempt(course_id: str, test_id: str, db: Session = Depends(learning_d
     course = load_course(db, course_id)
     lock_progress(db, user.id, course_id)
     questions = test_questions(db, user, course, test_id)
-    attempt = db.query(LearningAttempt).filter_by(user_id=user.id, course_id=course_id, test_id=test_id, submitted_at=None).first()
+    attempt = db.query(LearningAttempt).filter_by(user_id=user.id, course_id=course_id, test_id=test_id, submitted_at=None).filter(LearningAttempt.kind != "adaptive").first()
     if not attempt:
-        attempt = LearningAttempt(user_id=user.id, course_id=course_id, test_id=test_id, questions=questions, answers={})
+        attempt = LearningAttempt(user_id=user.id, course_id=course_id, test_id=test_id, kind="final" if test_id == "final" else "chapter", questions=questions, answers={})
         db.add(attempt)
+    db.flush()
+    result = attempt_view(attempt)
     db.commit()
-    return attempt_view(attempt)
+    return result
 
 
 def owned_attempt(db, user, course_id, attempt_id):
@@ -231,8 +238,9 @@ def save_draft(course_id: str, attempt_id: UUID, body: AnswerSubmission, db: Ses
     validate_answers(attempt, body)
     attempt.answers = body.answers
     attempt.revision += 1
+    result = attempt_view(attempt)
     db.commit()
-    return attempt_view(attempt)
+    return result
 
 
 @router.post("/courses/{course_id}/attempts/{attempt_id}/submit")
@@ -241,16 +249,26 @@ def submit_attempt(course_id: str, attempt_id: UUID, body: AnswerSubmission, db:
     if attempt.submitted_at:
         if body.answers != attempt.answers:
             raise HTTPException(409, "This attempt has already been submitted. Start a retake.")
-        return attempt_view(attempt)  # Idempotent retry after an uncertain response.
+        result = attempt_view(attempt)  # Idempotent retry after an uncertain response.
+        if attempt.kind == "adaptive":
+            result["insights"] = load_insights(db, user.id, course_id, attempt.test_id)[0]
+        return result
     validate_answers(attempt, body, complete=True)
-    test_questions(db, user, load_course(db, course_id), attempt.test_id)
+    if attempt.kind != "adaptive":
+        test_questions(db, user, load_course(db, course_id), attempt.test_id)
     attempt.answers = body.answers
     attempt.correct = sum(body.answers[q["id"]] == q["answer"] for q in attempt.questions)
     attempt.total = len(attempt.questions)
     attempt.submitted_at = datetime.now(timezone.utc)
     attempt.revision += 1
+    db.flush()
+    db.refresh(attempt)
+    result = attempt_view(attempt)
+    if attempt.kind == "adaptive":
+        result["insights"] = load_insights(db, user.id, course_id, attempt.test_id)[0]
+    # Build the response while the progress lock still prevents a concurrent reset.
     db.commit()
-    return attempt_view(attempt)
+    return result
 
 
 @router.post("/courses/{course_id}/reset")
@@ -260,3 +278,40 @@ def reset_results(course_id: str, body: ResetRequest, db: Session = Depends(lear
     db.query(LearningAttempt).filter_by(user_id=user.id, course_id=course_id).delete(synchronize_session=False)
     db.commit()
     return progress_view(db, user, course)
+
+
+@router.get("/courses/{course_id}/chapters/{chapter_id}/insights")
+def get_insights(course_id: str, chapter_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
+    find_chapter(load_course(db, course_id), chapter_id)
+    return load_insights(db, user.id, course_id, chapter_id)[0]
+
+
+@router.get("/courses/{course_id}/chapters/{chapter_id}/practice")
+def get_practice(course_id: str, chapter_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
+    chapter = find_chapter(load_course(db, course_id), chapter_id)
+    insights, attempts = load_insights(db, user.id, course_id, chapter_id)
+    history = sorted((a for a in attempts if a.kind == "adaptive" and a.submitted_at), key=lambda a: (a.submitted_at, str(a.id)))
+    draft = next((a for a in attempts if a.kind == "adaptive" and not a.submitted_at), None)
+    latest = draft or (history[-1] if history else None)
+    return {"testId": chapter_id, "kind": "adaptive", "title": chapter.title + " · Focused practice",
+            "questionCount": len(latest.questions) if latest else 5, "attempt": attempt_view(latest) if latest else None,
+            "history": [summary(a) for a in history], "insights": insights}
+
+
+@router.post("/courses/{course_id}/chapters/{chapter_id}/practice")
+def start_practice(course_id: str, chapter_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
+    find_chapter(load_course(db, course_id), chapter_id)
+    lock_progress(db, user.id, course_id)
+    insights, attempts = load_insights(db, user.id, course_id, chapter_id)
+    draft = next((a for a in attempts if a.kind == "adaptive" and not a.submitted_at), None)
+    if not draft:
+        questions, metadata = select_questions(db, course_id, chapter_id, insights, attempts)
+        if not questions:
+            raise HTTPException(409, "No suitable practice questions are available.")
+        draft = LearningAttempt(user_id=user.id, course_id=course_id, test_id=chapter_id, kind="adaptive",
+                                questions=questions, answers={}, selection_metadata=metadata)
+        db.add(draft)
+    db.flush()
+    result = attempt_view(draft)
+    db.commit()
+    return result
