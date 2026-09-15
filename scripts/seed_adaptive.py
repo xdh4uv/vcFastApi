@@ -1,4 +1,5 @@
-"""Apply migration 002 and publish the checked Real Numbers bank atomically."""
+"""Publish a checked chapter bank atomically; optionally apply migration 002."""
+import argparse
 import os
 import json
 from pathlib import Path
@@ -10,13 +11,17 @@ from app.schemas.adaptive import PracticeBank
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def read_bank():
-    return PracticeBank.model_validate_json((ROOT / "data/real-numbers-practice-v1.json").read_text(encoding="utf-8"))
+BANKS = {'real-numbers': 'real-numbers-practice-v1.json', 'polynomials': 'polynomials-practice-v1.json'}
 
 
-def publish(connection, bank):
+def read_bank(name='real-numbers'):
+    return PracticeBank.model_validate_json((ROOT / 'data' / BANKS[name]).read_text(encoding="utf-8"))
+
+
+def publish(connection, bank, apply_schema=True):
     connection.execute(text("SELECT pg_advisory_xact_lock(71020402)"))
-    connection.execute(text((ROOT / "migrations/002_adaptive_practice.sql").read_text(encoding="utf-8")))
+    if apply_schema:
+        connection.execute(text((ROOT / "migrations/002_adaptive_practice.sql").read_text(encoding="utf-8")))
     course = connection.execute(text("SELECT content FROM modules.learning_courses WHERE course_id=:id"), {"id": bank.courseId}).scalar_one()
     assert any(c["id"] == bank.chapterId for c in course["chapters"]), "Chapter must exist"
     values = dict(course=bank.courseId, chapter=bank.chapterId,
@@ -35,14 +40,18 @@ def publish(connection, bank):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--bank', choices=BANKS, default='real-numbers')
+    parser.add_argument('--content-only', action='store_true', help='Schema 002 must already exist; publish without DDL')
+    args = parser.parse_args()
     load_dotenv(ROOT / ".env")
     url = make_url(os.environ["DATABASE_URL_UNPOOLED"])
     if "-pooler" in (url.host or ""):
         raise SystemExit("Use the schema owner's direct connection for migrations")
-    bank = read_bank()
+    bank = read_bank(args.bank)
     engine = create_engine(url, connect_args={"connect_timeout": 15})
     with engine.begin() as connection:
-        publish(connection, bank)
+        publish(connection, bank, apply_schema=not args.content_only)
     engine.dispose()
     print(f"Published {len(bank.concepts)} concepts and {len(bank.questions)} adaptive questions.")
 

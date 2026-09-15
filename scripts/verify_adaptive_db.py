@@ -1,12 +1,13 @@
 """Read-only checks of published adaptive content and runtime access."""
 import os
+import argparse
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, inspect, text
-from scripts.seed_adaptive import ROOT, read_bank
+from scripts.seed_adaptive import ROOT, BANKS, read_bank
 
 
-def verify(connection):
-    bank = read_bank()
+def verify(connection, bank=None):
+    bank = bank or read_bank()
     concepts = dict(connection.execute(text('SELECT concept_id, material FROM modules.learning_concepts WHERE course_id=:course AND chapter_id=:chapter'), dict(course=bank.courseId, chapter=bank.chapterId)).all())
     questions = dict(connection.execute(text("SELECT id, content FROM modules.learning_practice_questions WHERE course_id=:course AND chapter_id=:chapter AND status='approved'"), dict(course=bank.courseId, chapter=bank.chapterId)).all())
     assert all(concepts.get(c.id) == c.model_dump() for c in bank.concepts)
@@ -17,11 +18,14 @@ def verify(connection):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--bank', choices=BANKS, default='real-numbers')
+    args = parser.parse_args()
     load_dotenv(ROOT / '.env')
     engine = create_engine(os.environ['DATABASE_URL'], connect_args={'connect_timeout':15})
     with engine.connect() as connection:
         connection.execute(text('SET TRANSACTION READ ONLY'))
-        verify(connection)
+        verify(connection, read_bank(args.bank))
     engine.dispose()
     print('Verified 5 revision cards, 45 approved questions, concept foreign key and separate draft uniqueness.')
 

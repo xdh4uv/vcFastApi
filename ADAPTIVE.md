@@ -1,6 +1,6 @@
-# Real Numbers adaptive practice
+# Class 10 adaptive practice
 
-First release: Class 10 Real Numbers only. Five concept revision cards and 45 original MCQs (three variants at each of three difficulties per concept) are stored in Neon. Arithmetic answer keys have independent regression checks. A teacher has not reviewed this starter bank; do not describe it as a complete assessment or validated measure of mastery.
+Supported chapters: Class 10 Real Numbers and Polynomials. Each has five concept revision cards and 45 original MCQs (three variants at each of three difficulties per concept) stored in Neon. Answer keys have independent regression checks. A teacher has not reviewed these starter banks; do not describe them as complete assessments or validated measures of mastery.
 
 ## Migration and publishing
 
@@ -9,9 +9,17 @@ Run migration 001 first for new environments. Use the existing schema owner's di
 ```text
 python -m scripts.seed_adaptive
 python -m scripts.verify_adaptive_db
+python -m scripts.seed_adaptive --bank polynomials --content-only
+python -m scripts.verify_adaptive_db --bank polynomials
 ```
 
 Seed applies migrations/002_adaptive_practice.sql and publishes the immutable versioned bank in one transaction. Existing question snapshots, answers, scores and read markers are preserved. Existing final attempts are classified as final. Repeating the seed is safe; changed published question documents fail instead of being overwritten. Use a new question ID for revised wording or keys. Updating revision cards requires an explicit reviewed migration.
+
+For an existing adaptive installation, `--content-only` publishes a new bank without reapplying migration 002 or replacing indexes. Polynomials needs no new schema or runtime API/frontend code: availability is discovered from the concept table. The default bank remains Real Numbers for compatibility. Each verifier checks its requested bank.
+
+Polynomials covers finding/checking zeroes, degree and graphical zeroes, sum of zeroes, product/coefficient relations, and forming quadratics. Its existing five chapter-test labels map to these five concepts. Signals, drafts and question selection stay scoped to the chapter. New question IDs use `poly-v1-`; existing chapter tests and Real Numbers snapshots are unchanged. All 45 answer keys are checked independently, including negative values, rational results, repeated-zero interpretation and non-monic quadratics. The graph items describe axis contacts in text; there is no graph-drawing exercise. This extends the current starter lesson, not every textbook exercise or topic.
+
+Reference checked 15 September 2026: [NCERT Class X Polynomials, 2026–27 reprint](https://ncert.nic.in/textbook/pdf/jemh102.pdf), for topic alignment. Revision explanations and practice questions are original. Regenerate with `python -m scripts.build_polynomials_bank` and run the tests before publishing.
 
 Migration 002 replaces the active-draft index with user/course/test/kind uniqueness and adds kind plus selection_metadata. Two new tables store concepts and practice questions. This permits separate chapter and adaptive drafts. Test the migration on an isolated Neon branch before applying to the app DB. Deploy the migrated backend before enabling the matching frontend. Reverting to a backend that cannot distinguish adaptive attempts can misinterpret completion; disable adaptive entry points on the current backend instead of rolling back to an incompatible version.
 
@@ -39,4 +47,4 @@ Adaptive scores stay separate from official chapter/final history and eligibilit
 
 Run python -m unittest discover -s tests -v. Regressions cover independent content keys, first-answer evidence, difficulty transitions, draft uniqueness, fresh-set exhaustion, short sets, unpublished/corrupt content, snapshots, ownership, idempotence, resets and official eligibility. PostgreSQL/API verification additionally exercises concurrent starts and reset/submit races.
 
-Requests read Neon; the frontend has no course or result cache. Selection reads metadata once and loads selected documents in one batch. Evidence currently reads chapter attempt history; materialize bounded summaries only if measured history growth requires it. No LLM calls, generation queues, other adaptive chapters, or automatic Cloud Run deployment are included. Future generators can submit draft questions to this bank after mathematical validation and publication review.
+Requests read Neon; the frontend has no course or result cache. Selection reads metadata once and loads selected documents in one batch. Evidence currently reads chapter attempt history; materialize bounded summaries only if measured history growth requires it. No LLM calls, generation queues, adaptive chapters beyond these two, or automatic Cloud Run deployment are included. Future generators can submit draft questions to this bank after mathematical validation and publication review.
