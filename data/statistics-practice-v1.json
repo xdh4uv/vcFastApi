@@ -1,0 +1,791 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-13",
+  "concepts": [
+    {
+      "id": "class-marks",
+      "title": "Class marks and intervals",
+      "legacyLabels": [
+        "class marks"
+      ],
+      "explanation": "The class mark is the midpoint of a class interval, (lower + upper)/2. In grouped-mean calculations this midpoint represents the values in that class.",
+      "example": {
+        "problem": "A class has mark 25 and width 10. Find its lower limit.",
+        "steps": [
+          "Lower limit = midpoint − half-width = 25 − 5 = 20.",
+          "Answer: 20."
+        ]
+      },
+      "commonMistake": "The class width is upper minus lower; it is not the class mark.",
+      "checklist": [
+        "Read both class limits.",
+        "Average them for the class mark.",
+        "Keep width and midpoint distinct."
+      ]
+    },
+    {
+      "id": "cumulative",
+      "title": "Cumulative frequencies",
+      "legacyLabels": [
+        "cumulative frequency"
+      ],
+      "explanation": "A cumulative frequency adds all frequencies up to and including a class. Subtract successive cumulative totals to recover a class frequency.",
+      "example": {
+        "problem": "Cumulative frequency before a class is 6 and through that class is 16. Find its frequency.",
+        "steps": [
+          "Frequency = 16 − 6 = 10.",
+          "Answer: 10."
+        ]
+      },
+      "commonMistake": "A cumulative total includes earlier classes, not only the current one.",
+      "checklist": [
+        "Accumulate from the first class.",
+        "Subtract successive totals to recover a frequency.",
+        "Check the last total equals N."
+      ]
+    },
+    {
+      "id": "mean",
+      "title": "Grouped mean",
+      "legacyLabels": [
+        "grouped mean"
+      ],
+      "explanation": "The estimated grouped mean is Σfᵢxᵢ/Σfᵢ, where xᵢ are class marks. Frequencies supply the weights.",
+      "example": {
+        "problem": "Class marks are 2, 6, 10, with frequencies 1, 2, 3. Find the grouped mean.",
+        "steps": [
+          "Weighted sum = 2 + 12 + 30 = 44.",
+          "Total frequency is 6.",
+          "Mean = 22/3.",
+          "Answer: 22/3."
+        ]
+      },
+      "commonMistake": "An unweighted average of class marks is wrong when frequencies differ.",
+      "checklist": [
+        "Multiply each midpoint by its frequency.",
+        "Add products and frequencies separately.",
+        "Divide the totals."
+      ]
+    },
+    {
+      "id": "median",
+      "title": "Grouped median",
+      "legacyLabels": [
+        "grouped median"
+      ],
+      "explanation": "Find the median class using N/2 and cumulative frequencies. The estimated median is l + [(N/2 − cf)/f]h, where cf is the cumulative frequency before that class.",
+      "example": {
+        "problem": "Continuous classes [20,30), [30,40), [40,50) have frequencies 4, 12, 4. Find the grouped median.",
+        "steps": [
+          "N = 20; the middle class contains N/2 = 10.",
+          "Median = 30 + [(10 − 4)/12] × 10 = 35.",
+          "Answer: 35."
+        ]
+      },
+      "commonMistake": "Use cf before the median class, not the cumulative total including it.",
+      "checklist": [
+        "Locate the median class.",
+        "Identify l, cf, f and h.",
+        "Substitute into the interpolation formula."
+      ]
+    },
+    {
+      "id": "mode",
+      "title": "Grouped mode",
+      "legacyLabels": [
+        "grouped mode"
+      ],
+      "explanation": "For equal-width classes, the modal class has the greatest frequency. The estimated mode is l + [(f₁−f₀)/(2f₁−f₀−f₂)]h.",
+      "example": {
+        "problem": "A modal class has l = 20, h = 10, f₀ = 4, f₁ = 10, f₂ = 6. Find the grouped mode.",
+        "steps": [
+          "Mode = 20 + [(10 − 4)/(20 − 4 − 6)] × 10 = 26.",
+          "Answer: 26."
+        ]
+      },
+      "commonMistake": "f₀ and f₂ are neighbouring class frequencies, not cumulative frequencies.",
+      "checklist": [
+        "Find the highest-frequency class.",
+        "Read both neighbours.",
+        "Use the mode formula with the class width."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c13-v1-01",
+      "concept": "Class marks and intervals",
+      "difficulty": "foundation",
+      "prompt": "Find the class mark of the interval 20–30.",
+      "options": [
+        "25",
+        "24",
+        "26",
+        "27"
+      ],
+      "answer": 0,
+      "explanation": "Midpoint = (20 + 30)/2 = 25.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-02",
+      "concept": "Class marks and intervals",
+      "difficulty": "foundation",
+      "prompt": "Find the class mark of the interval 30–40.",
+      "options": [
+        "34",
+        "36",
+        "37",
+        "35"
+      ],
+      "answer": 3,
+      "explanation": "Midpoint = (30 + 40)/2 = 35.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-03",
+      "concept": "Class marks and intervals",
+      "difficulty": "foundation",
+      "prompt": "Find the class mark of the interval 40–50.",
+      "options": [
+        "46",
+        "47",
+        "45",
+        "44"
+      ],
+      "answer": 2,
+      "explanation": "Midpoint = (40 + 50)/2 = 45.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-04",
+      "concept": "Class marks and intervals",
+      "difficulty": "standard",
+      "prompt": "A class has mark 25 and width 10. Find its lower limit.",
+      "options": [
+        "22",
+        "20",
+        "19",
+        "21"
+      ],
+      "answer": 1,
+      "explanation": "Lower limit = midpoint − half-width = 25 − 5 = 20.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-05",
+      "concept": "Class marks and intervals",
+      "difficulty": "standard",
+      "prompt": "A class has mark 35 and width 10. Find its lower limit.",
+      "options": [
+        "30",
+        "29",
+        "31",
+        "32"
+      ],
+      "answer": 0,
+      "explanation": "Lower limit = midpoint − half-width = 35 − 5 = 30.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-06",
+      "concept": "Class marks and intervals",
+      "difficulty": "standard",
+      "prompt": "A class has mark 45 and width 10. Find its lower limit.",
+      "options": [
+        "39",
+        "41",
+        "42",
+        "40"
+      ],
+      "answer": 3,
+      "explanation": "Lower limit = midpoint − half-width = 45 − 5 = 40.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-07",
+      "concept": "Class marks and intervals",
+      "difficulty": "challenge",
+      "prompt": "A class has lower limit 20 and mark 27. Find its upper limit.",
+      "options": [
+        "35",
+        "36",
+        "34",
+        "33"
+      ],
+      "answer": 2,
+      "explanation": "(Lower + upper)/2 = 27. Upper = 2 × 27 − 20 = 34.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-08",
+      "concept": "Class marks and intervals",
+      "difficulty": "challenge",
+      "prompt": "A class has lower limit 30 and mark 37. Find its upper limit.",
+      "options": [
+        "46",
+        "44",
+        "43",
+        "45"
+      ],
+      "answer": 1,
+      "explanation": "(Lower + upper)/2 = 37. Upper = 2 × 37 − 30 = 44.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-09",
+      "concept": "Class marks and intervals",
+      "difficulty": "challenge",
+      "prompt": "A class has lower limit 40 and mark 47. Find its upper limit.",
+      "options": [
+        "54",
+        "53",
+        "55",
+        "56"
+      ],
+      "answer": 0,
+      "explanation": "(Lower + upper)/2 = 47. Upper = 2 × 47 − 40 = 54.",
+      "conceptId": "class-marks"
+    },
+    {
+      "id": "c13-v1-10",
+      "concept": "Cumulative frequencies",
+      "difficulty": "foundation",
+      "prompt": "The first three class frequencies are 2, 4, 6. Find cumulative frequency through the second class.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "Add the first two frequencies: 2 + 4 = 6.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-11",
+      "concept": "Cumulative frequencies",
+      "difficulty": "foundation",
+      "prompt": "The first three class frequencies are 3, 6, 9. Find cumulative frequency through the second class.",
+      "options": [
+        "10",
+        "11",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "Add the first two frequencies: 3 + 6 = 9.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-12",
+      "concept": "Cumulative frequencies",
+      "difficulty": "foundation",
+      "prompt": "The first three class frequencies are 4, 8, 12. Find cumulative frequency through the second class.",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "Add the first two frequencies: 4 + 8 = 12.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-13",
+      "concept": "Cumulative frequencies",
+      "difficulty": "standard",
+      "prompt": "Cumulative frequency before a class is 6 and through that class is 16. Find its frequency.",
+      "options": [
+        "10",
+        "9",
+        "11",
+        "12"
+      ],
+      "answer": 0,
+      "explanation": "Frequency = 16 − 6 = 10.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-14",
+      "concept": "Cumulative frequencies",
+      "difficulty": "standard",
+      "prompt": "Cumulative frequency before a class is 9 and through that class is 24. Find its frequency.",
+      "options": [
+        "14",
+        "16",
+        "17",
+        "15"
+      ],
+      "answer": 3,
+      "explanation": "Frequency = 24 − 9 = 15.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-15",
+      "concept": "Cumulative frequencies",
+      "difficulty": "standard",
+      "prompt": "Cumulative frequency before a class is 12 and through that class is 32. Find its frequency.",
+      "options": [
+        "21",
+        "22",
+        "20",
+        "19"
+      ],
+      "answer": 2,
+      "explanation": "Frequency = 32 − 12 = 20.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-16",
+      "concept": "Cumulative frequencies",
+      "difficulty": "challenge",
+      "prompt": "A distribution has total frequency 24. Cumulative frequency through the penultimate class is 14. Find the last class frequency.",
+      "options": [
+        "12",
+        "10",
+        "9",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "Last frequency = 24 − 14 = 10.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-17",
+      "concept": "Cumulative frequencies",
+      "difficulty": "challenge",
+      "prompt": "A distribution has total frequency 36. Cumulative frequency through the penultimate class is 21. Find the last class frequency.",
+      "options": [
+        "15",
+        "14",
+        "16",
+        "17"
+      ],
+      "answer": 0,
+      "explanation": "Last frequency = 36 − 21 = 15.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-18",
+      "concept": "Cumulative frequencies",
+      "difficulty": "challenge",
+      "prompt": "A distribution has total frequency 48. Cumulative frequency through the penultimate class is 28. Find the last class frequency.",
+      "options": [
+        "19",
+        "21",
+        "22",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "Last frequency = 48 − 28 = 20.",
+      "conceptId": "cumulative"
+    },
+    {
+      "id": "c13-v1-19",
+      "concept": "Grouped mean",
+      "difficulty": "foundation",
+      "prompt": "Class marks are 2, 6, 10, with frequencies 1, 1, 1. Find the grouped mean.",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "Mean = (2 + 6 + 10)/3 = 6.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-20",
+      "concept": "Grouped mean",
+      "difficulty": "foundation",
+      "prompt": "Class marks are 3, 9, 15, with frequencies 1, 1, 1. Find the grouped mean.",
+      "options": [
+        "11",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "explanation": "Mean = (3 + 9 + 15)/3 = 9.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-21",
+      "concept": "Grouped mean",
+      "difficulty": "foundation",
+      "prompt": "Class marks are 4, 12, 20, with frequencies 1, 1, 1. Find the grouped mean.",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "Mean = (4 + 12 + 20)/3 = 12.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-22",
+      "concept": "Grouped mean",
+      "difficulty": "standard",
+      "prompt": "Class marks are 2, 6, 10, with frequencies 1, 2, 3. Find the grouped mean.",
+      "options": [
+        "19/3",
+        "25/3",
+        "28/3",
+        "22/3"
+      ],
+      "answer": 3,
+      "explanation": "Weighted sum = 2 + 12 + 30 = 44. Total frequency is 6. Mean = 22/3.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-23",
+      "concept": "Grouped mean",
+      "difficulty": "standard",
+      "prompt": "Class marks are 3, 9, 15, with frequencies 1, 2, 3. Find the grouped mean.",
+      "options": [
+        "12",
+        "13",
+        "11",
+        "10"
+      ],
+      "answer": 2,
+      "explanation": "Weighted sum = 3 + 18 + 45 = 66. Total frequency is 6. Mean = 11.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-24",
+      "concept": "Grouped mean",
+      "difficulty": "standard",
+      "prompt": "Class marks are 4, 12, 20, with frequencies 1, 2, 3. Find the grouped mean.",
+      "options": [
+        "50/3",
+        "44/3",
+        "41/3",
+        "47/3"
+      ],
+      "answer": 1,
+      "explanation": "Weighted sum = 4 + 24 + 60 = 88. Total frequency is 6. Mean = 44/3.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-25",
+      "concept": "Grouped mean",
+      "difficulty": "challenge",
+      "prompt": "Two groups have 2 and 4 observations with means 20 and 32. Find their combined mean.",
+      "options": [
+        "28",
+        "27",
+        "29",
+        "30"
+      ],
+      "answer": 0,
+      "explanation": "Total sum = 2 × 20 + 4 × 32 = 168. Divide by 6: mean = 28.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-26",
+      "concept": "Grouped mean",
+      "difficulty": "challenge",
+      "prompt": "Two groups have 3 and 6 observations with means 30 and 48. Find their combined mean.",
+      "options": [
+        "41",
+        "43",
+        "44",
+        "42"
+      ],
+      "answer": 3,
+      "explanation": "Total sum = 3 × 30 + 6 × 48 = 378. Divide by 9: mean = 42.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-27",
+      "concept": "Grouped mean",
+      "difficulty": "challenge",
+      "prompt": "Two groups have 4 and 8 observations with means 40 and 64. Find their combined mean.",
+      "options": [
+        "57",
+        "58",
+        "56",
+        "55"
+      ],
+      "answer": 2,
+      "explanation": "Total sum = 4 × 40 + 8 × 64 = 672. Divide by 12: mean = 56.",
+      "conceptId": "mean"
+    },
+    {
+      "id": "c13-v1-28",
+      "concept": "Grouped median",
+      "difficulty": "foundation",
+      "prompt": "A median class has l = 20, N = 20, cf = 6, f = 8, h = 10. Find the grouped median.",
+      "options": [
+        "27",
+        "25",
+        "24",
+        "26"
+      ],
+      "answer": 1,
+      "explanation": "Median = 20 + [(10 − 6)/8] × 10 = 25.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-29",
+      "concept": "Grouped median",
+      "difficulty": "foundation",
+      "prompt": "A median class has l = 30, N = 20, cf = 6, f = 8, h = 10. Find the grouped median.",
+      "options": [
+        "35",
+        "34",
+        "36",
+        "37"
+      ],
+      "answer": 0,
+      "explanation": "Median = 30 + [(10 − 6)/8] × 10 = 35.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-30",
+      "concept": "Grouped median",
+      "difficulty": "foundation",
+      "prompt": "A median class has l = 40, N = 20, cf = 6, f = 8, h = 10. Find the grouped median.",
+      "options": [
+        "44",
+        "46",
+        "47",
+        "45"
+      ],
+      "answer": 3,
+      "explanation": "Median = 40 + [(10 − 6)/8] × 10 = 45.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-31",
+      "concept": "Grouped median",
+      "difficulty": "standard",
+      "prompt": "Continuous classes [20,30), [30,40), [40,50) have frequencies 4, 12, 4. Find the grouped median.",
+      "options": [
+        "36",
+        "37",
+        "35",
+        "34"
+      ],
+      "answer": 2,
+      "explanation": "N = 20; the middle class contains N/2 = 10. Median = 30 + [(10 − 4)/12] × 10 = 35.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-32",
+      "concept": "Grouped median",
+      "difficulty": "standard",
+      "prompt": "Continuous classes [30,40), [40,50), [50,60) have frequencies 4, 12, 4. Find the grouped median.",
+      "options": [
+        "47",
+        "45",
+        "44",
+        "46"
+      ],
+      "answer": 1,
+      "explanation": "N = 20; the middle class contains N/2 = 10. Median = 40 + [(10 − 4)/12] × 10 = 45.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-33",
+      "concept": "Grouped median",
+      "difficulty": "standard",
+      "prompt": "Continuous classes [40,50), [50,60), [60,70) have frequencies 4, 12, 4. Find the grouped median.",
+      "options": [
+        "55",
+        "54",
+        "56",
+        "57"
+      ],
+      "answer": 0,
+      "explanation": "N = 20; the middle class contains N/2 = 10. Median = 50 + [(10 − 4)/12] × 10 = 55.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-34",
+      "concept": "Grouped median",
+      "difficulty": "challenge",
+      "prompt": "A median class has l = 20, h = 10, f = 20, cf = 10. The median is 25. Find total frequency N.",
+      "options": [
+        "39",
+        "41",
+        "42",
+        "40"
+      ],
+      "answer": 3,
+      "explanation": "25 − 20 = [(N/2 − 10)/20] × 10. Hence N/2 − 10 = 10 and N = 40.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-35",
+      "concept": "Grouped median",
+      "difficulty": "challenge",
+      "prompt": "A median class has l = 30, h = 10, f = 20, cf = 10. The median is 35. Find total frequency N.",
+      "options": [
+        "41",
+        "42",
+        "40",
+        "39"
+      ],
+      "answer": 2,
+      "explanation": "35 − 30 = [(N/2 − 10)/20] × 10. Hence N/2 − 10 = 10 and N = 40.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-36",
+      "concept": "Grouped median",
+      "difficulty": "challenge",
+      "prompt": "A median class has l = 40, h = 10, f = 20, cf = 10. The median is 45. Find total frequency N.",
+      "options": [
+        "42",
+        "40",
+        "39",
+        "41"
+      ],
+      "answer": 1,
+      "explanation": "45 − 40 = [(N/2 − 10)/20] × 10. Hence N/2 − 10 = 10 and N = 40.",
+      "conceptId": "median"
+    },
+    {
+      "id": "c13-v1-37",
+      "concept": "Grouped mode",
+      "difficulty": "foundation",
+      "prompt": "Equal-width classes have lower limits 20, 30, 40 and frequencies 3, 9, 4. Find the modal class lower limit.",
+      "options": [
+        "30",
+        "29",
+        "31",
+        "32"
+      ],
+      "answer": 0,
+      "explanation": "The middle class has the greatest frequency, 9. Its lower limit is 30.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-38",
+      "concept": "Grouped mode",
+      "difficulty": "foundation",
+      "prompt": "Equal-width classes have lower limits 30, 40, 50 and frequencies 3, 9, 4. Find the modal class lower limit.",
+      "options": [
+        "39",
+        "41",
+        "42",
+        "40"
+      ],
+      "answer": 3,
+      "explanation": "The middle class has the greatest frequency, 9. Its lower limit is 40.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-39",
+      "concept": "Grouped mode",
+      "difficulty": "foundation",
+      "prompt": "Equal-width classes have lower limits 40, 50, 60 and frequencies 3, 9, 4. Find the modal class lower limit.",
+      "options": [
+        "51",
+        "52",
+        "50",
+        "49"
+      ],
+      "answer": 2,
+      "explanation": "The middle class has the greatest frequency, 9. Its lower limit is 50.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-40",
+      "concept": "Grouped mode",
+      "difficulty": "standard",
+      "prompt": "A modal class has l = 20, h = 10, f₀ = 4, f₁ = 10, f₂ = 6. Find the grouped mode.",
+      "options": [
+        "28",
+        "26",
+        "25",
+        "27"
+      ],
+      "answer": 1,
+      "explanation": "Mode = 20 + [(10 − 4)/(20 − 4 − 6)] × 10 = 26.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-41",
+      "concept": "Grouped mode",
+      "difficulty": "standard",
+      "prompt": "A modal class has l = 30, h = 10, f₀ = 4, f₁ = 10, f₂ = 6. Find the grouped mode.",
+      "options": [
+        "36",
+        "35",
+        "37",
+        "38"
+      ],
+      "answer": 0,
+      "explanation": "Mode = 30 + [(10 − 4)/(20 − 4 − 6)] × 10 = 36.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-42",
+      "concept": "Grouped mode",
+      "difficulty": "standard",
+      "prompt": "A modal class has l = 40, h = 10, f₀ = 4, f₁ = 10, f₂ = 6. Find the grouped mode.",
+      "options": [
+        "45",
+        "47",
+        "48",
+        "46"
+      ],
+      "answer": 3,
+      "explanation": "Mode = 40 + [(10 − 4)/(20 − 4 − 6)] × 10 = 46.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-43",
+      "concept": "Grouped mode",
+      "difficulty": "challenge",
+      "prompt": "Equal-width classes [20,30), [30,40), [40,50) have frequencies 5, 15, 5. Find the grouped mode.",
+      "options": [
+        "36",
+        "37",
+        "35",
+        "34"
+      ],
+      "answer": 2,
+      "explanation": "The middle class is modal. Mode = 30 + [(15 − 5)/(30 − 5 − 5)] × 10 = 35.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-44",
+      "concept": "Grouped mode",
+      "difficulty": "challenge",
+      "prompt": "Equal-width classes [30,40), [40,50), [50,60) have frequencies 5, 15, 5. Find the grouped mode.",
+      "options": [
+        "47",
+        "45",
+        "44",
+        "46"
+      ],
+      "answer": 1,
+      "explanation": "The middle class is modal. Mode = 40 + [(15 − 5)/(30 − 5 − 5)] × 10 = 45.",
+      "conceptId": "mode"
+    },
+    {
+      "id": "c13-v1-45",
+      "concept": "Grouped mode",
+      "difficulty": "challenge",
+      "prompt": "Equal-width classes [40,50), [50,60), [60,70) have frequencies 5, 15, 5. Find the grouped mode.",
+      "options": [
+        "55",
+        "54",
+        "56",
+        "57"
+      ],
+      "answer": 0,
+      "explanation": "The middle class is modal. Mode = 50 + [(15 − 5)/(30 − 5 − 5)] × 10 = 55.",
+      "conceptId": "mode"
+    }
+  ]
+}

@@ -1,0 +1,791 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-11",
+  "concepts": [
+    {
+      "id": "circle-area",
+      "title": "Circle and ring areas",
+      "legacyLabels": [
+        "circle area"
+      ],
+      "explanation": "A circle has area πr². An annular ring has area π(R² − r²), the difference of two circle areas. Use the stated value of π.",
+      "example": {
+        "problem": "A circular plate has diameter 28 cm. Find its area in cm². Use π = 22/7.",
+        "steps": [
+          "Radius = 28/2 = 14.",
+          "Area = 616.",
+          "Answer: 616."
+        ]
+      },
+      "commonMistake": "Doubling radius multiplies area by four, not two.",
+      "checklist": [
+        "Convert diameter to radius if needed.",
+        "Square the radius.",
+        "Use square units."
+      ]
+    },
+    {
+      "id": "sector",
+      "title": "Sector area",
+      "legacyLabels": [
+        "sector area"
+      ],
+      "explanation": "A sector with central angle θ° has area (θ/360)πr². The angle fraction describes the fraction of the full circle.",
+      "example": {
+        "problem": "Find the area of a 120° sector of radius 14 cm in cm². Use π = 22/7.",
+        "steps": [
+          "The sector is one third of the circle: area = 616/3.",
+          "Answer: 616/3."
+        ]
+      },
+      "commonMistake": "Use 360 in the denominator, not 180.",
+      "checklist": [
+        "Identify radius and central angle.",
+        "Find the fraction of a full turn.",
+        "Multiply full area by that fraction."
+      ]
+    },
+    {
+      "id": "arc",
+      "title": "Arc length",
+      "legacyLabels": [
+        "arc length"
+      ],
+      "explanation": "Arc length for central angle θ° is (θ/360)2πr. It is a curved length, measured in linear units.",
+      "example": {
+        "problem": "Find the length in cm of a 60° arc of radius 14 cm. Use π = 22/7.",
+        "steps": [
+          "Length = (60/360) × 2 × (22/7) × 14 = 44/3.",
+          "Answer: 44/3."
+        ]
+      },
+      "commonMistake": "The sector area formula uses r²; arc length uses r.",
+      "checklist": [
+        "Find full circumference.",
+        "Multiply by the angle fraction.",
+        "Check linear units."
+      ]
+    },
+    {
+      "id": "perimeter",
+      "title": "Sector perimeter",
+      "legacyLabels": [
+        "sector perimeter"
+      ],
+      "explanation": "A sector perimeter is its arc plus two radii. A semicircle’s perimeter is πr + 2r. Boundaries shared inside a composite shape are not exposed perimeter.",
+      "example": {
+        "problem": "Find the perimeter in cm of a 90° sector of radius 14 cm. Use π = 22/7.",
+        "steps": [
+          "The arc is 22; add two radii 28.",
+          "Total = 50.",
+          "Answer: 50."
+        ]
+      },
+      "commonMistake": "Arc length alone omits the straight boundary pieces.",
+      "checklist": [
+        "Trace the actual boundary.",
+        "Add the arc and straight pieces.",
+        "Avoid counting internal edges."
+      ]
+    },
+    {
+      "id": "segment",
+      "title": "Minor segment area",
+      "legacyLabels": [
+        "segment area"
+      ],
+      "explanation": "A minor segment is the region between a chord and its minor arc. Its area equals minor-sector area minus the area of the triangle formed by the two radii.",
+      "example": {
+        "problem": "A chord subtends 90° at the centre of a radius-14 cm circle. Find the minor segment area in cm². Use π = 22/7.",
+        "steps": [
+          "Sector = 154. The right triangle has area r²/2 = 98.",
+          "Difference = 56.",
+          "Answer: 56."
+        ]
+      },
+      "commonMistake": "Subtract triangle area from sector area, not from the full circle.",
+      "checklist": [
+        "Find the sector area.",
+        "Find the included triangle’s area.",
+        "Subtract and keep square units."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c11-v1-01",
+      "concept": "Circle and ring areas",
+      "difficulty": "foundation",
+      "prompt": "Find the area in cm² of a circle of radius 14 cm. Use π = 22/7.",
+      "options": [
+        "616",
+        "615",
+        "617",
+        "618"
+      ],
+      "answer": 0,
+      "explanation": "A = (22/7) × 14² = 616.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-02",
+      "concept": "Circle and ring areas",
+      "difficulty": "foundation",
+      "prompt": "Find the area in cm² of a circle of radius 21 cm. Use π = 22/7.",
+      "options": [
+        "1385",
+        "1387",
+        "1388",
+        "1386"
+      ],
+      "answer": 3,
+      "explanation": "A = (22/7) × 21² = 1386.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-03",
+      "concept": "Circle and ring areas",
+      "difficulty": "foundation",
+      "prompt": "Find the area in cm² of a circle of radius 28 cm. Use π = 22/7.",
+      "options": [
+        "2465",
+        "2466",
+        "2464",
+        "2463"
+      ],
+      "answer": 2,
+      "explanation": "A = (22/7) × 28² = 2464.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-04",
+      "concept": "Circle and ring areas",
+      "difficulty": "standard",
+      "prompt": "A circular plate has diameter 28 cm. Find its area in cm². Use π = 22/7.",
+      "options": [
+        "618",
+        "616",
+        "615",
+        "617"
+      ],
+      "answer": 1,
+      "explanation": "Radius = 28/2 = 14. Area = 616.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-05",
+      "concept": "Circle and ring areas",
+      "difficulty": "standard",
+      "prompt": "A circular plate has diameter 42 cm. Find its area in cm². Use π = 22/7.",
+      "options": [
+        "1386",
+        "1385",
+        "1387",
+        "1388"
+      ],
+      "answer": 0,
+      "explanation": "Radius = 42/2 = 21. Area = 1386.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-06",
+      "concept": "Circle and ring areas",
+      "difficulty": "standard",
+      "prompt": "A circular plate has diameter 56 cm. Find its area in cm². Use π = 22/7.",
+      "options": [
+        "2463",
+        "2465",
+        "2466",
+        "2464"
+      ],
+      "answer": 3,
+      "explanation": "Radius = 56/2 = 28. Area = 2464.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-07",
+      "concept": "Circle and ring areas",
+      "difficulty": "challenge",
+      "prompt": "A ring has outer radius 28 cm and inner radius 14 cm. Find its area in cm². Use π = 22/7.",
+      "options": [
+        "1849",
+        "1850",
+        "1848",
+        "1847"
+      ],
+      "answer": 2,
+      "explanation": "Area = (22/7)(28² − 14²) = 1848.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-08",
+      "concept": "Circle and ring areas",
+      "difficulty": "challenge",
+      "prompt": "A ring has outer radius 42 cm and inner radius 21 cm. Find its area in cm². Use π = 22/7.",
+      "options": [
+        "4160",
+        "4158",
+        "4157",
+        "4159"
+      ],
+      "answer": 1,
+      "explanation": "Area = (22/7)(42² − 21²) = 4158.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-09",
+      "concept": "Circle and ring areas",
+      "difficulty": "challenge",
+      "prompt": "A ring has outer radius 56 cm and inner radius 28 cm. Find its area in cm². Use π = 22/7.",
+      "options": [
+        "7392",
+        "7391",
+        "7393",
+        "7394"
+      ],
+      "answer": 0,
+      "explanation": "Area = (22/7)(56² − 28²) = 7392.",
+      "conceptId": "circle-area"
+    },
+    {
+      "id": "c11-v1-10",
+      "concept": "Sector area",
+      "difficulty": "foundation",
+      "prompt": "Find the area of a 90° sector of radius 14 cm in cm². Use π = 22/7.",
+      "options": [
+        "153",
+        "155",
+        "156",
+        "154"
+      ],
+      "answer": 3,
+      "explanation": "Area = (90/360) × (22/7) × 14² = 154.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-11",
+      "concept": "Sector area",
+      "difficulty": "foundation",
+      "prompt": "Find the area of a 90° sector of radius 21 cm in cm². Use π = 22/7.",
+      "options": [
+        "695/2",
+        "697/2",
+        "693/2",
+        "691/2"
+      ],
+      "answer": 2,
+      "explanation": "Area = (90/360) × (22/7) × 21² = 693/2.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-12",
+      "concept": "Sector area",
+      "difficulty": "foundation",
+      "prompt": "Find the area of a 90° sector of radius 28 cm in cm². Use π = 22/7.",
+      "options": [
+        "618",
+        "616",
+        "615",
+        "617"
+      ],
+      "answer": 1,
+      "explanation": "Area = (90/360) × (22/7) × 28² = 616.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-13",
+      "concept": "Sector area",
+      "difficulty": "standard",
+      "prompt": "Find the area of a 120° sector of radius 14 cm in cm². Use π = 22/7.",
+      "options": [
+        "616/3",
+        "613/3",
+        "619/3",
+        "622/3"
+      ],
+      "answer": 0,
+      "explanation": "The sector is one third of the circle: area = 616/3.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-14",
+      "concept": "Sector area",
+      "difficulty": "standard",
+      "prompt": "Find the area of a 120° sector of radius 21 cm in cm². Use π = 22/7.",
+      "options": [
+        "461",
+        "463",
+        "464",
+        "462"
+      ],
+      "answer": 3,
+      "explanation": "The sector is one third of the circle: area = 462.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-15",
+      "concept": "Sector area",
+      "difficulty": "standard",
+      "prompt": "Find the area of a 120° sector of radius 28 cm in cm². Use π = 22/7.",
+      "options": [
+        "2467/3",
+        "2470/3",
+        "2464/3",
+        "2461/3"
+      ],
+      "answer": 2,
+      "explanation": "The sector is one third of the circle: area = 2464/3.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-16",
+      "concept": "Sector area",
+      "difficulty": "challenge",
+      "prompt": "A sector of radius 14 cm has area 308/3 cm². Find its central angle in degrees. Use π = 22/7.",
+      "options": [
+        "62",
+        "60",
+        "59",
+        "61"
+      ],
+      "answer": 1,
+      "explanation": "Its area is 1/6 of full area 616. Angle = 360°/6 = 60°.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-17",
+      "concept": "Sector area",
+      "difficulty": "challenge",
+      "prompt": "A sector of radius 21 cm has area 231 cm². Find its central angle in degrees. Use π = 22/7.",
+      "options": [
+        "60",
+        "59",
+        "61",
+        "62"
+      ],
+      "answer": 0,
+      "explanation": "Its area is 1/6 of full area 1386. Angle = 360°/6 = 60°.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-18",
+      "concept": "Sector area",
+      "difficulty": "challenge",
+      "prompt": "A sector of radius 28 cm has area 1232/3 cm². Find its central angle in degrees. Use π = 22/7.",
+      "options": [
+        "59",
+        "61",
+        "62",
+        "60"
+      ],
+      "answer": 3,
+      "explanation": "Its area is 1/6 of full area 2464. Angle = 360°/6 = 60°.",
+      "conceptId": "sector"
+    },
+    {
+      "id": "c11-v1-19",
+      "concept": "Arc length",
+      "difficulty": "foundation",
+      "prompt": "Find the length in cm of a 180° arc of radius 14 cm. Use π = 22/7.",
+      "options": [
+        "45",
+        "46",
+        "44",
+        "43"
+      ],
+      "answer": 2,
+      "explanation": "Half the circumference is πr = 44.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-20",
+      "concept": "Arc length",
+      "difficulty": "foundation",
+      "prompt": "Find the length in cm of a 180° arc of radius 21 cm. Use π = 22/7.",
+      "options": [
+        "68",
+        "66",
+        "65",
+        "67"
+      ],
+      "answer": 1,
+      "explanation": "Half the circumference is πr = 66.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-21",
+      "concept": "Arc length",
+      "difficulty": "foundation",
+      "prompt": "Find the length in cm of a 180° arc of radius 28 cm. Use π = 22/7.",
+      "options": [
+        "88",
+        "87",
+        "89",
+        "90"
+      ],
+      "answer": 0,
+      "explanation": "Half the circumference is πr = 88.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-22",
+      "concept": "Arc length",
+      "difficulty": "standard",
+      "prompt": "Find the length in cm of a 60° arc of radius 14 cm. Use π = 22/7.",
+      "options": [
+        "41/3",
+        "47/3",
+        "50/3",
+        "44/3"
+      ],
+      "answer": 3,
+      "explanation": "Length = (60/360) × 2 × (22/7) × 14 = 44/3.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-23",
+      "concept": "Arc length",
+      "difficulty": "standard",
+      "prompt": "Find the length in cm of a 60° arc of radius 21 cm. Use π = 22/7.",
+      "options": [
+        "23",
+        "24",
+        "22",
+        "21"
+      ],
+      "answer": 2,
+      "explanation": "Length = (60/360) × 2 × (22/7) × 21 = 22.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-24",
+      "concept": "Arc length",
+      "difficulty": "standard",
+      "prompt": "Find the length in cm of a 60° arc of radius 28 cm. Use π = 22/7.",
+      "options": [
+        "94/3",
+        "88/3",
+        "85/3",
+        "91/3"
+      ],
+      "answer": 1,
+      "explanation": "Length = (60/360) × 2 × (22/7) × 28 = 88/3.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-25",
+      "concept": "Arc length",
+      "difficulty": "challenge",
+      "prompt": "An arc of radius 14 cm has length 22 cm. Find its central angle in degrees. Use π = 22/7.",
+      "options": [
+        "90",
+        "89",
+        "91",
+        "92"
+      ],
+      "answer": 0,
+      "explanation": "Full circumference is 88; the arc is one quarter. Angle = 90°.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-26",
+      "concept": "Arc length",
+      "difficulty": "challenge",
+      "prompt": "An arc of radius 21 cm has length 33 cm. Find its central angle in degrees. Use π = 22/7.",
+      "options": [
+        "89",
+        "91",
+        "92",
+        "90"
+      ],
+      "answer": 3,
+      "explanation": "Full circumference is 132; the arc is one quarter. Angle = 90°.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-27",
+      "concept": "Arc length",
+      "difficulty": "challenge",
+      "prompt": "An arc of radius 28 cm has length 44 cm. Find its central angle in degrees. Use π = 22/7.",
+      "options": [
+        "91",
+        "92",
+        "90",
+        "89"
+      ],
+      "answer": 2,
+      "explanation": "Full circumference is 176; the arc is one quarter. Angle = 90°.",
+      "conceptId": "arc"
+    },
+    {
+      "id": "c11-v1-28",
+      "concept": "Sector perimeter",
+      "difficulty": "foundation",
+      "prompt": "Find the perimeter in cm of a semicircle of radius 14 cm. Use π = 22/7.",
+      "options": [
+        "74",
+        "72",
+        "71",
+        "73"
+      ],
+      "answer": 1,
+      "explanation": "Perimeter = πr + 2r = 44 + 28 = 72.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-29",
+      "concept": "Sector perimeter",
+      "difficulty": "foundation",
+      "prompt": "Find the perimeter in cm of a semicircle of radius 21 cm. Use π = 22/7.",
+      "options": [
+        "108",
+        "107",
+        "109",
+        "110"
+      ],
+      "answer": 0,
+      "explanation": "Perimeter = πr + 2r = 66 + 42 = 108.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-30",
+      "concept": "Sector perimeter",
+      "difficulty": "foundation",
+      "prompt": "Find the perimeter in cm of a semicircle of radius 28 cm. Use π = 22/7.",
+      "options": [
+        "143",
+        "145",
+        "146",
+        "144"
+      ],
+      "answer": 3,
+      "explanation": "Perimeter = πr + 2r = 88 + 56 = 144.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-31",
+      "concept": "Sector perimeter",
+      "difficulty": "standard",
+      "prompt": "Find the perimeter in cm of a 90° sector of radius 14 cm. Use π = 22/7.",
+      "options": [
+        "51",
+        "52",
+        "50",
+        "49"
+      ],
+      "answer": 2,
+      "explanation": "The arc is 22; add two radii 28. Total = 50.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-32",
+      "concept": "Sector perimeter",
+      "difficulty": "standard",
+      "prompt": "Find the perimeter in cm of a 90° sector of radius 21 cm. Use π = 22/7.",
+      "options": [
+        "77",
+        "75",
+        "74",
+        "76"
+      ],
+      "answer": 1,
+      "explanation": "The arc is 33; add two radii 42. Total = 75.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-33",
+      "concept": "Sector perimeter",
+      "difficulty": "standard",
+      "prompt": "Find the perimeter in cm of a 90° sector of radius 28 cm. Use π = 22/7.",
+      "options": [
+        "100",
+        "99",
+        "101",
+        "102"
+      ],
+      "answer": 0,
+      "explanation": "The arc is 44; add two radii 56. Total = 100.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-34",
+      "concept": "Sector perimeter",
+      "difficulty": "challenge",
+      "prompt": "A 120° sector has radius 14 cm. Find its perimeter in cm. Use π = 22/7.",
+      "options": [
+        "169/3",
+        "175/3",
+        "178/3",
+        "172/3"
+      ],
+      "answer": 3,
+      "explanation": "Arc = 88/3. Add the two radii: perimeter = 172/3.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-35",
+      "concept": "Sector perimeter",
+      "difficulty": "challenge",
+      "prompt": "A 120° sector has radius 21 cm. Find its perimeter in cm. Use π = 22/7.",
+      "options": [
+        "87",
+        "88",
+        "86",
+        "85"
+      ],
+      "answer": 2,
+      "explanation": "Arc = 44. Add the two radii: perimeter = 86.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-36",
+      "concept": "Sector perimeter",
+      "difficulty": "challenge",
+      "prompt": "A 120° sector has radius 28 cm. Find its perimeter in cm. Use π = 22/7.",
+      "options": [
+        "350/3",
+        "344/3",
+        "341/3",
+        "347/3"
+      ],
+      "answer": 1,
+      "explanation": "Arc = 176/3. Add the two radii: perimeter = 344/3.",
+      "conceptId": "perimeter"
+    },
+    {
+      "id": "c11-v1-37",
+      "concept": "Minor segment area",
+      "difficulty": "foundation",
+      "prompt": "A minor sector has area 20 cm² and its triangle has area 12 cm². Find the minor segment area in cm².",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "Segment = sector − triangle = 20 − 12 = 8.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-38",
+      "concept": "Minor segment area",
+      "difficulty": "foundation",
+      "prompt": "A minor sector has area 30 cm² and its triangle has area 18 cm². Find the minor segment area in cm².",
+      "options": [
+        "11",
+        "13",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "Segment = sector − triangle = 30 − 18 = 12.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-39",
+      "concept": "Minor segment area",
+      "difficulty": "foundation",
+      "prompt": "A minor sector has area 40 cm² and its triangle has area 24 cm². Find the minor segment area in cm².",
+      "options": [
+        "17",
+        "18",
+        "16",
+        "15"
+      ],
+      "answer": 2,
+      "explanation": "Segment = sector − triangle = 40 − 24 = 16.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-40",
+      "concept": "Minor segment area",
+      "difficulty": "standard",
+      "prompt": "A chord subtends 90° at the centre of a radius-14 cm circle. Find the minor segment area in cm². Use π = 22/7.",
+      "options": [
+        "58",
+        "56",
+        "55",
+        "57"
+      ],
+      "answer": 1,
+      "explanation": "Sector = 154. The right triangle has area r²/2 = 98. Difference = 56.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-41",
+      "concept": "Minor segment area",
+      "difficulty": "standard",
+      "prompt": "A chord subtends 90° at the centre of a radius-21 cm circle. Find the minor segment area in cm². Use π = 22/7.",
+      "options": [
+        "126",
+        "125",
+        "127",
+        "128"
+      ],
+      "answer": 0,
+      "explanation": "Sector = 693/2. The right triangle has area r²/2 = 441/2. Difference = 126.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-42",
+      "concept": "Minor segment area",
+      "difficulty": "standard",
+      "prompt": "A chord subtends 90° at the centre of a radius-28 cm circle. Find the minor segment area in cm². Use π = 22/7.",
+      "options": [
+        "223",
+        "225",
+        "226",
+        "224"
+      ],
+      "answer": 3,
+      "explanation": "Sector = 616. The right triangle has area r²/2 = 392. Difference = 224.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-43",
+      "concept": "Minor segment area",
+      "difficulty": "challenge",
+      "prompt": "For a chord subtending 90° in a circle of radius 14 cm, find the major segment area in cm². Use π = 22/7.",
+      "options": [
+        "561",
+        "562",
+        "560",
+        "559"
+      ],
+      "answer": 2,
+      "explanation": "Minor segment = quarter circle minus right triangle = 56. Major segment = full circle minus minor segment = 560.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-44",
+      "concept": "Minor segment area",
+      "difficulty": "challenge",
+      "prompt": "For a chord subtending 90° in a circle of radius 21 cm, find the major segment area in cm². Use π = 22/7.",
+      "options": [
+        "1262",
+        "1260",
+        "1259",
+        "1261"
+      ],
+      "answer": 1,
+      "explanation": "Minor segment = quarter circle minus right triangle = 126. Major segment = full circle minus minor segment = 1260.",
+      "conceptId": "segment"
+    },
+    {
+      "id": "c11-v1-45",
+      "concept": "Minor segment area",
+      "difficulty": "challenge",
+      "prompt": "For a chord subtending 90° in a circle of radius 28 cm, find the major segment area in cm². Use π = 22/7.",
+      "options": [
+        "2240",
+        "2239",
+        "2241",
+        "2242"
+      ],
+      "answer": 0,
+      "explanation": "Minor segment = quarter circle minus right triangle = 224. Major segment = full circle minus minor segment = 2240.",
+      "conceptId": "segment"
+    }
+  ]
+}

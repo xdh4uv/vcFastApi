@@ -1,0 +1,790 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-09",
+  "concepts": [
+    {
+      "id": "angles",
+      "title": "Elevation and depression",
+      "legacyLabels": [
+        "elevation"
+      ],
+      "explanation": "Elevation is measured upward from the observer’s horizontal; depression is measured downward. Parallel horizontal lines make a depression angle equal to the corresponding elevation angle.",
+      "example": {
+        "problem": "From a tower top the angle of depression to a ground point is 20°. Find the angle of elevation back to the tower top in degrees.",
+        "steps": [
+          "The two horizontals are parallel, so the corresponding angles are equal.",
+          "Answer: 20."
+        ]
+      },
+      "commonMistake": "Measure from the horizontal, not from the vertical.",
+      "checklist": [
+        "Draw the observer’s horizontal.",
+        "Mark the line of sight.",
+        "Use parallel horizontals when transferring angles."
+      ]
+    },
+    {
+      "id": "heights",
+      "title": "Finding heights",
+      "legacyLabels": [
+        "height"
+      ],
+      "explanation": "On level ground, tan θ = height above eye level / horizontal distance. Include observer height only when the question gives it.",
+      "example": {
+        "problem": "A tower is viewed from ground level at horizontal distance 2√3 m and elevation 30°. Find its height in m.",
+        "steps": [
+          "H = 2√3 × 1/√3 = 2.",
+          "Answer: 2."
+        ]
+      },
+      "commonMistake": "The line of sight is the hypotenuse, not the horizontal distance.",
+      "checklist": [
+        "Draw a right triangle.",
+        "Use h = d tan θ.",
+        "Add eye height when required."
+      ]
+    },
+    {
+      "id": "distances",
+      "title": "Finding horizontal distances",
+      "legacyLabels": [
+        "distance"
+      ],
+      "explanation": "Rearrange tan θ = h/d to obtain d = h/tan θ. Use the vertical height above the observation point.",
+      "example": {
+        "problem": "A 6√3 m tower is seen at elevation 60° from ground level. Find horizontal distance in m.",
+        "steps": [
+          "d = 6√3/√3 = 6.",
+          "Answer: 6."
+        ]
+      },
+      "commonMistake": "Multiplying h by tan θ instead of dividing reverses the relation.",
+      "checklist": [
+        "Identify the relevant vertical height.",
+        "Rearrange before substitution.",
+        "Simplify exact radicals."
+      ]
+    },
+    {
+      "id": "eye-height",
+      "title": "Accounting for eye height",
+      "legacyLabels": [
+        "eye height"
+      ],
+      "explanation": "If the observer’s eyes are e metres above level ground, the right-triangle height is H − e, so total height H = e + d tan θ.",
+      "example": {
+        "problem": "Eye height is 1.5 m, ground distance to a tree is 4√3 m and elevation is 30°. Find total tree height in m.",
+        "steps": [
+          "Triangle height = 4√3/√3 = 4.",
+          "Add 1.5: H = 11/2.",
+          "Answer: 11/2."
+        ]
+      },
+      "commonMistake": "A computed height above the eyes is not yet the total height above ground.",
+      "checklist": [
+        "Separate eye height from triangle height.",
+        "Use the angle from eye level.",
+        "Recombine heights at the end."
+      ]
+    },
+    {
+      "id": "two-points",
+      "title": "Two observation points",
+      "legacyLabels": [
+        "two observation points"
+      ],
+      "explanation": "For two points on the same side of a vertical tower, use one common tower height and distances that differ by the movement. A larger elevation angle corresponds to the nearer point on level ground.",
+      "example": {
+        "problem": "From two ground points on the same side of a tower, elevations are 60° (near) and 30° (far). The points are 4√3 m apart. Find tower height in m.",
+        "steps": [
+          "For height H, far distance = H√3 and near distance = H/√3.",
+          "Their difference is 2H/√3 = 4√3, hence H = 6.",
+          "Answer: 6."
+        ]
+      },
+      "commonMistake": "When moving away, add the movement to distance; do not subtract it.",
+      "checklist": [
+        "Label nearer and farther distances.",
+        "Write a tangent equation for each.",
+        "Eliminate the shared unknown."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c09-v1-01",
+      "concept": "Elevation and depression",
+      "difficulty": "foundation",
+      "prompt": "An observer looks upward at a tower along a line 20° above the horizontal. What is this angle called?",
+      "options": [
+        "Angle of elevation",
+        "Angle of depression",
+        "Right angle",
+        "Straight angle"
+      ],
+      "answer": 0,
+      "explanation": "An upward angle from the observer’s horizontal is an angle of elevation.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-02",
+      "concept": "Elevation and depression",
+      "difficulty": "foundation",
+      "prompt": "An observer looks upward at a tower along a line 30° above the horizontal. What is this angle called?",
+      "options": [
+        "Angle of depression",
+        "Right angle",
+        "Straight angle",
+        "Angle of elevation"
+      ],
+      "answer": 3,
+      "explanation": "An upward angle from the observer’s horizontal is an angle of elevation.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-03",
+      "concept": "Elevation and depression",
+      "difficulty": "foundation",
+      "prompt": "An observer looks upward at a tower along a line 40° above the horizontal. What is this angle called?",
+      "options": [
+        "Right angle",
+        "Straight angle",
+        "Angle of elevation",
+        "Angle of depression"
+      ],
+      "answer": 2,
+      "explanation": "An upward angle from the observer’s horizontal is an angle of elevation.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-04",
+      "concept": "Elevation and depression",
+      "difficulty": "standard",
+      "prompt": "From a tower top the angle of depression to a ground point is 20°. Find the angle of elevation back to the tower top in degrees.",
+      "options": [
+        "22",
+        "20",
+        "19",
+        "21"
+      ],
+      "answer": 1,
+      "explanation": "The two horizontals are parallel, so the corresponding angles are equal.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-05",
+      "concept": "Elevation and depression",
+      "difficulty": "standard",
+      "prompt": "From a tower top the angle of depression to a ground point is 30°. Find the angle of elevation back to the tower top in degrees.",
+      "options": [
+        "30",
+        "29",
+        "31",
+        "32"
+      ],
+      "answer": 0,
+      "explanation": "The two horizontals are parallel, so the corresponding angles are equal.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-06",
+      "concept": "Elevation and depression",
+      "difficulty": "standard",
+      "prompt": "From a tower top the angle of depression to a ground point is 40°. Find the angle of elevation back to the tower top in degrees.",
+      "options": [
+        "39",
+        "41",
+        "42",
+        "40"
+      ],
+      "answer": 3,
+      "explanation": "The two horizontals are parallel, so the corresponding angles are equal.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-07",
+      "concept": "Elevation and depression",
+      "difficulty": "challenge",
+      "prompt": "A line of sight to a tower top is 20° above horizontal. Find the acute angle between that line and the vertical tower in degrees.",
+      "options": [
+        "71",
+        "72",
+        "70",
+        "69"
+      ],
+      "answer": 2,
+      "explanation": "The horizontal and tower are perpendicular. The two acute angles sum to 90°: 70°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-08",
+      "concept": "Elevation and depression",
+      "difficulty": "challenge",
+      "prompt": "A line of sight to a tower top is 30° above horizontal. Find the acute angle between that line and the vertical tower in degrees.",
+      "options": [
+        "62",
+        "60",
+        "59",
+        "61"
+      ],
+      "answer": 1,
+      "explanation": "The horizontal and tower are perpendicular. The two acute angles sum to 90°: 60°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-09",
+      "concept": "Elevation and depression",
+      "difficulty": "challenge",
+      "prompt": "A line of sight to a tower top is 40° above horizontal. Find the acute angle between that line and the vertical tower in degrees.",
+      "options": [
+        "50",
+        "49",
+        "51",
+        "52"
+      ],
+      "answer": 0,
+      "explanation": "The horizontal and tower are perpendicular. The two acute angles sum to 90°: 50°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c09-v1-10",
+      "concept": "Finding heights",
+      "difficulty": "foundation",
+      "prompt": "From ground level 20 m from a vertical pole, elevation to its top is 45°. Find its height in m.",
+      "options": [
+        "19",
+        "21",
+        "22",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "H = 20 tan45° = 20.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-11",
+      "concept": "Finding heights",
+      "difficulty": "foundation",
+      "prompt": "From ground level 30 m from a vertical pole, elevation to its top is 45°. Find its height in m.",
+      "options": [
+        "31",
+        "32",
+        "30",
+        "29"
+      ],
+      "answer": 2,
+      "explanation": "H = 30 tan45° = 30.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-12",
+      "concept": "Finding heights",
+      "difficulty": "foundation",
+      "prompt": "From ground level 40 m from a vertical pole, elevation to its top is 45°. Find its height in m.",
+      "options": [
+        "42",
+        "40",
+        "39",
+        "41"
+      ],
+      "answer": 1,
+      "explanation": "H = 40 tan45° = 40.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-13",
+      "concept": "Finding heights",
+      "difficulty": "standard",
+      "prompt": "A tower is viewed from ground level at horizontal distance 2√3 m and elevation 30°. Find its height in m.",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "H = 2√3 × 1/√3 = 2.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-14",
+      "concept": "Finding heights",
+      "difficulty": "standard",
+      "prompt": "A tower is viewed from ground level at horizontal distance 3√3 m and elevation 30°. Find its height in m.",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "explanation": "H = 3√3 × 1/√3 = 3.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-15",
+      "concept": "Finding heights",
+      "difficulty": "standard",
+      "prompt": "A tower is viewed from ground level at horizontal distance 4√3 m and elevation 30°. Find its height in m.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "H = 4√3 × 1/√3 = 4.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-16",
+      "concept": "Finding heights",
+      "difficulty": "challenge",
+      "prompt": "An observer’s eyes are 2 m above level ground, 2√3 m from a tower. Elevation is 60°. Find the total height in m.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "Height above eyes = 2√3 × √3 = 6. Total height = 6 + 2 = 8.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-17",
+      "concept": "Finding heights",
+      "difficulty": "challenge",
+      "prompt": "An observer’s eyes are 2 m above level ground, 3√3 m from a tower. Elevation is 60°. Find the total height in m.",
+      "options": [
+        "11",
+        "10",
+        "12",
+        "13"
+      ],
+      "answer": 0,
+      "explanation": "Height above eyes = 3√3 × √3 = 9. Total height = 9 + 2 = 11.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-18",
+      "concept": "Finding heights",
+      "difficulty": "challenge",
+      "prompt": "An observer’s eyes are 2 m above level ground, 4√3 m from a tower. Elevation is 60°. Find the total height in m.",
+      "options": [
+        "13",
+        "15",
+        "16",
+        "14"
+      ],
+      "answer": 3,
+      "explanation": "Height above eyes = 4√3 × √3 = 12. Total height = 12 + 2 = 14.",
+      "conceptId": "heights"
+    },
+    {
+      "id": "c09-v1-19",
+      "concept": "Finding horizontal distances",
+      "difficulty": "foundation",
+      "prompt": "A 10 m tower is seen at elevation 45° from ground level. Find horizontal distance in m.",
+      "options": [
+        "11",
+        "12",
+        "10",
+        "9"
+      ],
+      "answer": 2,
+      "explanation": "d = 10/tan45° = 10.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-20",
+      "concept": "Finding horizontal distances",
+      "difficulty": "foundation",
+      "prompt": "A 15 m tower is seen at elevation 45° from ground level. Find horizontal distance in m.",
+      "options": [
+        "17",
+        "15",
+        "14",
+        "16"
+      ],
+      "answer": 1,
+      "explanation": "d = 15/tan45° = 15.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-21",
+      "concept": "Finding horizontal distances",
+      "difficulty": "foundation",
+      "prompt": "A 20 m tower is seen at elevation 45° from ground level. Find horizontal distance in m.",
+      "options": [
+        "20",
+        "19",
+        "21",
+        "22"
+      ],
+      "answer": 0,
+      "explanation": "d = 20/tan45° = 20.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-22",
+      "concept": "Finding horizontal distances",
+      "difficulty": "standard",
+      "prompt": "A 6√3 m tower is seen at elevation 60° from ground level. Find horizontal distance in m.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "d = 6√3/√3 = 6.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-23",
+      "concept": "Finding horizontal distances",
+      "difficulty": "standard",
+      "prompt": "A 9√3 m tower is seen at elevation 60° from ground level. Find horizontal distance in m.",
+      "options": [
+        "10",
+        "11",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "d = 9√3/√3 = 9.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-24",
+      "concept": "Finding horizontal distances",
+      "difficulty": "standard",
+      "prompt": "A 12√3 m tower is seen at elevation 60° from ground level. Find horizontal distance in m.",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "d = 12√3/√3 = 12.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-25",
+      "concept": "Finding horizontal distances",
+      "difficulty": "challenge",
+      "prompt": "A 2√3 m tower is seen at elevation 30° from ground level. Find horizontal distance in m.",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "explanation": "d = 2√3/(1/√3) = 6.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-26",
+      "concept": "Finding horizontal distances",
+      "difficulty": "challenge",
+      "prompt": "A 3√3 m tower is seen at elevation 30° from ground level. Find horizontal distance in m.",
+      "options": [
+        "8",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "d = 3√3/(1/√3) = 9.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-27",
+      "concept": "Finding horizontal distances",
+      "difficulty": "challenge",
+      "prompt": "A 4√3 m tower is seen at elevation 30° from ground level. Find horizontal distance in m.",
+      "options": [
+        "13",
+        "14",
+        "12",
+        "11"
+      ],
+      "answer": 2,
+      "explanation": "d = 4√3/(1/√3) = 12.",
+      "conceptId": "distances"
+    },
+    {
+      "id": "c09-v1-28",
+      "concept": "Accounting for eye height",
+      "difficulty": "foundation",
+      "prompt": "Eye height is 1.5 m. A pole is 10 m away on level ground at elevation 45°. Find total pole height in m.",
+      "options": [
+        "27/2",
+        "23/2",
+        "21/2",
+        "25/2"
+      ],
+      "answer": 1,
+      "explanation": "Height above eyes = 10; add 1.5 m. H = 23/2 m.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-29",
+      "concept": "Accounting for eye height",
+      "difficulty": "foundation",
+      "prompt": "Eye height is 1.5 m. A pole is 15 m away on level ground at elevation 45°. Find total pole height in m.",
+      "options": [
+        "33/2",
+        "31/2",
+        "35/2",
+        "37/2"
+      ],
+      "answer": 0,
+      "explanation": "Height above eyes = 15; add 1.5 m. H = 33/2 m.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-30",
+      "concept": "Accounting for eye height",
+      "difficulty": "foundation",
+      "prompt": "Eye height is 1.5 m. A pole is 20 m away on level ground at elevation 45°. Find total pole height in m.",
+      "options": [
+        "41/2",
+        "45/2",
+        "47/2",
+        "43/2"
+      ],
+      "answer": 3,
+      "explanation": "Height above eyes = 20; add 1.5 m. H = 43/2 m.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-31",
+      "concept": "Accounting for eye height",
+      "difficulty": "standard",
+      "prompt": "Eye height is 1.5 m, ground distance to a tree is 4√3 m and elevation is 30°. Find total tree height in m.",
+      "options": [
+        "13/2",
+        "15/2",
+        "11/2",
+        "9/2"
+      ],
+      "answer": 2,
+      "explanation": "Triangle height = 4√3/√3 = 4. Add 1.5: H = 11/2.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-32",
+      "concept": "Accounting for eye height",
+      "difficulty": "standard",
+      "prompt": "Eye height is 1.5 m, ground distance to a tree is 6√3 m and elevation is 30°. Find total tree height in m.",
+      "options": [
+        "19/2",
+        "15/2",
+        "13/2",
+        "17/2"
+      ],
+      "answer": 1,
+      "explanation": "Triangle height = 6√3/√3 = 6. Add 1.5: H = 15/2.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-33",
+      "concept": "Accounting for eye height",
+      "difficulty": "standard",
+      "prompt": "Eye height is 1.5 m, ground distance to a tree is 8√3 m and elevation is 30°. Find total tree height in m.",
+      "options": [
+        "19/2",
+        "17/2",
+        "21/2",
+        "23/2"
+      ],
+      "answer": 0,
+      "explanation": "Triangle height = 8√3/√3 = 8. Add 1.5: H = 19/2.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-34",
+      "concept": "Accounting for eye height",
+      "difficulty": "challenge",
+      "prompt": "A 5 m tower is 2 m horizontally from an observer on a platform. Elevation from the eyes is 45°. Find eye height above the same level ground in m.",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "explanation": "The tower is 2 m above the eyes. Eye height = 5 − 2 = 3 m.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-35",
+      "concept": "Accounting for eye height",
+      "difficulty": "challenge",
+      "prompt": "A 6 m tower is 3 m horizontally from an observer on a platform. Elevation from the eyes is 45°. Find eye height above the same level ground in m.",
+      "options": [
+        "4",
+        "5",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "explanation": "The tower is 3 m above the eyes. Eye height = 6 − 3 = 3 m.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-36",
+      "concept": "Accounting for eye height",
+      "difficulty": "challenge",
+      "prompt": "A 7 m tower is 4 m horizontally from an observer on a platform. Elevation from the eyes is 45°. Find eye height above the same level ground in m.",
+      "options": [
+        "5",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "The tower is 4 m above the eyes. Eye height = 7 − 4 = 3 m.",
+      "conceptId": "eye-height"
+    },
+    {
+      "id": "c09-v1-37",
+      "concept": "Two observation points",
+      "difficulty": "foundation",
+      "prompt": "A 6 m tower is viewed from ground level at 45°. The observer moves 2 m directly toward it. Find the new horizontal distance in m.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "The original distance equals the height, 6. New distance = 6 − 2 = 4.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-38",
+      "concept": "Two observation points",
+      "difficulty": "foundation",
+      "prompt": "A 9 m tower is viewed from ground level at 45°. The observer moves 3 m directly toward it. Find the new horizontal distance in m.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "The original distance equals the height, 9. New distance = 9 − 3 = 6.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-39",
+      "concept": "Two observation points",
+      "difficulty": "foundation",
+      "prompt": "A 12 m tower is viewed from ground level at 45°. The observer moves 4 m directly toward it. Find the new horizontal distance in m.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "The original distance equals the height, 12. New distance = 12 − 4 = 8.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-40",
+      "concept": "Two observation points",
+      "difficulty": "standard",
+      "prompt": "From two ground points on the same side of a tower, elevations are 60° (near) and 30° (far). The points are 4√3 m apart. Find tower height in m.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "For height H, far distance = H√3 and near distance = H/√3. Their difference is 2H/√3 = 4√3, hence H = 6.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-41",
+      "concept": "Two observation points",
+      "difficulty": "standard",
+      "prompt": "From two ground points on the same side of a tower, elevations are 60° (near) and 30° (far). The points are 6√3 m apart. Find tower height in m.",
+      "options": [
+        "9",
+        "8",
+        "10",
+        "11"
+      ],
+      "answer": 0,
+      "explanation": "For height H, far distance = H√3 and near distance = H/√3. Their difference is 2H/√3 = 6√3, hence H = 9.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-42",
+      "concept": "Two observation points",
+      "difficulty": "standard",
+      "prompt": "From two ground points on the same side of a tower, elevations are 60° (near) and 30° (far). The points are 8√3 m apart. Find tower height in m.",
+      "options": [
+        "11",
+        "13",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "For height H, far distance = H√3 and near distance = H/√3. Their difference is 2H/√3 = 8√3, hence H = 12.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-43",
+      "concept": "Two observation points",
+      "difficulty": "challenge",
+      "prompt": "Elevation to a tower is 45° from ground level. Moving 2(√3 − 1) m directly away makes it 30°. Find tower height in m.",
+      "options": [
+        "3",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "For height H, the distances are H and H√3. The increase H(√3 − 1) equals 2(√3 − 1), so H = 2.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-44",
+      "concept": "Two observation points",
+      "difficulty": "challenge",
+      "prompt": "Elevation to a tower is 45° from ground level. Moving 3(√3 − 1) m directly away makes it 30°. Find tower height in m.",
+      "options": [
+        "5",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "For height H, the distances are H and H√3. The increase H(√3 − 1) equals 3(√3 − 1), so H = 3.",
+      "conceptId": "two-points"
+    },
+    {
+      "id": "c09-v1-45",
+      "concept": "Two observation points",
+      "difficulty": "challenge",
+      "prompt": "Elevation to a tower is 45° from ground level. Moving 4(√3 − 1) m directly away makes it 30°. Find tower height in m.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "For height H, the distances are H and H√3. The increase H(√3 − 1) equals 4(√3 − 1), so H = 4.",
+      "conceptId": "two-points"
+    }
+  ]
+}

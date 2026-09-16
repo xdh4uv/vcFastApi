@@ -1,0 +1,791 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-04",
+  "concepts": [
+    {
+      "id": "factorisation",
+      "title": "Factorising quadratic equations",
+      "legacyLabels": [
+        "factorisation"
+      ],
+      "explanation": "Write the equation with zero on one side. Factor the quadratic and set each factor equal to zero. Expanding the factors checks the coefficients.",
+      "example": {
+        "problem": "Find the positive root of x² - 2x - 8 = 0.",
+        "steps": [
+          "Factor as (x - 4)(x + 2) = 0.",
+          "The positive root is 4.",
+          "Answer: 4."
+        ]
+      },
+      "commonMistake": "Factors must reproduce both the middle coefficient and the constant.",
+      "checklist": [
+        "Move all terms to one side.",
+        "Factor and solve both factors.",
+        "Substitute both roots."
+      ]
+    },
+    {
+      "id": "discriminant",
+      "title": "Calculating the discriminant",
+      "legacyLabels": [
+        "discriminant"
+      ],
+      "explanation": "For ax² + bx + c = 0 with a ≠ 0, D = b² − 4ac. Use signed coefficients after collecting all terms on one side.",
+      "example": {
+        "problem": "Find D for 2x² + 2x - 4 = 0.",
+        "steps": [
+          "D = 4 - 4 × 2 × (-4) = 36.",
+          "Answer: 36."
+        ]
+      },
+      "commonMistake": "Square the entire signed value of b; retain the sign of c in 4ac.",
+      "checklist": [
+        "Identify a, b and c.",
+        "Compute b² and 4ac separately.",
+        "Subtract to find D."
+      ]
+    },
+    {
+      "id": "root-nature",
+      "title": "Nature of roots",
+      "legacyLabels": [
+        "nature of roots"
+      ],
+      "explanation": "The sign of D determines real-root behaviour: D > 0 gives two distinct real roots, D = 0 gives one repeated real root, and D < 0 gives no real roots.",
+      "example": {
+        "problem": "How many distinct real roots does x² + 4x + 5 = 0 have?",
+        "steps": [
+          "D = 16 - 20 = -4; there are no real roots.",
+          "Answer: 0."
+        ]
+      },
+      "commonMistake": "A negative discriminant does not give two negative real roots.",
+      "checklist": [
+        "Calculate D.",
+        "Compare it with zero.",
+        "Distinguish repeated from distinct roots."
+      ]
+    },
+    {
+      "id": "formula-and-zero-product",
+      "title": "Zero product and quadratic formula",
+      "legacyLabels": [
+        "zero product"
+      ],
+      "explanation": "If a product is zero, at least one factor is zero. For a general quadratic, x = (−b ± √D)/(2a). Keep both signs and the full denominator.",
+      "example": {
+        "problem": "Find the nonzero root of 3x² - 12x = 0.",
+        "steps": [
+          "Factor as 3x(x - 4) = 0.",
+          "Roots are 0 and 4.",
+          "Answer: 4."
+        ]
+      },
+      "commonMistake": "Dividing by x can discard the valid root x = 0.",
+      "checklist": [
+        "Check for a common factor first.",
+        "Use both ± branches if applying the formula.",
+        "Keep zero roots."
+      ]
+    },
+    {
+      "id": "quadratic-models",
+      "title": "Quadratic word problems",
+      "legacyLabels": [
+        "modelling"
+      ],
+      "explanation": "Products of unknown lengths or consecutive integers often lead to quadratic equations. Solve algebraically, then reject roots that violate the stated physical or positive-integer conditions.",
+      "example": {
+        "problem": "A rectangle has width x cm, length x + 3 cm, and area 10 cm². Find the width in cm.",
+        "steps": [
+          "x(x + 3) = 10.",
+          "The roots are 2 and -5; only 2 is a valid width.",
+          "Answer: 2."
+        ]
+      },
+      "commonMistake": "A negative algebraic root may be impossible for a length.",
+      "checklist": [
+        "Define the unknown.",
+        "Form the product equation.",
+        "Check context and units after solving."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c04-v1-01",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "foundation",
+      "prompt": "Find the larger root of (x - 2)(x - 5) = 0.",
+      "options": [
+        "5",
+        "4",
+        "6",
+        "7"
+      ],
+      "answer": 0,
+      "explanation": "The roots are 2 and 5.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-02",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "foundation",
+      "prompt": "Find the larger root of (x - 3)(x - 6) = 0.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "The roots are 3 and 6.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-03",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "foundation",
+      "prompt": "Find the larger root of (x - 4)(x - 7) = 0.",
+      "options": [
+        "8",
+        "9",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "explanation": "The roots are 4 and 7.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-04",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "standard",
+      "prompt": "Find the positive root of x² - 2x - 8 = 0.",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Factor as (x - 4)(x + 2) = 0. The positive root is 4.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-05",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "standard",
+      "prompt": "Find the positive root of x² - 3x - 18 = 0.",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "explanation": "Factor as (x - 6)(x + 3) = 0. The positive root is 6.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-06",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "standard",
+      "prompt": "Find the positive root of x² - 4x - 32 = 0.",
+      "options": [
+        "7",
+        "9",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "Factor as (x - 8)(x + 4) = 0. The positive root is 8.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-07",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "challenge",
+      "prompt": "Find the smaller root of 2x² - 6x + 4 = 0.",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "explanation": "Factor as (2x - 2)(x - 2) = 0. The roots are 1 and 2.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-08",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "challenge",
+      "prompt": "Find the smaller root of 2x² - 9x + 9 = 0.",
+      "options": [
+        "7/2",
+        "3/2",
+        "1/2",
+        "5/2"
+      ],
+      "answer": 1,
+      "explanation": "Factor as (2x - 3)(x - 3) = 0. The roots are 3/2 and 3.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-09",
+      "concept": "Factorising quadratic equations",
+      "difficulty": "challenge",
+      "prompt": "Find the smaller root of 2x² - 12x + 16 = 0.",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "Factor as (2x - 4)(x - 4) = 0. The roots are 2 and 4.",
+      "conceptId": "factorisation"
+    },
+    {
+      "id": "c04-v1-10",
+      "concept": "Calculating the discriminant",
+      "difficulty": "foundation",
+      "prompt": "Find D for x² - 4x + 4 = 0.",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 3,
+      "explanation": "D = (-4)² - 4 × 4 = 0.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-11",
+      "concept": "Calculating the discriminant",
+      "difficulty": "foundation",
+      "prompt": "Find D for x² - 6x + 9 = 0.",
+      "options": [
+        "2",
+        "3",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "D = (-6)² - 4 × 9 = 0.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-12",
+      "concept": "Calculating the discriminant",
+      "difficulty": "foundation",
+      "prompt": "Find D for x² - 8x + 16 = 0.",
+      "options": [
+        "3",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "D = (-8)² - 4 × 16 = 0.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-13",
+      "concept": "Calculating the discriminant",
+      "difficulty": "standard",
+      "prompt": "Find D for 2x² + 2x - 4 = 0.",
+      "options": [
+        "36",
+        "35",
+        "37",
+        "38"
+      ],
+      "answer": 0,
+      "explanation": "D = 4 - 4 × 2 × (-4) = 36.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-14",
+      "concept": "Calculating the discriminant",
+      "difficulty": "standard",
+      "prompt": "Find D for 2x² + 3x - 9 = 0.",
+      "options": [
+        "80",
+        "82",
+        "83",
+        "81"
+      ],
+      "answer": 3,
+      "explanation": "D = 9 - 4 × 2 × (-9) = 81.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-15",
+      "concept": "Calculating the discriminant",
+      "difficulty": "standard",
+      "prompt": "Find D for 2x² + 4x - 16 = 0.",
+      "options": [
+        "145",
+        "146",
+        "144",
+        "143"
+      ],
+      "answer": 2,
+      "explanation": "D = 16 - 4 × 2 × (-16) = 144.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-16",
+      "concept": "Calculating the discriminant",
+      "difficulty": "challenge",
+      "prompt": "The equation x² - 4x + k = 0 has equal roots. Find k.",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Equal roots require D = 16 - 4k = 0. Thus k = 4.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-17",
+      "concept": "Calculating the discriminant",
+      "difficulty": "challenge",
+      "prompt": "The equation x² - 6x + k = 0 has equal roots. Find k.",
+      "options": [
+        "9",
+        "8",
+        "10",
+        "11"
+      ],
+      "answer": 0,
+      "explanation": "Equal roots require D = 36 - 4k = 0. Thus k = 9.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-18",
+      "concept": "Calculating the discriminant",
+      "difficulty": "challenge",
+      "prompt": "The equation x² - 8x + k = 0 has equal roots. Find k.",
+      "options": [
+        "15",
+        "17",
+        "18",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "Equal roots require D = 64 - 4k = 0. Thus k = 16.",
+      "conceptId": "discriminant"
+    },
+    {
+      "id": "c04-v1-19",
+      "concept": "Nature of roots",
+      "difficulty": "foundation",
+      "prompt": "A quadratic has discriminant 4. How many distinct real roots does it have?",
+      "options": [
+        "3",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "The discriminant is positive, so there are two distinct real roots.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-20",
+      "concept": "Nature of roots",
+      "difficulty": "foundation",
+      "prompt": "A quadratic has discriminant 9. How many distinct real roots does it have?",
+      "options": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "The discriminant is positive, so there are two distinct real roots.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-21",
+      "concept": "Nature of roots",
+      "difficulty": "foundation",
+      "prompt": "A quadratic has discriminant 16. How many distinct real roots does it have?",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "The discriminant is positive, so there are two distinct real roots.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-22",
+      "concept": "Nature of roots",
+      "difficulty": "standard",
+      "prompt": "How many distinct real roots does x² + 4x + 5 = 0 have?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 3,
+      "explanation": "D = 16 - 20 = -4; there are no real roots.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-23",
+      "concept": "Nature of roots",
+      "difficulty": "standard",
+      "prompt": "How many distinct real roots does x² + 6x + 10 = 0 have?",
+      "options": [
+        "2",
+        "3",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "D = 36 - 40 = -4; there are no real roots.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-24",
+      "concept": "Nature of roots",
+      "difficulty": "standard",
+      "prompt": "How many distinct real roots does x² + 8x + 17 = 0 have?",
+      "options": [
+        "3",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "D = 64 - 68 = -4; there are no real roots.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-25",
+      "concept": "Nature of roots",
+      "difficulty": "challenge",
+      "prompt": "Find the greatest integer k for which x² - 4x + k = 0 has two distinct real roots.",
+      "options": [
+        "3",
+        "2",
+        "4",
+        "5"
+      ],
+      "answer": 0,
+      "explanation": "D > 0 requires k < 4. The greatest integer satisfying this is 3.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-26",
+      "concept": "Nature of roots",
+      "difficulty": "challenge",
+      "prompt": "Find the greatest integer k for which x² - 6x + k = 0 has two distinct real roots.",
+      "options": [
+        "7",
+        "9",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "D > 0 requires k < 9. The greatest integer satisfying this is 8.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-27",
+      "concept": "Nature of roots",
+      "difficulty": "challenge",
+      "prompt": "Find the greatest integer k for which x² - 8x + k = 0 has two distinct real roots.",
+      "options": [
+        "16",
+        "17",
+        "15",
+        "14"
+      ],
+      "answer": 2,
+      "explanation": "D > 0 requires k < 16. The greatest integer satisfying this is 15.",
+      "conceptId": "root-nature"
+    },
+    {
+      "id": "c04-v1-28",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "foundation",
+      "prompt": "In x(x - 2) = 0, one root is 2. What is the other root?",
+      "options": [
+        "3",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "The first factor x is zero when x = 0.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-29",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "foundation",
+      "prompt": "In x(x - 3) = 0, one root is 3. What is the other root?",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "The first factor x is zero when x = 0.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-30",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "foundation",
+      "prompt": "In x(x - 4) = 0, one root is 4. What is the other root?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 3,
+      "explanation": "The first factor x is zero when x = 0.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-31",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "standard",
+      "prompt": "Find the nonzero root of 3x² - 12x = 0.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "Factor as 3x(x - 4) = 0. Roots are 0 and 4.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-32",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "standard",
+      "prompt": "Find the nonzero root of 3x² - 18x = 0.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "Factor as 3x(x - 6) = 0. Roots are 0 and 6.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-33",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "standard",
+      "prompt": "Find the nonzero root of 3x² - 24x = 0.",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "Factor as 3x(x - 8) = 0. Roots are 0 and 8.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-34",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "challenge",
+      "prompt": "Use the quadratic formula to find the larger root of 2x² - 10x + 8 = 0.",
+      "options": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "explanation": "D = 36, so √D = 6. The larger root is (10 + 6)/4 = 4.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-35",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "challenge",
+      "prompt": "Use the quadratic formula to find the larger root of 2x² - 15x + 18 = 0.",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "D = 81, so √D = 9. The larger root is (15 + 9)/4 = 6.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-36",
+      "concept": "Zero product and quadratic formula",
+      "difficulty": "challenge",
+      "prompt": "Use the quadratic formula to find the larger root of 2x² - 20x + 32 = 0.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "D = 144, so √D = 12. The larger root is (20 + 12)/4 = 8.",
+      "conceptId": "formula-and-zero-product"
+    },
+    {
+      "id": "c04-v1-37",
+      "concept": "Quadratic word problems",
+      "difficulty": "foundation",
+      "prompt": "A square has area 4 cm². Find its side length in cm.",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "Side² = 4; the positive side length is 2.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-38",
+      "concept": "Quadratic word problems",
+      "difficulty": "foundation",
+      "prompt": "A square has area 9 cm². Find its side length in cm.",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "explanation": "Side² = 9; the positive side length is 3.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-39",
+      "concept": "Quadratic word problems",
+      "difficulty": "foundation",
+      "prompt": "A square has area 16 cm². Find its side length in cm.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "Side² = 16; the positive side length is 4.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-40",
+      "concept": "Quadratic word problems",
+      "difficulty": "standard",
+      "prompt": "A rectangle has width x cm, length x + 3 cm, and area 10 cm². Find the width in cm.",
+      "options": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "x(x + 3) = 10. The roots are 2 and -5; only 2 is a valid width.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-41",
+      "concept": "Quadratic word problems",
+      "difficulty": "standard",
+      "prompt": "A rectangle has width x cm, length x + 3 cm, and area 18 cm². Find the width in cm.",
+      "options": [
+        "3",
+        "2",
+        "4",
+        "5"
+      ],
+      "answer": 0,
+      "explanation": "x(x + 3) = 18. The roots are 3 and -6; only 3 is a valid width.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-42",
+      "concept": "Quadratic word problems",
+      "difficulty": "standard",
+      "prompt": "A rectangle has width x cm, length x + 3 cm, and area 28 cm². Find the width in cm.",
+      "options": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "explanation": "x(x + 3) = 28. The roots are 4 and -7; only 4 is a valid width.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-43",
+      "concept": "Quadratic word problems",
+      "difficulty": "challenge",
+      "prompt": "Two consecutive positive integers have product 42. Find their sum.",
+      "options": [
+        "14",
+        "15",
+        "13",
+        "12"
+      ],
+      "answer": 2,
+      "explanation": "Let the smaller be x: x(x + 1) = 42. The positive solution is 6, so the sum is 13.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-44",
+      "concept": "Quadratic word problems",
+      "difficulty": "challenge",
+      "prompt": "Two consecutive positive integers have product 56. Find their sum.",
+      "options": [
+        "17",
+        "15",
+        "14",
+        "16"
+      ],
+      "answer": 1,
+      "explanation": "Let the smaller be x: x(x + 1) = 56. The positive solution is 7, so the sum is 15.",
+      "conceptId": "quadratic-models"
+    },
+    {
+      "id": "c04-v1-45",
+      "concept": "Quadratic word problems",
+      "difficulty": "challenge",
+      "prompt": "Two consecutive positive integers have product 72. Find their sum.",
+      "options": [
+        "17",
+        "16",
+        "18",
+        "19"
+      ],
+      "answer": 0,
+      "explanation": "Let the smaller be x: x(x + 1) = 72. The positive solution is 8, so the sum is 17.",
+      "conceptId": "quadratic-models"
+    }
+  ]
+}

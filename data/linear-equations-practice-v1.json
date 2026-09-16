@@ -1,0 +1,792 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-03",
+  "concepts": [
+    {
+      "id": "substitution",
+      "title": "Solving by substitution",
+      "legacyLabels": [
+        "solution pairs"
+      ],
+      "explanation": "A solution pair satisfies both equations. Express one variable using the simpler equation, substitute into the other, solve, then recover and check the second variable.",
+      "example": {
+        "problem": "Solve y = x + 2 and x + y = 10. What is x?",
+        "steps": [
+          "Substitute: 2x + 2 = 10.",
+          "Then x = 4 and y = 6.",
+          "Answer: 4."
+        ]
+      },
+      "commonMistake": "A pair that satisfies only one equation is not a common solution.",
+      "checklist": [
+        "Isolate one variable.",
+        "Substitute with brackets.",
+        "Check both original equations."
+      ]
+    },
+    {
+      "id": "graphs",
+      "title": "Graphical solutions",
+      "legacyLabels": [
+        "graph interpretation"
+      ],
+      "explanation": "Each linear equation represents a line. Intersecting lines have one common point, distinct parallel lines have none, and coincident lines have infinitely many. The intersection coordinates satisfy both equations.",
+      "example": {
+        "problem": "The lines x + y = 6 and x - y = 2 intersect at P. Find the x-coordinate of P.",
+        "steps": [
+          "Adding the equations gives 2x = 8.",
+          "P = (4, 2).",
+          "Answer: 4."
+        ]
+      },
+      "commonMistake": "Parallel and coincident lines are different cases.",
+      "checklist": [
+        "Identify whether lines intersect.",
+        "Read both coordinates.",
+        "Verify by substitution."
+      ]
+    },
+    {
+      "id": "consistency",
+      "title": "Consistency of equations",
+      "legacyLabels": [
+        "dependent equations"
+      ],
+      "explanation": "Proportional coefficients and constants represent the same line. Proportional x/y coefficients with incompatible constants represent parallel lines. Otherwise the pair has a unique solution. Comparing multiples avoids division by zero.",
+      "example": {
+        "problem": "How many solutions do x + 2y = 2 and 2x + 4y = 5 have?",
+        "steps": [
+          "Doubling the first gives a different constant from the second. The lines are distinct and parallel.",
+          "Answer: No solution."
+        ]
+      },
+      "commonMistake": "Compare constants as well as x and y coefficients.",
+      "checklist": [
+        "Write equations in the same form.",
+        "Compare all coefficients and constants.",
+        "Distinguish none, one and infinitely many."
+      ]
+    },
+    {
+      "id": "elimination",
+      "title": "Solving by elimination",
+      "legacyLabels": [
+        "elimination"
+      ],
+      "explanation": "Make one variable have matching or opposite coefficients by multiplying whole equations. Subtract or add to eliminate it, then substitute back.",
+      "example": {
+        "problem": "2x + 3y = 24 and 2x + y = 16. Find x.",
+        "steps": [
+          "Subtract: 2y = 8, so y = 4.",
+          "Then 2x = 12, so x = 6.",
+          "Answer: 6."
+        ]
+      },
+      "commonMistake": "Multiply every term, including the constant, when scaling an equation.",
+      "checklist": [
+        "Choose a variable to eliminate.",
+        "Scale entire equations.",
+        "Check the recovered pair."
+      ]
+    },
+    {
+      "id": "modelling",
+      "title": "Modelling with two variables",
+      "legacyLabels": [
+        "modelling"
+      ],
+      "explanation": "Name both unknowns with units. Translate each independent condition into an equation, solve the pair, and interpret the solution in the original context.",
+      "example": {
+        "problem": "Two adult tickets and one child ticket cost ₹40; one adult and two child tickets cost ₹32. Find one child ticket price in rupees.",
+        "steps": [
+          "Double the second condition and subtract the first: three child tickets cost ₹24.",
+          "One costs ₹8.",
+          "Answer: 8."
+        ]
+      },
+      "commonMistake": "A total price is not the unit price; keep counts and prices separate.",
+      "checklist": [
+        "Define variables and units.",
+        "Use two independent conditions.",
+        "Check the answer in the story."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c03-v1-01",
+      "concept": "Solving by substitution",
+      "difficulty": "foundation",
+      "prompt": "Given y = 2 and x + y = 6, find x.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "Substitute y = 2: x = 6 - 2 = 4.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-02",
+      "concept": "Solving by substitution",
+      "difficulty": "foundation",
+      "prompt": "Given y = 3 and x + y = 9, find x.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "Substitute y = 3: x = 9 - 3 = 6.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-03",
+      "concept": "Solving by substitution",
+      "difficulty": "foundation",
+      "prompt": "Given y = 4 and x + y = 12, find x.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "Substitute y = 4: x = 12 - 4 = 8.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-04",
+      "concept": "Solving by substitution",
+      "difficulty": "standard",
+      "prompt": "Solve y = x + 2 and x + y = 10. What is x?",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Substitute: 2x + 2 = 10. Then x = 4 and y = 6.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-05",
+      "concept": "Solving by substitution",
+      "difficulty": "standard",
+      "prompt": "Solve y = x + 3 and x + y = 15. What is x?",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "explanation": "Substitute: 2x + 3 = 15. Then x = 6 and y = 9.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-06",
+      "concept": "Solving by substitution",
+      "difficulty": "standard",
+      "prompt": "Solve y = x + 4 and x + y = 20. What is x?",
+      "options": [
+        "7",
+        "9",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "Substitute: 2x + 4 = 20. Then x = 8 and y = 12.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-07",
+      "concept": "Solving by substitution",
+      "difficulty": "challenge",
+      "prompt": "Solve y = 2x - 2 and 3x + 2y = 24. What is y?",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "Substitute to get 7x = 28, so x = 4. Thus y = 6.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-08",
+      "concept": "Solving by substitution",
+      "difficulty": "challenge",
+      "prompt": "Solve y = 2x - 3 and 3x + 2y = 36. What is y?",
+      "options": [
+        "11",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "explanation": "Substitute to get 7x = 42, so x = 6. Thus y = 9.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-09",
+      "concept": "Solving by substitution",
+      "difficulty": "challenge",
+      "prompt": "Solve y = 2x - 4 and 3x + 2y = 48. What is y?",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "Substitute to get 7x = 56, so x = 8. Thus y = 12.",
+      "conceptId": "substitution"
+    },
+    {
+      "id": "c03-v1-10",
+      "concept": "Graphical solutions",
+      "difficulty": "foundation",
+      "prompt": "Two lines intersect only at (2, 3). How many common solutions are there?",
+      "options": [
+        "0",
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "Exactly one intersection means exactly one solution.",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-11",
+      "concept": "Graphical solutions",
+      "difficulty": "foundation",
+      "prompt": "Two lines intersect only at (3, 4). How many common solutions are there?",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "explanation": "Exactly one intersection means exactly one solution.",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-12",
+      "concept": "Graphical solutions",
+      "difficulty": "foundation",
+      "prompt": "Two lines intersect only at (4, 5). How many common solutions are there?",
+      "options": [
+        "3",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "Exactly one intersection means exactly one solution.",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-13",
+      "concept": "Graphical solutions",
+      "difficulty": "standard",
+      "prompt": "The lines x + y = 6 and x - y = 2 intersect at P. Find the x-coordinate of P.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "Adding the equations gives 2x = 8. P = (4, 2).",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-14",
+      "concept": "Graphical solutions",
+      "difficulty": "standard",
+      "prompt": "The lines x + y = 9 and x - y = 3 intersect at P. Find the x-coordinate of P.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "Adding the equations gives 2x = 12. P = (6, 3).",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-15",
+      "concept": "Graphical solutions",
+      "difficulty": "standard",
+      "prompt": "The lines x + y = 12 and x - y = 4 intersect at P. Find the x-coordinate of P.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "Adding the equations gives 2x = 16. P = (8, 4).",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-16",
+      "concept": "Graphical solutions",
+      "difficulty": "challenge",
+      "prompt": "The lines y = 2x + 2 and y = -x + 14 intersect. Find the y-coordinate.",
+      "options": [
+        "12",
+        "10",
+        "9",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "At intersection, 3x = 12, so x = 4. Substitute to obtain y = 10.",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-17",
+      "concept": "Graphical solutions",
+      "difficulty": "challenge",
+      "prompt": "The lines y = 2x + 3 and y = -x + 21 intersect. Find the y-coordinate.",
+      "options": [
+        "15",
+        "14",
+        "16",
+        "17"
+      ],
+      "answer": 0,
+      "explanation": "At intersection, 3x = 18, so x = 6. Substitute to obtain y = 15.",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-18",
+      "concept": "Graphical solutions",
+      "difficulty": "challenge",
+      "prompt": "The lines y = 2x + 4 and y = -x + 28 intersect. Find the y-coordinate.",
+      "options": [
+        "19",
+        "21",
+        "22",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "At intersection, 3x = 24, so x = 8. Substitute to obtain y = 20.",
+      "conceptId": "graphs"
+    },
+    {
+      "id": "c03-v1-19",
+      "concept": "Consistency of equations",
+      "difficulty": "foundation",
+      "prompt": "How many solutions do x + y = 2 and 2x + 2y = 4 have?",
+      "options": [
+        "One solution",
+        "Exactly two solutions",
+        "Infinitely many solutions",
+        "No solution"
+      ],
+      "answer": 2,
+      "explanation": "The second equation is twice the first, so both describe the same line.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-20",
+      "concept": "Consistency of equations",
+      "difficulty": "foundation",
+      "prompt": "How many solutions do x + y = 3 and 2x + 2y = 6 have?",
+      "options": [
+        "Exactly two solutions",
+        "Infinitely many solutions",
+        "No solution",
+        "One solution"
+      ],
+      "answer": 1,
+      "explanation": "The second equation is twice the first, so both describe the same line.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-21",
+      "concept": "Consistency of equations",
+      "difficulty": "foundation",
+      "prompt": "How many solutions do x + y = 4 and 2x + 2y = 8 have?",
+      "options": [
+        "Infinitely many solutions",
+        "No solution",
+        "One solution",
+        "Exactly two solutions"
+      ],
+      "answer": 0,
+      "explanation": "The second equation is twice the first, so both describe the same line.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-22",
+      "concept": "Consistency of equations",
+      "difficulty": "standard",
+      "prompt": "How many solutions do x + 2y = 2 and 2x + 4y = 5 have?",
+      "options": [
+        "One solution",
+        "Infinitely many solutions",
+        "Exactly two solutions",
+        "No solution"
+      ],
+      "answer": 3,
+      "explanation": "Doubling the first gives a different constant from the second. The lines are distinct and parallel.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-23",
+      "concept": "Consistency of equations",
+      "difficulty": "standard",
+      "prompt": "How many solutions do x + 2y = 3 and 2x + 4y = 7 have?",
+      "options": [
+        "Infinitely many solutions",
+        "Exactly two solutions",
+        "No solution",
+        "One solution"
+      ],
+      "answer": 2,
+      "explanation": "Doubling the first gives a different constant from the second. The lines are distinct and parallel.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-24",
+      "concept": "Consistency of equations",
+      "difficulty": "standard",
+      "prompt": "How many solutions do x + 2y = 4 and 2x + 4y = 9 have?",
+      "options": [
+        "Exactly two solutions",
+        "No solution",
+        "One solution",
+        "Infinitely many solutions"
+      ],
+      "answer": 1,
+      "explanation": "Doubling the first gives a different constant from the second. The lines are distinct and parallel.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-25",
+      "concept": "Consistency of equations",
+      "difficulty": "challenge",
+      "prompt": "For infinitely many solutions, find k: 2x + 2y = 6; 4x + 4y = k.",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "The entire first equation must be doubled. Therefore k = 2 × 6 = 12.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-26",
+      "concept": "Consistency of equations",
+      "difficulty": "challenge",
+      "prompt": "For infinitely many solutions, find k: 3x + 2y = 9; 6x + 4y = k.",
+      "options": [
+        "17",
+        "19",
+        "20",
+        "18"
+      ],
+      "answer": 3,
+      "explanation": "The entire first equation must be doubled. Therefore k = 2 × 9 = 18.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-27",
+      "concept": "Consistency of equations",
+      "difficulty": "challenge",
+      "prompt": "For infinitely many solutions, find k: 4x + 2y = 12; 8x + 4y = k.",
+      "options": [
+        "25",
+        "26",
+        "24",
+        "23"
+      ],
+      "answer": 2,
+      "explanation": "The entire first equation must be doubled. Therefore k = 2 × 12 = 24.",
+      "conceptId": "consistency"
+    },
+    {
+      "id": "c03-v1-28",
+      "concept": "Solving by elimination",
+      "difficulty": "foundation",
+      "prompt": "x + y = 10 and x - y = 2. Find y.",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Subtract the second equation: 2y = 8. y = 4.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-29",
+      "concept": "Solving by elimination",
+      "difficulty": "foundation",
+      "prompt": "x + y = 15 and x - y = 3. Find y.",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "explanation": "Subtract the second equation: 2y = 12. y = 6.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-30",
+      "concept": "Solving by elimination",
+      "difficulty": "foundation",
+      "prompt": "x + y = 20 and x - y = 4. Find y.",
+      "options": [
+        "7",
+        "9",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "Subtract the second equation: 2y = 16. y = 8.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-31",
+      "concept": "Solving by elimination",
+      "difficulty": "standard",
+      "prompt": "2x + 3y = 24 and 2x + y = 16. Find x.",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "Subtract: 2y = 8, so y = 4. Then 2x = 12, so x = 6.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-32",
+      "concept": "Solving by elimination",
+      "difficulty": "standard",
+      "prompt": "2x + 3y = 36 and 2x + y = 24. Find x.",
+      "options": [
+        "11",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "explanation": "Subtract: 2y = 12, so y = 6. Then 2x = 18, so x = 9.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-33",
+      "concept": "Solving by elimination",
+      "difficulty": "standard",
+      "prompt": "2x + 3y = 48 and 2x + y = 32. Find x.",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "Subtract: 2y = 16, so y = 8. Then 2x = 24, so x = 12.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-34",
+      "concept": "Solving by elimination",
+      "difficulty": "challenge",
+      "prompt": "3x + 2y = 26 and 2x + 3y = 24. Find y.",
+      "options": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "explanation": "Multiply equations by 2 and 3 respectively; subtract to get 5y = 20. Thus y = 4, x = 6.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-35",
+      "concept": "Solving by elimination",
+      "difficulty": "challenge",
+      "prompt": "3x + 2y = 39 and 2x + 3y = 36. Find y.",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "Multiply equations by 2 and 3 respectively; subtract to get 5y = 30. Thus y = 6, x = 9.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-36",
+      "concept": "Solving by elimination",
+      "difficulty": "challenge",
+      "prompt": "3x + 2y = 52 and 2x + 3y = 48. Find y.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "Multiply equations by 2 and 3 respectively; subtract to get 5y = 40. Thus y = 8, x = 12.",
+      "conceptId": "elimination"
+    },
+    {
+      "id": "c03-v1-37",
+      "concept": "Modelling with two variables",
+      "difficulty": "foundation",
+      "prompt": "A pen and notebook cost ₹20. Two pens and a notebook cost ₹26. Find the pen price in rupees.",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "explanation": "Subtract the first total from the second: pen = 26 - 20 = 6.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-38",
+      "concept": "Modelling with two variables",
+      "difficulty": "foundation",
+      "prompt": "A pen and notebook cost ₹30. Two pens and a notebook cost ₹39. Find the pen price in rupees.",
+      "options": [
+        "8",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "Subtract the first total from the second: pen = 39 - 30 = 9.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-39",
+      "concept": "Modelling with two variables",
+      "difficulty": "foundation",
+      "prompt": "A pen and notebook cost ₹40. Two pens and a notebook cost ₹52. Find the pen price in rupees.",
+      "options": [
+        "13",
+        "14",
+        "12",
+        "11"
+      ],
+      "answer": 2,
+      "explanation": "Subtract the first total from the second: pen = 52 - 40 = 12.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-40",
+      "concept": "Modelling with two variables",
+      "difficulty": "standard",
+      "prompt": "Two adult tickets and one child ticket cost ₹40; one adult and two child tickets cost ₹32. Find one child ticket price in rupees.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "Double the second condition and subtract the first: three child tickets cost ₹24. One costs ₹8.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-41",
+      "concept": "Modelling with two variables",
+      "difficulty": "standard",
+      "prompt": "Two adult tickets and one child ticket cost ₹60; one adult and two child tickets cost ₹48. Find one child ticket price in rupees.",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "Double the second condition and subtract the first: three child tickets cost ₹36. One costs ₹12.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-42",
+      "concept": "Modelling with two variables",
+      "difficulty": "standard",
+      "prompt": "Two adult tickets and one child ticket cost ₹80; one adult and two child tickets cost ₹64. Find one child ticket price in rupees.",
+      "options": [
+        "15",
+        "17",
+        "18",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "Double the second condition and subtract the first: three child tickets cost ₹48. One costs ₹16.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-43",
+      "concept": "Modelling with two variables",
+      "difficulty": "challenge",
+      "prompt": "A boat travels 12 km downstream in 2 hours and 8 km upstream in 2 hours. Find the current speed in km/h.",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "explanation": "Downstream speed = 6; upstream speed = 4. Current speed is half their difference. Current = 1 km/h.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-44",
+      "concept": "Modelling with two variables",
+      "difficulty": "challenge",
+      "prompt": "A boat travels 18 km downstream in 2 hours and 12 km upstream in 2 hours. Find the current speed in km/h.",
+      "options": [
+        "7/2",
+        "3/2",
+        "1/2",
+        "5/2"
+      ],
+      "answer": 1,
+      "explanation": "Downstream speed = 9; upstream speed = 6. Current speed is half their difference. Current = 3/2 km/h.",
+      "conceptId": "modelling"
+    },
+    {
+      "id": "c03-v1-45",
+      "concept": "Modelling with two variables",
+      "difficulty": "challenge",
+      "prompt": "A boat travels 24 km downstream in 2 hours and 16 km upstream in 2 hours. Find the current speed in km/h.",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "Downstream speed = 12; upstream speed = 8. Current speed is half their difference. Current = 2 km/h.",
+      "conceptId": "modelling"
+    }
+  ]
+}

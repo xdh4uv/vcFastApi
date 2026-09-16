@@ -1,0 +1,791 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-12",
+  "concepts": [
+    {
+      "id": "cylinder",
+      "title": "Cylinder volume",
+      "legacyLabels": [
+        "cylinder volume"
+      ],
+      "explanation": "A cylinder has volume πr²h, equal to circular base area times perpendicular height. Volume is measured in cubic units.",
+      "example": {
+        "problem": "A cylinder has diameter 4 cm and height 6 cm. Find its volume in cm³.",
+        "steps": [
+          "Radius = 2.",
+          "V = π × 2² × 6 = 24π.",
+          "Answer: 24π."
+        ]
+      },
+      "commonMistake": "Use radius, not diameter, in r².",
+      "checklist": [
+        "Find the radius.",
+        "Multiply base area by height.",
+        "Check cubic units."
+      ]
+    },
+    {
+      "id": "cone",
+      "title": "Cone volume and recasting",
+      "legacyLabels": [
+        "cone volume"
+      ],
+      "explanation": "A cone has volume πr²h/3. Its perpendicular height differs from its slant height. When material is recast without loss, total volume stays constant.",
+      "example": {
+        "problem": "A cone of radius 3 cm has volume 18π cm³. Find its perpendicular height in cm.",
+        "steps": [
+          "3πh = 18π, so h = 6.",
+          "Answer: 6."
+        ]
+      },
+      "commonMistake": "Omitting the factor 1/3 makes the cone volume three times too large.",
+      "checklist": [
+        "Use perpendicular height.",
+        "Include the factor 1/3.",
+        "Equate volumes when material is conserved."
+      ]
+    },
+    {
+      "id": "hemisphere",
+      "title": "Hemisphere surface area",
+      "legacyLabels": [
+        "hemisphere area"
+      ],
+      "explanation": "A hemisphere has curved area 2πr² and total area 3πr² when its circular base is included. State which surfaces are exposed.",
+      "example": {
+        "problem": "Find the total surface area in cm² of a hemisphere of radius 2 cm, including its base.",
+        "steps": [
+          "Curved area plus base = (2 + 1)π × 2² = 12π.",
+          "Answer: 12π."
+        ]
+      },
+      "commonMistake": "Curved area excludes the flat circular base.",
+      "checklist": [
+        "Identify whether the base counts.",
+        "Use curved or total area accordingly.",
+        "Keep square units."
+      ]
+    },
+    {
+      "id": "combined-volume",
+      "title": "Combined solids and volume conservation",
+      "legacyLabels": [
+        "combined volume"
+      ],
+      "explanation": "Add non-overlapping component volumes to find a composite solid’s volume. For recasting, divide total material volume by the volume of one new piece.",
+      "example": {
+        "problem": "A solid cylinder of radius 3 cm and height 2 cm is topped by a hemisphere of radius 3 cm. Find total volume in cm³.",
+        "steps": [
+          "Cylinder = 18π; hemisphere = (2/3)π × 27 = 18π.",
+          "Total = 36π.",
+          "Answer: 36π."
+        ]
+      },
+      "commonMistake": "Do not add surface areas when the question asks for volume.",
+      "checklist": [
+        "Split into named solids.",
+        "Avoid overlapping volumes.",
+        "Use equal volumes if material is recast."
+      ]
+    },
+    {
+      "id": "exposed-area",
+      "title": "Exposed surface area",
+      "legacyLabels": [
+        "exposed area"
+      ],
+      "explanation": "Trace the surfaces visible outside a combined solid. Joined faces are internal and must be excluded; an exposed base must be included if requested.",
+      "example": {
+        "problem": "A cone has radius 6 cm and perpendicular height 8 cm. Find total surface area in cm² including its base.",
+        "steps": [
+          "Slant height = √(36+64) = 10.",
+          "Area = πr(l+r) = π × 6 × 16 = 96π.",
+          "Answer: 96π."
+        ]
+      },
+      "commonMistake": "Adding total areas of components double-counts their joined faces.",
+      "checklist": [
+        "List exposed curved surfaces.",
+        "List exposed flat surfaces.",
+        "Exclude internal joins."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c12-v1-01",
+      "concept": "Cylinder volume",
+      "difficulty": "foundation",
+      "prompt": "Find the volume in cm³ of a cylinder with radius 2 cm and height 5 cm.",
+      "options": [
+        "20π",
+        "19π",
+        "21π",
+        "22π"
+      ],
+      "answer": 0,
+      "explanation": "V = π × 2² × 5 = 20π cm³.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-02",
+      "concept": "Cylinder volume",
+      "difficulty": "foundation",
+      "prompt": "Find the volume in cm³ of a cylinder with radius 3 cm and height 5 cm.",
+      "options": [
+        "44π",
+        "46π",
+        "47π",
+        "45π"
+      ],
+      "answer": 3,
+      "explanation": "V = π × 3² × 5 = 45π cm³.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-03",
+      "concept": "Cylinder volume",
+      "difficulty": "foundation",
+      "prompt": "Find the volume in cm³ of a cylinder with radius 4 cm and height 5 cm.",
+      "options": [
+        "81π",
+        "82π",
+        "80π",
+        "79π"
+      ],
+      "answer": 2,
+      "explanation": "V = π × 4² × 5 = 80π cm³.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-04",
+      "concept": "Cylinder volume",
+      "difficulty": "standard",
+      "prompt": "A cylinder has diameter 4 cm and height 6 cm. Find its volume in cm³.",
+      "options": [
+        "26π",
+        "24π",
+        "23π",
+        "25π"
+      ],
+      "answer": 1,
+      "explanation": "Radius = 2. V = π × 2² × 6 = 24π.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-05",
+      "concept": "Cylinder volume",
+      "difficulty": "standard",
+      "prompt": "A cylinder has diameter 6 cm and height 9 cm. Find its volume in cm³.",
+      "options": [
+        "81π",
+        "80π",
+        "82π",
+        "83π"
+      ],
+      "answer": 0,
+      "explanation": "Radius = 3. V = π × 3² × 9 = 81π.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-06",
+      "concept": "Cylinder volume",
+      "difficulty": "standard",
+      "prompt": "A cylinder has diameter 8 cm and height 12 cm. Find its volume in cm³.",
+      "options": [
+        "191π",
+        "193π",
+        "194π",
+        "192π"
+      ],
+      "answer": 3,
+      "explanation": "Radius = 4. V = π × 4² × 12 = 192π.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-07",
+      "concept": "Cylinder volume",
+      "difficulty": "challenge",
+      "prompt": "A cylindrical vessel has radius 2 cm and contains 32π cm³ of water. Find water depth in cm.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "π × 4 × h = 32π. h = 8.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-08",
+      "concept": "Cylinder volume",
+      "difficulty": "challenge",
+      "prompt": "A cylindrical vessel has radius 3 cm and contains 108π cm³ of water. Find water depth in cm.",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "π × 9 × h = 108π. h = 12.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-09",
+      "concept": "Cylinder volume",
+      "difficulty": "challenge",
+      "prompt": "A cylindrical vessel has radius 4 cm and contains 256π cm³ of water. Find water depth in cm.",
+      "options": [
+        "16",
+        "15",
+        "17",
+        "18"
+      ],
+      "answer": 0,
+      "explanation": "π × 16 × h = 256π. h = 16.",
+      "conceptId": "cylinder"
+    },
+    {
+      "id": "c12-v1-10",
+      "concept": "Cone volume and recasting",
+      "difficulty": "foundation",
+      "prompt": "Find the volume in cm³ of a cone with radius 3 cm and perpendicular height 6 cm.",
+      "options": [
+        "17π",
+        "19π",
+        "20π",
+        "18π"
+      ],
+      "answer": 3,
+      "explanation": "V = π × 9 × 6/3 = 18π.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-11",
+      "concept": "Cone volume and recasting",
+      "difficulty": "foundation",
+      "prompt": "Find the volume in cm³ of a cone with radius 3 cm and perpendicular height 9 cm.",
+      "options": [
+        "28π",
+        "29π",
+        "27π",
+        "26π"
+      ],
+      "answer": 2,
+      "explanation": "V = π × 9 × 9/3 = 27π.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-12",
+      "concept": "Cone volume and recasting",
+      "difficulty": "foundation",
+      "prompt": "Find the volume in cm³ of a cone with radius 3 cm and perpendicular height 12 cm.",
+      "options": [
+        "38π",
+        "36π",
+        "35π",
+        "37π"
+      ],
+      "answer": 1,
+      "explanation": "V = π × 9 × 12/3 = 36π.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-13",
+      "concept": "Cone volume and recasting",
+      "difficulty": "standard",
+      "prompt": "A cone of radius 3 cm has volume 18π cm³. Find its perpendicular height in cm.",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "explanation": "3πh = 18π, so h = 6.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-14",
+      "concept": "Cone volume and recasting",
+      "difficulty": "standard",
+      "prompt": "A cone of radius 3 cm has volume 27π cm³. Find its perpendicular height in cm.",
+      "options": [
+        "8",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "3πh = 27π, so h = 9.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-15",
+      "concept": "Cone volume and recasting",
+      "difficulty": "standard",
+      "prompt": "A cone of radius 3 cm has volume 36π cm³. Find its perpendicular height in cm.",
+      "options": [
+        "13",
+        "14",
+        "12",
+        "11"
+      ],
+      "answer": 2,
+      "explanation": "3πh = 36π, so h = 12.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-16",
+      "concept": "Cone volume and recasting",
+      "difficulty": "challenge",
+      "prompt": "A solid cylinder of radius 3 cm and height 8 cm is melted without loss into cones of radius 3 cm and height 2 cm. How many cones are formed?",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "Cylinder volume = 72π; each cone volume = 6π. Their ratio is 12.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-17",
+      "concept": "Cone volume and recasting",
+      "difficulty": "challenge",
+      "prompt": "A solid cylinder of radius 3 cm and height 12 cm is melted without loss into cones of radius 3 cm and height 3 cm. How many cones are formed?",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "Cylinder volume = 108π; each cone volume = 9π. Their ratio is 12.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-18",
+      "concept": "Cone volume and recasting",
+      "difficulty": "challenge",
+      "prompt": "A solid cylinder of radius 3 cm and height 16 cm is melted without loss into cones of radius 3 cm and height 4 cm. How many cones are formed?",
+      "options": [
+        "11",
+        "13",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "Cylinder volume = 144π; each cone volume = 12π. Their ratio is 12.",
+      "conceptId": "cone"
+    },
+    {
+      "id": "c12-v1-19",
+      "concept": "Hemisphere surface area",
+      "difficulty": "foundation",
+      "prompt": "Find the curved surface area in cm² of a hemisphere of radius 2 cm.",
+      "options": [
+        "9π",
+        "10π",
+        "8π",
+        "7π"
+      ],
+      "answer": 2,
+      "explanation": "Curved area = 2π × 2² = 8π.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-20",
+      "concept": "Hemisphere surface area",
+      "difficulty": "foundation",
+      "prompt": "Find the curved surface area in cm² of a hemisphere of radius 3 cm.",
+      "options": [
+        "20π",
+        "18π",
+        "17π",
+        "19π"
+      ],
+      "answer": 1,
+      "explanation": "Curved area = 2π × 3² = 18π.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-21",
+      "concept": "Hemisphere surface area",
+      "difficulty": "foundation",
+      "prompt": "Find the curved surface area in cm² of a hemisphere of radius 4 cm.",
+      "options": [
+        "32π",
+        "31π",
+        "33π",
+        "34π"
+      ],
+      "answer": 0,
+      "explanation": "Curved area = 2π × 4² = 32π.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-22",
+      "concept": "Hemisphere surface area",
+      "difficulty": "standard",
+      "prompt": "Find the total surface area in cm² of a hemisphere of radius 2 cm, including its base.",
+      "options": [
+        "11π",
+        "13π",
+        "14π",
+        "12π"
+      ],
+      "answer": 3,
+      "explanation": "Curved area plus base = (2 + 1)π × 2² = 12π.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-23",
+      "concept": "Hemisphere surface area",
+      "difficulty": "standard",
+      "prompt": "Find the total surface area in cm² of a hemisphere of radius 3 cm, including its base.",
+      "options": [
+        "28π",
+        "29π",
+        "27π",
+        "26π"
+      ],
+      "answer": 2,
+      "explanation": "Curved area plus base = (2 + 1)π × 3² = 27π.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-24",
+      "concept": "Hemisphere surface area",
+      "difficulty": "standard",
+      "prompt": "Find the total surface area in cm² of a hemisphere of radius 4 cm, including its base.",
+      "options": [
+        "50π",
+        "48π",
+        "47π",
+        "49π"
+      ],
+      "answer": 1,
+      "explanation": "Curved area plus base = (2 + 1)π × 4² = 48π.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-25",
+      "concept": "Hemisphere surface area",
+      "difficulty": "challenge",
+      "prompt": "A hemisphere has curved surface area 8π cm². Find its radius in cm.",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "2πr² = 8π gives r² = 4. Take the positive root: r = 2.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-26",
+      "concept": "Hemisphere surface area",
+      "difficulty": "challenge",
+      "prompt": "A hemisphere has curved surface area 18π cm². Find its radius in cm.",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "explanation": "2πr² = 18π gives r² = 9. Take the positive root: r = 3.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-27",
+      "concept": "Hemisphere surface area",
+      "difficulty": "challenge",
+      "prompt": "A hemisphere has curved surface area 32π cm². Find its radius in cm.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "2πr² = 32π gives r² = 16. Take the positive root: r = 4.",
+      "conceptId": "hemisphere"
+    },
+    {
+      "id": "c12-v1-28",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "foundation",
+      "prompt": "A cylinder of radius 2 cm and height 3 cm is topped by a cone of the same radius and height 3 cm. Find total volume in cm³.",
+      "options": [
+        "18π",
+        "16π",
+        "15π",
+        "17π"
+      ],
+      "answer": 1,
+      "explanation": "Cylinder = 12π and cone = 4π. Total = 16π.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-29",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "foundation",
+      "prompt": "A cylinder of radius 3 cm and height 3 cm is topped by a cone of the same radius and height 3 cm. Find total volume in cm³.",
+      "options": [
+        "36π",
+        "35π",
+        "37π",
+        "38π"
+      ],
+      "answer": 0,
+      "explanation": "Cylinder = 27π and cone = 9π. Total = 36π.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-30",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "foundation",
+      "prompt": "A cylinder of radius 4 cm and height 3 cm is topped by a cone of the same radius and height 3 cm. Find total volume in cm³.",
+      "options": [
+        "63π",
+        "65π",
+        "66π",
+        "64π"
+      ],
+      "answer": 3,
+      "explanation": "Cylinder = 48π and cone = 16π. Total = 64π.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-31",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "standard",
+      "prompt": "A solid cylinder of radius 3 cm and height 2 cm is topped by a hemisphere of radius 3 cm. Find total volume in cm³.",
+      "options": [
+        "37π",
+        "38π",
+        "36π",
+        "35π"
+      ],
+      "answer": 2,
+      "explanation": "Cylinder = 18π; hemisphere = (2/3)π × 27 = 18π. Total = 36π.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-32",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "standard",
+      "prompt": "A solid cylinder of radius 3 cm and height 3 cm is topped by a hemisphere of radius 3 cm. Find total volume in cm³.",
+      "options": [
+        "47π",
+        "45π",
+        "44π",
+        "46π"
+      ],
+      "answer": 1,
+      "explanation": "Cylinder = 27π; hemisphere = (2/3)π × 27 = 18π. Total = 45π.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-33",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "standard",
+      "prompt": "A solid cylinder of radius 3 cm and height 4 cm is topped by a hemisphere of radius 3 cm. Find total volume in cm³.",
+      "options": [
+        "54π",
+        "53π",
+        "55π",
+        "56π"
+      ],
+      "answer": 0,
+      "explanation": "Cylinder = 36π; hemisphere = (2/3)π × 27 = 18π. Total = 54π.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-34",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "challenge",
+      "prompt": "A solid sphere of radius 6 cm is melted without loss into spheres of radius 2 cm. How many small spheres are formed?",
+      "options": [
+        "26",
+        "28",
+        "29",
+        "27"
+      ],
+      "answer": 3,
+      "explanation": "Sphere volume scales with the cube of the radius. Count = (6/2)³ = 27.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-35",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "challenge",
+      "prompt": "A solid sphere of radius 9 cm is melted without loss into spheres of radius 3 cm. How many small spheres are formed?",
+      "options": [
+        "28",
+        "29",
+        "27",
+        "26"
+      ],
+      "answer": 2,
+      "explanation": "Sphere volume scales with the cube of the radius. Count = (9/3)³ = 27.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-36",
+      "concept": "Combined solids and volume conservation",
+      "difficulty": "challenge",
+      "prompt": "A solid sphere of radius 12 cm is melted without loss into spheres of radius 4 cm. How many small spheres are formed?",
+      "options": [
+        "29",
+        "27",
+        "26",
+        "28"
+      ],
+      "answer": 1,
+      "explanation": "Sphere volume scales with the cube of the radius. Count = (12/4)³ = 27.",
+      "conceptId": "combined-volume"
+    },
+    {
+      "id": "c12-v1-37",
+      "concept": "Exposed surface area",
+      "difficulty": "foundation",
+      "prompt": "Find the curved surface area in cm² of a cylinder of radius 2 cm and height 5 cm; exclude both ends.",
+      "options": [
+        "20π",
+        "19π",
+        "21π",
+        "22π"
+      ],
+      "answer": 0,
+      "explanation": "Curved area = 2πrh = 2π × 2 × 5 = 20π.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-38",
+      "concept": "Exposed surface area",
+      "difficulty": "foundation",
+      "prompt": "Find the curved surface area in cm² of a cylinder of radius 3 cm and height 5 cm; exclude both ends.",
+      "options": [
+        "29π",
+        "31π",
+        "32π",
+        "30π"
+      ],
+      "answer": 3,
+      "explanation": "Curved area = 2πrh = 2π × 3 × 5 = 30π.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-39",
+      "concept": "Exposed surface area",
+      "difficulty": "foundation",
+      "prompt": "Find the curved surface area in cm² of a cylinder of radius 4 cm and height 5 cm; exclude both ends.",
+      "options": [
+        "41π",
+        "42π",
+        "40π",
+        "39π"
+      ],
+      "answer": 2,
+      "explanation": "Curved area = 2πrh = 2π × 4 × 5 = 40π.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-40",
+      "concept": "Exposed surface area",
+      "difficulty": "standard",
+      "prompt": "A cone has radius 6 cm and perpendicular height 8 cm. Find total surface area in cm² including its base.",
+      "options": [
+        "98π",
+        "96π",
+        "95π",
+        "97π"
+      ],
+      "answer": 1,
+      "explanation": "Slant height = √(36+64) = 10. Area = πr(l+r) = π × 6 × 16 = 96π.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-41",
+      "concept": "Exposed surface area",
+      "difficulty": "standard",
+      "prompt": "A cone has radius 9 cm and perpendicular height 12 cm. Find total surface area in cm² including its base.",
+      "options": [
+        "216π",
+        "215π",
+        "217π",
+        "218π"
+      ],
+      "answer": 0,
+      "explanation": "Slant height = √(81+144) = 15. Area = πr(l+r) = π × 9 × 24 = 216π.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-42",
+      "concept": "Exposed surface area",
+      "difficulty": "standard",
+      "prompt": "A cone has radius 12 cm and perpendicular height 16 cm. Find total surface area in cm² including its base.",
+      "options": [
+        "383π",
+        "385π",
+        "386π",
+        "384π"
+      ],
+      "answer": 3,
+      "explanation": "Slant height = √(144+256) = 20. Area = πr(l+r) = π × 12 × 32 = 384π.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-43",
+      "concept": "Exposed surface area",
+      "difficulty": "challenge",
+      "prompt": "A cylinder of radius 2 cm and height 6 cm has a same-radius hemisphere on top. Include the exposed bottom. Find total exposed area in cm².",
+      "options": [
+        "37π",
+        "38π",
+        "36π",
+        "35π"
+      ],
+      "answer": 2,
+      "explanation": "Cylinder curve = 24π, hemisphere curve = 8π, bottom = 4π. Total = 36π; the joined circular faces are internal.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-44",
+      "concept": "Exposed surface area",
+      "difficulty": "challenge",
+      "prompt": "A cylinder of radius 3 cm and height 9 cm has a same-radius hemisphere on top. Include the exposed bottom. Find total exposed area in cm².",
+      "options": [
+        "83π",
+        "81π",
+        "80π",
+        "82π"
+      ],
+      "answer": 1,
+      "explanation": "Cylinder curve = 54π, hemisphere curve = 18π, bottom = 9π. Total = 81π; the joined circular faces are internal.",
+      "conceptId": "exposed-area"
+    },
+    {
+      "id": "c12-v1-45",
+      "concept": "Exposed surface area",
+      "difficulty": "challenge",
+      "prompt": "A cylinder of radius 4 cm and height 12 cm has a same-radius hemisphere on top. Include the exposed bottom. Find total exposed area in cm².",
+      "options": [
+        "144π",
+        "143π",
+        "145π",
+        "146π"
+      ],
+      "answer": 0,
+      "explanation": "Cylinder curve = 96π, hemisphere curve = 32π, bottom = 16π. Total = 144π; the joined circular faces are internal.",
+      "conceptId": "exposed-area"
+    }
+  ]
+}

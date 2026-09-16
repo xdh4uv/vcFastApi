@@ -19,15 +19,16 @@ def verify(connection, bank=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--bank', choices=BANKS, default='real-numbers')
+    parser.add_argument('--bank', choices=[*BANKS, 'all'], default='real-numbers')
     args = parser.parse_args()
     load_dotenv(ROOT / '.env')
     engine = create_engine(os.environ['DATABASE_URL'], connect_args={'connect_timeout':15})
     with engine.connect() as connection:
         connection.execute(text('SET TRANSACTION READ ONLY'))
-        verify(connection, read_bank(args.bank))
+        for name in BANKS if args.bank == 'all' else [args.bank]:
+            verify(connection, read_bank(name))
     engine.dispose()
-    print('Verified 5 revision cards, 45 approved questions, concept foreign key and separate draft uniqueness.')
+    print(f'Verified {len(BANKS) if args.bank == "all" else 1} bank(s), published content, concept foreign key and separate draft uniqueness.')
 
 
 if __name__ == '__main__':

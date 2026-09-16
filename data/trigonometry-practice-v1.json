@@ -1,0 +1,786 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-08",
+  "concepts": [
+    {
+      "id": "standard-angles",
+      "title": "Standard angle values",
+      "legacyLabels": [
+        "standard angles"
+      ],
+      "explanation": "Recall exact values at 0°, 30°, 45°, 60° and 90°. For acute angles, sine increases and cosine decreases over these standard values. tan θ = sin θ/cos θ where cos θ is nonzero.",
+      "example": {
+        "problem": "Evaluate sin²30° + cos²30°.",
+        "steps": [
+          "The identity sin²θ + cos²θ = 1 applies at this angle.",
+          "Answer: 1."
+        ]
+      },
+      "commonMistake": "tan 90° is undefined; it is not zero.",
+      "checklist": [
+        "Identify the function and angle.",
+        "Use an exact value.",
+        "Check denominators before division."
+      ]
+    },
+    {
+      "id": "ratios",
+      "title": "Ratios in right triangles",
+      "legacyLabels": [
+        "ratios"
+      ],
+      "explanation": "For an acute angle, sin = opposite/hypotenuse, cos = adjacent/hypotenuse and tan = opposite/adjacent. Label sides relative to the chosen angle.",
+      "example": {
+        "problem": "θ is acute and sin θ = 3/5. Find cos θ.",
+        "steps": [
+          "Take opposite 3, hypotenuse 5; adjacent = √(25 − 9) = 4.",
+          "cos θ = 4/5.",
+          "Answer: 4/5."
+        ]
+      },
+      "commonMistake": "The opposite side changes when you choose the other acute angle.",
+      "checklist": [
+        "Mark the angle and hypotenuse.",
+        "Choose the correct side ratio.",
+        "Use Pythagoras if a side is missing."
+      ]
+    },
+    {
+      "id": "identities",
+      "title": "Using trigonometric identities",
+      "legacyLabels": [
+        "identities"
+      ],
+      "explanation": "The identities sin²θ + cos²θ = 1, sec²θ − tan²θ = 1 and cosec²θ − cot²θ = 1 relate squared ratios.",
+      "example": {
+        "problem": "If tan θ = 3/4, find sec²θ.",
+        "steps": [
+          "sec²θ = 1 + 9/16 = 25/16.",
+          "Answer: 25/16."
+        ]
+      },
+      "commonMistake": "sin²θ means (sin θ)², not sin(θ²).",
+      "checklist": [
+        "Choose the matching identity.",
+        "Rearrange before substituting.",
+        "Square fractions carefully."
+      ]
+    },
+    {
+      "id": "reciprocals",
+      "title": "Reciprocal ratios",
+      "legacyLabels": [],
+      "explanation": "For acute angles, sec = 1/cos, cosec = 1/sin and cot = 1/tan. A reciprocal reverses numerator and denominator.",
+      "example": {
+        "problem": "θ is acute and tan θ = 3/4. Find cot θ.",
+        "steps": [
+          "cot θ = 1/tan θ = 4/3.",
+          "Answer: 4/3."
+        ]
+      },
+      "commonMistake": "The reciprocal of a ratio is not one minus that ratio.",
+      "checklist": [
+        "Identify the reciprocal pair.",
+        "Invert the fraction.",
+        "Use a side triangle if needed."
+      ]
+    },
+    {
+      "id": "expressions",
+      "title": "Evaluating trigonometric expressions",
+      "legacyLabels": [],
+      "explanation": "Simplify expressions using exact ratios and identities before doing arithmetic. For acute angles all basic ratios are positive.",
+      "example": {
+        "problem": "θ is acute and tan θ = 3/4. Find tan θ + cot θ.",
+        "steps": [
+          "Add 3/4 + 4/3 using denominator 12.",
+          "The result is 25/12.",
+          "Answer: 25/12."
+        ]
+      },
+      "commonMistake": "Do not cancel terms across addition; only common factors may be cancelled.",
+      "checklist": [
+        "Simplify using identities.",
+        "Substitute exact fractions.",
+        "Combine using a common denominator."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c08-v1-01",
+      "concept": "Standard angle values",
+      "difficulty": "foundation",
+      "prompt": "What is sin 30°?",
+      "options": [
+        "1/2",
+        "√2/2",
+        "√3/2",
+        "1"
+      ],
+      "answer": 0,
+      "explanation": "The exact standard value is 1/2.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-02",
+      "concept": "Standard angle values",
+      "difficulty": "foundation",
+      "prompt": "What is sin 45°?",
+      "options": [
+        "1/2",
+        "√3/2",
+        "1",
+        "√2/2"
+      ],
+      "answer": 3,
+      "explanation": "The exact standard value is √2/2.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-03",
+      "concept": "Standard angle values",
+      "difficulty": "foundation",
+      "prompt": "What is sin 60°?",
+      "options": [
+        "√2/2",
+        "1",
+        "√3/2",
+        "1/2"
+      ],
+      "answer": 2,
+      "explanation": "The exact standard value is √3/2.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-04",
+      "concept": "Standard angle values",
+      "difficulty": "standard",
+      "prompt": "Evaluate sin²30° + cos²30°.",
+      "options": [
+        "3",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "The identity sin²θ + cos²θ = 1 applies at this angle.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-05",
+      "concept": "Standard angle values",
+      "difficulty": "standard",
+      "prompt": "Evaluate sin²45° + cos²45°.",
+      "options": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "The identity sin²θ + cos²θ = 1 applies at this angle.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-06",
+      "concept": "Standard angle values",
+      "difficulty": "standard",
+      "prompt": "Evaluate sin²60° + cos²60°.",
+      "options": [
+        "0",
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "The identity sin²θ + cos²θ = 1 applies at this angle.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-07",
+      "concept": "Standard angle values",
+      "difficulty": "challenge",
+      "prompt": "Evaluate (sin²30° + cos²30°)/(tan²45° + 1).",
+      "options": [
+        "2/3",
+        "1/4",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 2,
+      "explanation": "The numerator is 1 and tan45° = 1. Thus the value is 1/(1 + 1) = 1/2.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-08",
+      "concept": "Standard angle values",
+      "difficulty": "challenge",
+      "prompt": "Evaluate (sin²45° + cos²45°)/(tan²45° + 1).",
+      "options": [
+        "1/4",
+        "1/2",
+        "1/3",
+        "2/3"
+      ],
+      "answer": 1,
+      "explanation": "The numerator is 1 and tan45° = 1. Thus the value is 1/(1 + 1) = 1/2.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-09",
+      "concept": "Standard angle values",
+      "difficulty": "challenge",
+      "prompt": "Evaluate (sin²60° + cos²60°)/(tan²45° + 1).",
+      "options": [
+        "1/2",
+        "1/3",
+        "2/3",
+        "1/4"
+      ],
+      "answer": 0,
+      "explanation": "The numerator is 1 and tan45° = 1. Thus the value is 1/(1 + 1) = 1/2.",
+      "conceptId": "standard-angles"
+    },
+    {
+      "id": "c08-v1-10",
+      "concept": "Ratios in right triangles",
+      "difficulty": "foundation",
+      "prompt": "For acute θ, opposite side = 3, adjacent = 4. Find tan θ.",
+      "options": [
+        "4/5",
+        "2/3",
+        "5/6",
+        "3/4"
+      ],
+      "answer": 3,
+      "explanation": "tan θ = opposite/adjacent = 3/4.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-11",
+      "concept": "Ratios in right triangles",
+      "difficulty": "foundation",
+      "prompt": "For acute θ, opposite side = 5, adjacent = 12. Find tan θ.",
+      "options": [
+        "1/3",
+        "1/4",
+        "5/12",
+        "1/2"
+      ],
+      "answer": 2,
+      "explanation": "tan θ = opposite/adjacent = 5/12.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-12",
+      "concept": "Ratios in right triangles",
+      "difficulty": "foundation",
+      "prompt": "For acute θ, opposite side = 8, adjacent = 15. Find tan θ.",
+      "options": [
+        "1/3",
+        "8/15",
+        "1/2",
+        "2/3"
+      ],
+      "answer": 1,
+      "explanation": "tan θ = opposite/adjacent = 8/15.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-13",
+      "concept": "Ratios in right triangles",
+      "difficulty": "standard",
+      "prompt": "θ is acute and sin θ = 3/5. Find cos θ.",
+      "options": [
+        "4/5",
+        "5/6",
+        "3/4",
+        "2/3"
+      ],
+      "answer": 0,
+      "explanation": "Take opposite 3, hypotenuse 5; adjacent = √(25 − 9) = 4. cos θ = 4/5.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-14",
+      "concept": "Ratios in right triangles",
+      "difficulty": "standard",
+      "prompt": "θ is acute and sin θ = 5/13. Find cos θ.",
+      "options": [
+        "1",
+        "5/6",
+        "4/5",
+        "12/13"
+      ],
+      "answer": 3,
+      "explanation": "Take opposite 5, hypotenuse 13; adjacent = √(169 − 25) = 12. cos θ = 12/13.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-15",
+      "concept": "Ratios in right triangles",
+      "difficulty": "standard",
+      "prompt": "θ is acute and sin θ = 8/17. Find cos θ.",
+      "options": [
+        "4/5",
+        "1",
+        "15/17",
+        "5/6"
+      ],
+      "answer": 2,
+      "explanation": "Take opposite 8, hypotenuse 17; adjacent = √(289 − 64) = 15. cos θ = 15/17.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-16",
+      "concept": "Ratios in right triangles",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and tan θ = 3/4. Find sin θ + cos θ.",
+      "options": [
+        "17/5",
+        "7/5",
+        "2/5",
+        "12/5"
+      ],
+      "answer": 1,
+      "explanation": "The hypotenuse for sides 3 and 4 is 5. The sum is (3 + 4)/5 = 7/5.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-17",
+      "concept": "Ratios in right triangles",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and tan θ = 5/12. Find sin θ + cos θ.",
+      "options": [
+        "17/13",
+        "4/13",
+        "30/13",
+        "43/13"
+      ],
+      "answer": 0,
+      "explanation": "The hypotenuse for sides 5 and 12 is 13. The sum is (5 + 12)/13 = 17/13.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-18",
+      "concept": "Ratios in right triangles",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and tan θ = 8/15. Find sin θ + cos θ.",
+      "options": [
+        "6/17",
+        "40/17",
+        "57/17",
+        "23/17"
+      ],
+      "answer": 3,
+      "explanation": "The hypotenuse for sides 8 and 15 is 17. The sum is (8 + 15)/17 = 23/17.",
+      "conceptId": "ratios"
+    },
+    {
+      "id": "c08-v1-19",
+      "concept": "Using trigonometric identities",
+      "difficulty": "foundation",
+      "prompt": "For acute θ with tan θ = 3/4, find sec²θ − tan²θ.",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "explanation": "The difference equals 1 by the secant identity.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-20",
+      "concept": "Using trigonometric identities",
+      "difficulty": "foundation",
+      "prompt": "For acute θ with tan θ = 5/12, find sec²θ − tan²θ.",
+      "options": [
+        "3",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "The difference equals 1 by the secant identity.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-21",
+      "concept": "Using trigonometric identities",
+      "difficulty": "foundation",
+      "prompt": "For acute θ with tan θ = 8/15, find sec²θ − tan²θ.",
+      "options": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "The difference equals 1 by the secant identity.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-22",
+      "concept": "Using trigonometric identities",
+      "difficulty": "standard",
+      "prompt": "If tan θ = 3/4, find sec²θ.",
+      "options": [
+        "9/16",
+        "41/16",
+        "57/16",
+        "25/16"
+      ],
+      "answer": 3,
+      "explanation": "sec²θ = 1 + 9/16 = 25/16.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-23",
+      "concept": "Using trigonometric identities",
+      "difficulty": "standard",
+      "prompt": "If tan θ = 5/12, find sec²θ.",
+      "options": [
+        "313/144",
+        "457/144",
+        "169/144",
+        "25/144"
+      ],
+      "answer": 2,
+      "explanation": "sec²θ = 1 + 25/144 = 169/144.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-24",
+      "concept": "Using trigonometric identities",
+      "difficulty": "standard",
+      "prompt": "If tan θ = 8/15, find sec²θ.",
+      "options": [
+        "739/225",
+        "289/225",
+        "64/225",
+        "514/225"
+      ],
+      "answer": 1,
+      "explanation": "sec²θ = 1 + 64/225 = 289/225.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-25",
+      "concept": "Using trigonometric identities",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and sin θ = 3/5. Find cosec²θ − 1.",
+      "options": [
+        "16/9",
+        "7/9",
+        "25/9",
+        "34/9"
+      ],
+      "answer": 0,
+      "explanation": "cosec²θ = 25/9. Subtract 1 to obtain 16/9, which is cot²θ.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-26",
+      "concept": "Using trigonometric identities",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and sin θ = 5/13. Find cosec²θ − 1.",
+      "options": [
+        "119/25",
+        "169/25",
+        "194/25",
+        "144/25"
+      ],
+      "answer": 3,
+      "explanation": "cosec²θ = 169/25. Subtract 1 to obtain 144/25, which is cot²θ.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-27",
+      "concept": "Using trigonometric identities",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and sin θ = 8/17. Find cosec²θ − 1.",
+      "options": [
+        "289/64",
+        "353/64",
+        "225/64",
+        "161/64"
+      ],
+      "answer": 2,
+      "explanation": "cosec²θ = 289/64. Subtract 1 to obtain 225/64, which is cot²θ.",
+      "conceptId": "identities"
+    },
+    {
+      "id": "c08-v1-28",
+      "concept": "Reciprocal ratios",
+      "difficulty": "foundation",
+      "prompt": "If cos θ = 4/5, find sec θ.",
+      "options": [
+        "13/4",
+        "5/4",
+        "1/4",
+        "9/4"
+      ],
+      "answer": 1,
+      "explanation": "sec θ is the reciprocal of cos θ: 5/4.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-29",
+      "concept": "Reciprocal ratios",
+      "difficulty": "foundation",
+      "prompt": "If cos θ = 12/13, find sec θ.",
+      "options": [
+        "13/12",
+        "1/12",
+        "25/12",
+        "37/12"
+      ],
+      "answer": 0,
+      "explanation": "sec θ is the reciprocal of cos θ: 13/12.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-30",
+      "concept": "Reciprocal ratios",
+      "difficulty": "foundation",
+      "prompt": "If cos θ = 15/17, find sec θ.",
+      "options": [
+        "2/15",
+        "32/15",
+        "47/15",
+        "17/15"
+      ],
+      "answer": 3,
+      "explanation": "sec θ is the reciprocal of cos θ: 17/15.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-31",
+      "concept": "Reciprocal ratios",
+      "difficulty": "standard",
+      "prompt": "θ is acute and tan θ = 3/4. Find cot θ.",
+      "options": [
+        "7/3",
+        "10/3",
+        "4/3",
+        "1/3"
+      ],
+      "answer": 2,
+      "explanation": "cot θ = 1/tan θ = 4/3.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-32",
+      "concept": "Reciprocal ratios",
+      "difficulty": "standard",
+      "prompt": "θ is acute and tan θ = 5/12. Find cot θ.",
+      "options": [
+        "22/5",
+        "12/5",
+        "7/5",
+        "17/5"
+      ],
+      "answer": 1,
+      "explanation": "cot θ = 1/tan θ = 12/5.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-33",
+      "concept": "Reciprocal ratios",
+      "difficulty": "standard",
+      "prompt": "θ is acute and tan θ = 8/15. Find cot θ.",
+      "options": [
+        "15/8",
+        "7/8",
+        "23/8",
+        "31/8"
+      ],
+      "answer": 0,
+      "explanation": "cot θ = 1/tan θ = 15/8.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-34",
+      "concept": "Reciprocal ratios",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and cos θ = 4/5. Find cosec θ.",
+      "options": [
+        "2/3",
+        "8/3",
+        "11/3",
+        "5/3"
+      ],
+      "answer": 3,
+      "explanation": "sin θ = √(1 − 16/25) = 3/5. Invert to get cosec θ = 5/3.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-35",
+      "concept": "Reciprocal ratios",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and cos θ = 12/13. Find cosec θ.",
+      "options": [
+        "18/5",
+        "23/5",
+        "13/5",
+        "8/5"
+      ],
+      "answer": 2,
+      "explanation": "sin θ = √(1 − 144/169) = 5/13. Invert to get cosec θ = 13/5.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-36",
+      "concept": "Reciprocal ratios",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and cos θ = 15/17. Find cosec θ.",
+      "options": [
+        "33/8",
+        "17/8",
+        "9/8",
+        "25/8"
+      ],
+      "answer": 1,
+      "explanation": "sin θ = √(1 − 225/289) = 8/17. Invert to get cosec θ = 17/8.",
+      "conceptId": "reciprocals"
+    },
+    {
+      "id": "c08-v1-37",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "foundation",
+      "prompt": "θ is acute and sin θ = 3/5. Find sin θ × cosec θ.",
+      "options": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "Sine and cosecant are reciprocals; their product is 1.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-38",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "foundation",
+      "prompt": "θ is acute and sin θ = 5/13. Find sin θ × cosec θ.",
+      "options": [
+        "0",
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "Sine and cosecant are reciprocals; their product is 1.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-39",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "foundation",
+      "prompt": "θ is acute and sin θ = 8/17. Find sin θ × cosec θ.",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "explanation": "Sine and cosecant are reciprocals; their product is 1.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-40",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "standard",
+      "prompt": "θ is acute and tan θ = 3/4. Find tan θ + cot θ.",
+      "options": [
+        "49/12",
+        "25/12",
+        "13/12",
+        "37/12"
+      ],
+      "answer": 1,
+      "explanation": "Add 3/4 + 4/3 using denominator 12. The result is 25/12.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-41",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "standard",
+      "prompt": "θ is acute and tan θ = 5/12. Find tan θ + cot θ.",
+      "options": [
+        "169/60",
+        "109/60",
+        "229/60",
+        "289/60"
+      ],
+      "answer": 0,
+      "explanation": "Add 5/12 + 12/5 using denominator 60. The result is 169/60.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-42",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "standard",
+      "prompt": "θ is acute and tan θ = 8/15. Find tan θ + cot θ.",
+      "options": [
+        "169/120",
+        "409/120",
+        "529/120",
+        "289/120"
+      ],
+      "answer": 3,
+      "explanation": "Add 8/15 + 15/8 using denominator 120. The result is 289/120.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-43",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and cos θ = 4/5. Evaluate (1 − sin²θ)/cos θ.",
+      "options": [
+        "3/4",
+        "2/3",
+        "4/5",
+        "5/6"
+      ],
+      "answer": 2,
+      "explanation": "The numerator equals cos²θ. Division by nonzero cos θ leaves cos θ = 4/5.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-44",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and cos θ = 12/13. Evaluate (1 − sin²θ)/cos θ.",
+      "options": [
+        "4/5",
+        "12/13",
+        "1",
+        "5/6"
+      ],
+      "answer": 1,
+      "explanation": "The numerator equals cos²θ. Division by nonzero cos θ leaves cos θ = 12/13.",
+      "conceptId": "expressions"
+    },
+    {
+      "id": "c08-v1-45",
+      "concept": "Evaluating trigonometric expressions",
+      "difficulty": "challenge",
+      "prompt": "θ is acute and cos θ = 15/17. Evaluate (1 − sin²θ)/cos θ.",
+      "options": [
+        "15/17",
+        "5/6",
+        "4/5",
+        "1"
+      ],
+      "answer": 0,
+      "explanation": "The numerator equals cos²θ. Division by nonzero cos θ leaves cos θ = 15/17.",
+      "conceptId": "expressions"
+    }
+  ]
+}

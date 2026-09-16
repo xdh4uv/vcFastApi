@@ -1,0 +1,790 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-05",
+  "concepts": [
+    {
+      "id": "difference",
+      "title": "Common difference",
+      "legacyLabels": [
+        "common difference"
+      ],
+      "explanation": "In an AP, subtract each term from the next: the same difference d must recur. For indexed terms, aⱼ − aᵢ = (j − i)d.",
+      "example": {
+        "problem": "Three consecutive AP terms are 2, k, 10. Find k.",
+        "steps": [
+          "The middle term is their average: (2 + 10)/2 = 6.",
+          "Answer: 6."
+        ]
+      },
+      "commonMistake": "Do not reverse the subtraction or confuse index gaps with term values.",
+      "checklist": [
+        "Subtract in order.",
+        "Check another consecutive pair.",
+        "Divide an indexed term difference by the index gap."
+      ]
+    },
+    {
+      "id": "nth-term",
+      "title": "Finding an nth term",
+      "legacyLabels": [
+        "nth term"
+      ],
+      "explanation": "The nth term is aₙ = a + (n − 1)d, where a is the first term. There are n − 1 steps from the first term to the nth.",
+      "example": {
+        "problem": "Find a₁₂ for the AP 20, 18, 16, ….",
+        "steps": [
+          "d = -2; a₁₂ = 20 - 11 × 2 = -2.",
+          "Answer: -2."
+        ]
+      },
+      "commonMistake": "Using nd instead of (n − 1)d shifts the result by one term.",
+      "checklist": [
+        "Identify a and d.",
+        "Count n − 1 steps.",
+        "Add the change to a."
+      ]
+    },
+    {
+      "id": "sum",
+      "title": "Sum of an AP",
+      "legacyLabels": [
+        "sum"
+      ],
+      "explanation": "Sₙ = n[2a + (n − 1)d]/2, or n(a + l)/2 when the last term l is known. Pairing opposite-end terms explains the formula.",
+      "example": {
+        "problem": "Find the sum of the first 10 terms of 2, 4, 6, ….",
+        "steps": [
+          "The last term is 20.",
+          "S₁₀ = 10(2 + 20)/2 = 110.",
+          "Answer: 110."
+        ]
+      },
+      "commonMistake": "The nth term is not the sum of the first n terms.",
+      "checklist": [
+        "Find the term count.",
+        "Find the last term if useful.",
+        "Multiply count by average of first and last."
+      ]
+    },
+    {
+      "id": "position",
+      "title": "Locating a term",
+      "legacyLabels": [
+        "term position"
+      ],
+      "explanation": "Set the target equal to a + (n − 1)d and solve for n. A target is a term only if the resulting index is a positive integer.",
+      "example": {
+        "problem": "Which term of 20, 18, 16, … is zero?",
+        "steps": [
+          "0 = 20 − (k − 1)2, so k = 11.",
+          "Answer: 11."
+        ]
+      },
+      "commonMistake": "A fractional index does not name a term in the AP.",
+      "checklist": [
+        "Write the target equation.",
+        "Solve for n.",
+        "Check positivity and integrality."
+      ]
+    },
+    {
+      "id": "recovering",
+      "title": "Recovering an AP",
+      "legacyLabels": [
+        "recovering an AP"
+      ],
+      "explanation": "Two indexed terms give the common difference by subtraction. Substitute d into either aₙ equation to recover the first term.",
+      "example": {
+        "problem": "An AP has a₃ = 14, a₆ = 26. Find a.",
+        "steps": [
+          "d = 12/3 = 4.",
+          "a = a₃ − 2d = 6.",
+          "Answer: 6."
+        ]
+      },
+      "commonMistake": "Subtract indices as well as values.",
+      "checklist": [
+        "Use the gap between indices.",
+        "Recover d first.",
+        "Substitute to obtain a."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c05-v1-01",
+      "concept": "Common difference",
+      "difficulty": "foundation",
+      "prompt": "Find the common difference of 10, 8, 6, ….",
+      "options": [
+        "-2",
+        "-3",
+        "-1",
+        "0"
+      ],
+      "answer": 0,
+      "explanation": "d = 8 - 10 = -2.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-02",
+      "concept": "Common difference",
+      "difficulty": "foundation",
+      "prompt": "Find the common difference of 15, 12, 9, ….",
+      "options": [
+        "-4",
+        "-2",
+        "-1",
+        "-3"
+      ],
+      "answer": 3,
+      "explanation": "d = 12 - 15 = -3.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-03",
+      "concept": "Common difference",
+      "difficulty": "foundation",
+      "prompt": "Find the common difference of 20, 16, 12, ….",
+      "options": [
+        "-3",
+        "-2",
+        "-4",
+        "-5"
+      ],
+      "answer": 2,
+      "explanation": "d = 16 - 20 = -4.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-04",
+      "concept": "Common difference",
+      "difficulty": "standard",
+      "prompt": "Three consecutive AP terms are 2, k, 10. Find k.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "The middle term is their average: (2 + 10)/2 = 6.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-05",
+      "concept": "Common difference",
+      "difficulty": "standard",
+      "prompt": "Three consecutive AP terms are 3, k, 15. Find k.",
+      "options": [
+        "9",
+        "8",
+        "10",
+        "11"
+      ],
+      "answer": 0,
+      "explanation": "The middle term is their average: (3 + 15)/2 = 9.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-06",
+      "concept": "Common difference",
+      "difficulty": "standard",
+      "prompt": "Three consecutive AP terms are 4, k, 20. Find k.",
+      "options": [
+        "11",
+        "13",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "The middle term is their average: (4 + 20)/2 = 12.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-07",
+      "concept": "Common difference",
+      "difficulty": "challenge",
+      "prompt": "An AP has a₄ = 14 and a₉ = 34. Find d.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "Five steps change the value by 20. d = 20/5 = 4.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-08",
+      "concept": "Common difference",
+      "difficulty": "challenge",
+      "prompt": "An AP has a₄ = 21 and a₉ = 51. Find d.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "Five steps change the value by 30. d = 30/5 = 6.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-09",
+      "concept": "Common difference",
+      "difficulty": "challenge",
+      "prompt": "An AP has a₄ = 28 and a₉ = 68. Find d.",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "Five steps change the value by 40. d = 40/5 = 8.",
+      "conceptId": "difference"
+    },
+    {
+      "id": "c05-v1-10",
+      "concept": "Finding an nth term",
+      "difficulty": "foundation",
+      "prompt": "For a = 2 and d = 3, find a₅.",
+      "options": [
+        "13",
+        "15",
+        "16",
+        "14"
+      ],
+      "answer": 3,
+      "explanation": "a₅ = 2 + 4 × 3 = 14.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-11",
+      "concept": "Finding an nth term",
+      "difficulty": "foundation",
+      "prompt": "For a = 3 and d = 3, find a₅.",
+      "options": [
+        "16",
+        "17",
+        "15",
+        "14"
+      ],
+      "answer": 2,
+      "explanation": "a₅ = 3 + 4 × 3 = 15.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-12",
+      "concept": "Finding an nth term",
+      "difficulty": "foundation",
+      "prompt": "For a = 4 and d = 3, find a₅.",
+      "options": [
+        "18",
+        "16",
+        "15",
+        "17"
+      ],
+      "answer": 1,
+      "explanation": "a₅ = 4 + 4 × 3 = 16.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-13",
+      "concept": "Finding an nth term",
+      "difficulty": "standard",
+      "prompt": "Find a₁₂ for the AP 20, 18, 16, ….",
+      "options": [
+        "-2",
+        "-3",
+        "-1",
+        "0"
+      ],
+      "answer": 0,
+      "explanation": "d = -2; a₁₂ = 20 - 11 × 2 = -2.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-14",
+      "concept": "Finding an nth term",
+      "difficulty": "standard",
+      "prompt": "Find a₁₂ for the AP 30, 27, 24, ….",
+      "options": [
+        "-4",
+        "-2",
+        "-1",
+        "-3"
+      ],
+      "answer": 3,
+      "explanation": "d = -3; a₁₂ = 30 - 11 × 3 = -3.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-15",
+      "concept": "Finding an nth term",
+      "difficulty": "standard",
+      "prompt": "Find a₁₂ for the AP 40, 36, 32, ….",
+      "options": [
+        "-3",
+        "-2",
+        "-4",
+        "-5"
+      ],
+      "answer": 2,
+      "explanation": "d = -4; a₁₂ = 40 - 11 × 4 = -4.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-16",
+      "concept": "Finding an nth term",
+      "difficulty": "challenge",
+      "prompt": "An AP has a₃ = 10, a₇ = 26. Find a₁₀.",
+      "options": [
+        "40",
+        "38",
+        "37",
+        "39"
+      ],
+      "answer": 1,
+      "explanation": "d = 16/4 = 4. From a₇ take three steps: a₁₀ = 26 + 12 = 38.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-17",
+      "concept": "Finding an nth term",
+      "difficulty": "challenge",
+      "prompt": "An AP has a₃ = 15, a₇ = 39. Find a₁₀.",
+      "options": [
+        "57",
+        "56",
+        "58",
+        "59"
+      ],
+      "answer": 0,
+      "explanation": "d = 24/4 = 6. From a₇ take three steps: a₁₀ = 39 + 18 = 57.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-18",
+      "concept": "Finding an nth term",
+      "difficulty": "challenge",
+      "prompt": "An AP has a₃ = 20, a₇ = 52. Find a₁₀.",
+      "options": [
+        "75",
+        "77",
+        "78",
+        "76"
+      ],
+      "answer": 3,
+      "explanation": "d = 32/4 = 8. From a₇ take three steps: a₁₀ = 52 + 24 = 76.",
+      "conceptId": "nth-term"
+    },
+    {
+      "id": "c05-v1-19",
+      "concept": "Sum of an AP",
+      "difficulty": "foundation",
+      "prompt": "An AP has 6 terms, first 2 and last 12. Find its sum.",
+      "options": [
+        "43",
+        "44",
+        "42",
+        "41"
+      ],
+      "answer": 2,
+      "explanation": "S = 6(2 + 12)/2 = 42.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-20",
+      "concept": "Sum of an AP",
+      "difficulty": "foundation",
+      "prompt": "An AP has 6 terms, first 3 and last 13. Find its sum.",
+      "options": [
+        "50",
+        "48",
+        "47",
+        "49"
+      ],
+      "answer": 1,
+      "explanation": "S = 6(3 + 13)/2 = 48.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-21",
+      "concept": "Sum of an AP",
+      "difficulty": "foundation",
+      "prompt": "An AP has 6 terms, first 4 and last 14. Find its sum.",
+      "options": [
+        "54",
+        "53",
+        "55",
+        "56"
+      ],
+      "answer": 0,
+      "explanation": "S = 6(4 + 14)/2 = 54.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-22",
+      "concept": "Sum of an AP",
+      "difficulty": "standard",
+      "prompt": "Find the sum of the first 10 terms of 2, 4, 6, ….",
+      "options": [
+        "109",
+        "111",
+        "112",
+        "110"
+      ],
+      "answer": 3,
+      "explanation": "The last term is 20. S₁₀ = 10(2 + 20)/2 = 110.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-23",
+      "concept": "Sum of an AP",
+      "difficulty": "standard",
+      "prompt": "Find the sum of the first 10 terms of 3, 5, 7, ….",
+      "options": [
+        "121",
+        "122",
+        "120",
+        "119"
+      ],
+      "answer": 2,
+      "explanation": "The last term is 21. S₁₀ = 10(3 + 21)/2 = 120.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-24",
+      "concept": "Sum of an AP",
+      "difficulty": "standard",
+      "prompt": "Find the sum of the first 10 terms of 4, 6, 8, ….",
+      "options": [
+        "132",
+        "130",
+        "129",
+        "131"
+      ],
+      "answer": 1,
+      "explanation": "The last term is 22. S₁₀ = 10(4 + 22)/2 = 130.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-25",
+      "concept": "Sum of an AP",
+      "difficulty": "challenge",
+      "prompt": "Rows in a hall contain 12, 14, 16, … seats. Find the total seats in the first 12 rows.",
+      "options": [
+        "276",
+        "275",
+        "277",
+        "278"
+      ],
+      "answer": 0,
+      "explanation": "The 12th row has 34 seats. Total = 12(12 + 34)/2 = 276.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-26",
+      "concept": "Sum of an AP",
+      "difficulty": "challenge",
+      "prompt": "Rows in a hall contain 13, 15, 17, … seats. Find the total seats in the first 12 rows.",
+      "options": [
+        "287",
+        "289",
+        "290",
+        "288"
+      ],
+      "answer": 3,
+      "explanation": "The 12th row has 35 seats. Total = 12(13 + 35)/2 = 288.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-27",
+      "concept": "Sum of an AP",
+      "difficulty": "challenge",
+      "prompt": "Rows in a hall contain 14, 16, 18, … seats. Find the total seats in the first 12 rows.",
+      "options": [
+        "301",
+        "302",
+        "300",
+        "299"
+      ],
+      "answer": 2,
+      "explanation": "The 12th row has 36 seats. Total = 12(14 + 36)/2 = 300.",
+      "conceptId": "sum"
+    },
+    {
+      "id": "c05-v1-28",
+      "concept": "Locating a term",
+      "difficulty": "foundation",
+      "prompt": "Which term of 2, 4, 6, … equals 10?",
+      "options": [
+        "7",
+        "5",
+        "4",
+        "6"
+      ],
+      "answer": 1,
+      "explanation": "10 = 2 + (k − 1)2 gives k = 5.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-29",
+      "concept": "Locating a term",
+      "difficulty": "foundation",
+      "prompt": "Which term of 3, 5, 7, … equals 11?",
+      "options": [
+        "5",
+        "4",
+        "6",
+        "7"
+      ],
+      "answer": 0,
+      "explanation": "11 = 3 + (k − 1)2 gives k = 5.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-30",
+      "concept": "Locating a term",
+      "difficulty": "foundation",
+      "prompt": "Which term of 4, 6, 8, … equals 12?",
+      "options": [
+        "4",
+        "6",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "explanation": "12 = 4 + (k − 1)2 gives k = 5.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-31",
+      "concept": "Locating a term",
+      "difficulty": "standard",
+      "prompt": "Which term of 20, 18, 16, … is zero?",
+      "options": [
+        "12",
+        "13",
+        "11",
+        "10"
+      ],
+      "answer": 2,
+      "explanation": "0 = 20 − (k − 1)2, so k = 11.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-32",
+      "concept": "Locating a term",
+      "difficulty": "standard",
+      "prompt": "Which term of 30, 27, 24, … is zero?",
+      "options": [
+        "13",
+        "11",
+        "10",
+        "12"
+      ],
+      "answer": 1,
+      "explanation": "0 = 30 − (k − 1)3, so k = 11.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-33",
+      "concept": "Locating a term",
+      "difficulty": "standard",
+      "prompt": "Which term of 40, 36, 32, … is zero?",
+      "options": [
+        "11",
+        "10",
+        "12",
+        "13"
+      ],
+      "answer": 0,
+      "explanation": "0 = 40 − (k − 1)4, so k = 11.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-34",
+      "concept": "Locating a term",
+      "difficulty": "challenge",
+      "prompt": "How many positive terms are in 11, 9, 7, …?",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "aₖ = 11 − (k − 1)2 > 0. The sixth term is 1 and the seventh is -1, so there are 6 positive terms.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-35",
+      "concept": "Locating a term",
+      "difficulty": "challenge",
+      "prompt": "How many positive terms are in 16, 13, 10, …?",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "aₖ = 16 − (k − 1)3 > 0. The sixth term is 1 and the seventh is -2, so there are 6 positive terms.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-36",
+      "concept": "Locating a term",
+      "difficulty": "challenge",
+      "prompt": "How many positive terms are in 21, 17, 13, …?",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "aₖ = 21 − (k − 1)4 > 0. The sixth term is 1 and the seventh is -3, so there are 6 positive terms.",
+      "conceptId": "position"
+    },
+    {
+      "id": "c05-v1-37",
+      "concept": "Recovering an AP",
+      "difficulty": "foundation",
+      "prompt": "An AP has a₂ = 6, d = 2. Find a.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "a = a₂ − d = 6 − 2 = 4.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-38",
+      "concept": "Recovering an AP",
+      "difficulty": "foundation",
+      "prompt": "An AP has a₂ = 9, d = 3. Find a.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "a = a₂ − d = 9 − 3 = 6.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-39",
+      "concept": "Recovering an AP",
+      "difficulty": "foundation",
+      "prompt": "An AP has a₂ = 12, d = 4. Find a.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "a = a₂ − d = 12 − 4 = 8.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-40",
+      "concept": "Recovering an AP",
+      "difficulty": "standard",
+      "prompt": "An AP has a₃ = 14, a₆ = 26. Find a.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "d = 12/3 = 4. a = a₃ − 2d = 6.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-41",
+      "concept": "Recovering an AP",
+      "difficulty": "standard",
+      "prompt": "An AP has a₃ = 21, a₆ = 39. Find a.",
+      "options": [
+        "9",
+        "8",
+        "10",
+        "11"
+      ],
+      "answer": 0,
+      "explanation": "d = 18/3 = 6. a = a₃ − 2d = 9.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-42",
+      "concept": "Recovering an AP",
+      "difficulty": "standard",
+      "prompt": "An AP has a₃ = 28, a₆ = 52. Find a.",
+      "options": [
+        "11",
+        "13",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "d = 24/3 = 8. a = a₃ − 2d = 12.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-43",
+      "concept": "Recovering an AP",
+      "difficulty": "challenge",
+      "prompt": "An AP has S₄ = 40 and d = 4. Find a.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "40 = 4[2a + 3(4)]/2. 4a = 16; a = 4.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-44",
+      "concept": "Recovering an AP",
+      "difficulty": "challenge",
+      "prompt": "An AP has S₄ = 60 and d = 6. Find a.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "60 = 4[2a + 3(6)]/2. 4a = 24; a = 6.",
+      "conceptId": "recovering"
+    },
+    {
+      "id": "c05-v1-45",
+      "concept": "Recovering an AP",
+      "difficulty": "challenge",
+      "prompt": "An AP has S₄ = 80 and d = 8. Find a.",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "80 = 4[2a + 3(8)]/2. 4a = 32; a = 8.",
+      "conceptId": "recovering"
+    }
+  ]
+}

@@ -1,0 +1,790 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-06",
+  "concepts": [
+    {
+      "id": "criteria",
+      "title": "Recognising similarity",
+      "legacyLabels": [
+        "similarity criteria"
+      ],
+      "explanation": "AA compares two angles, SAS compares two proportional sides and the included angle, and SSS compares all three side ratios. Always match corresponding vertices.",
+      "example": {
+        "problem": "Two triangles have sides 2, 4 and 6, 12, with equal included angles of 50°. Which criterion applies?",
+        "steps": [
+          "Both side ratios are 1:3 and the included angles agree.",
+          "Answer: SAS."
+        ]
+      },
+      "commonMistake": "Two sides and a non-included angle do not establish SAS similarity.",
+      "checklist": [
+        "Mark corresponding vertices.",
+        "Identify exactly what is given.",
+        "Apply the matching criterion."
+      ]
+    },
+    {
+      "id": "scale",
+      "title": "Corresponding sides and scale",
+      "legacyLabels": [
+        "scale factor"
+      ],
+      "explanation": "In similar triangles all corresponding lengths have the same scale factor. Their perimeters have this factor too.",
+      "example": {
+        "problem": "Similar triangles have smaller:larger side ratio 3:5. A larger side is 10 cm. Find its smaller match in cm.",
+        "steps": [
+          "Multiply by 3/5: 10 × 3/5 = 6.",
+          "Answer: 6."
+        ]
+      },
+      "commonMistake": "Keep smaller-to-larger or larger-to-smaller ratios consistent.",
+      "checklist": [
+        "Pair corresponding lengths.",
+        "Find one scale factor.",
+        "Apply it to the required length."
+      ]
+    },
+    {
+      "id": "proportionality",
+      "title": "Basic proportionality theorem",
+      "legacyLabels": [
+        "proportionality"
+      ],
+      "explanation": "If DE is parallel to BC in triangle ABC, with D on AB and E on AC, then AD/DB = AE/EC. Conversely equal ratios with points on those sides establish parallelism.",
+      "example": {
+        "problem": "In triangle ABC, DE ∥ BC, D on AB, E on AC. DB = 6, AE = 4, EC = 6 cm. Find AD in cm.",
+        "steps": [
+          "AD/6 = 4/6, so AD = 4.",
+          "Answer: 4."
+        ]
+      },
+      "commonMistake": "Do not mix a part-to-part ratio with a part-to-whole ratio.",
+      "checklist": [
+        "Check the parallel-line condition.",
+        "Write ratios using matching segments.",
+        "Cross-multiply and check the result."
+      ]
+    },
+    {
+      "id": "side-ratios",
+      "title": "Using three side ratios",
+      "legacyLabels": [
+        "SSS similarity"
+      ],
+      "explanation": "SSS similarity requires one common ratio for all three corresponding sides. Sorting sides by length can help find the correspondence.",
+      "example": {
+        "problem": "Similar triangles have ordered side lists (5, 12, 13) and (10, x, 26). Find x.",
+        "steps": [
+          "The first and third side ratios both give scale 2.",
+          "The middle side is 12 × 2 = 24.",
+          "Answer: 24."
+        ]
+      },
+      "commonMistake": "Matching just one or two side ratios is insufficient for SSS.",
+      "checklist": [
+        "Order or label corresponding sides.",
+        "Compare all three ratios.",
+        "Check the triangle inequality."
+      ]
+    },
+    {
+      "id": "part-whole",
+      "title": "Similar subtriangles",
+      "legacyLabels": [
+        "part and whole"
+      ],
+      "explanation": "When DE is parallel to BC, triangles ADE and ABC are similar. Therefore AD/AB = AE/AC = DE/BC. Whole sides include both component segments.",
+      "example": {
+        "problem": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 4, AE = 6, AC = 18 cm. Find AB in cm.",
+        "steps": [
+          "AD/AB = AE/AC = 1/3.",
+          "AB = 3 × 4 = 12.",
+          "Answer: 12."
+        ]
+      },
+      "commonMistake": "AB is AD + DB, not DB alone.",
+      "checklist": [
+        "Distinguish whole sides from parts.",
+        "Use one consistent similarity ratio.",
+        "Add or subtract segments only after solving."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c06-v1-01",
+      "concept": "Recognising similarity",
+      "difficulty": "foundation",
+      "prompt": "Two triangles each have angles 40° and 40°. Which criterion proves similarity?",
+      "options": [
+        "AA",
+        "SAS",
+        "SSS",
+        "No similarity criterion is established"
+      ],
+      "answer": 0,
+      "explanation": "Two corresponding angles agree; the third agrees because each angle sum is 180°.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-02",
+      "concept": "Recognising similarity",
+      "difficulty": "foundation",
+      "prompt": "Two triangles each have angles 60° and 40°. Which criterion proves similarity?",
+      "options": [
+        "SAS",
+        "SSS",
+        "No similarity criterion is established",
+        "AA"
+      ],
+      "answer": 3,
+      "explanation": "Two corresponding angles agree; the third agrees because each angle sum is 180°.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-03",
+      "concept": "Recognising similarity",
+      "difficulty": "foundation",
+      "prompt": "Two triangles each have angles 80° and 40°. Which criterion proves similarity?",
+      "options": [
+        "SSS",
+        "No similarity criterion is established",
+        "AA",
+        "SAS"
+      ],
+      "answer": 2,
+      "explanation": "Two corresponding angles agree; the third agrees because each angle sum is 180°.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-04",
+      "concept": "Recognising similarity",
+      "difficulty": "standard",
+      "prompt": "Two triangles have sides 2, 4 and 6, 12, with equal included angles of 50°. Which criterion applies?",
+      "options": [
+        "No similarity criterion is established",
+        "SAS",
+        "AA",
+        "SSS"
+      ],
+      "answer": 1,
+      "explanation": "Both side ratios are 1:3 and the included angles agree.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-05",
+      "concept": "Recognising similarity",
+      "difficulty": "standard",
+      "prompt": "Two triangles have sides 3, 6 and 9, 18, with equal included angles of 50°. Which criterion applies?",
+      "options": [
+        "SAS",
+        "AA",
+        "SSS",
+        "No similarity criterion is established"
+      ],
+      "answer": 0,
+      "explanation": "Both side ratios are 1:3 and the included angles agree.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-06",
+      "concept": "Recognising similarity",
+      "difficulty": "standard",
+      "prompt": "Two triangles have sides 4, 8 and 12, 24, with equal included angles of 50°. Which criterion applies?",
+      "options": [
+        "AA",
+        "SSS",
+        "No similarity criterion is established",
+        "SAS"
+      ],
+      "answer": 3,
+      "explanation": "Both side ratios are 1:3 and the included angles agree.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-07",
+      "concept": "Recognising similarity",
+      "difficulty": "challenge",
+      "prompt": "Triangles have sides 2, 3, 4 and 4, 6, 8. Which criterion proves similarity?",
+      "options": [
+        "SAS",
+        "No similarity criterion is established",
+        "SSS",
+        "AA"
+      ],
+      "answer": 2,
+      "explanation": "Each corresponding side ratio is 1:2, so all three ratios agree.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-08",
+      "concept": "Recognising similarity",
+      "difficulty": "challenge",
+      "prompt": "Triangles have sides 3, 4, 5 and 6, 8, 10. Which criterion proves similarity?",
+      "options": [
+        "No similarity criterion is established",
+        "SSS",
+        "AA",
+        "SAS"
+      ],
+      "answer": 1,
+      "explanation": "Each corresponding side ratio is 1:2, so all three ratios agree.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-09",
+      "concept": "Recognising similarity",
+      "difficulty": "challenge",
+      "prompt": "Triangles have sides 4, 5, 6 and 8, 10, 12. Which criterion proves similarity?",
+      "options": [
+        "SSS",
+        "AA",
+        "SAS",
+        "No similarity criterion is established"
+      ],
+      "answer": 0,
+      "explanation": "Each corresponding side ratio is 1:2, so all three ratios agree.",
+      "conceptId": "criteria"
+    },
+    {
+      "id": "c06-v1-10",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "foundation",
+      "prompt": "Similar triangles have smaller:larger side ratio 2:3. A smaller side is 4 cm. Find its larger match in cm.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "Multiply by 3/2: 4 × 3/2 = 6.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-11",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "foundation",
+      "prompt": "Similar triangles have smaller:larger side ratio 2:3. A smaller side is 6 cm. Find its larger match in cm.",
+      "options": [
+        "10",
+        "11",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "Multiply by 3/2: 6 × 3/2 = 9.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-12",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "foundation",
+      "prompt": "Similar triangles have smaller:larger side ratio 2:3. A smaller side is 8 cm. Find its larger match in cm.",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "Multiply by 3/2: 8 × 3/2 = 12.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-13",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "standard",
+      "prompt": "Similar triangles have smaller:larger side ratio 3:5. A larger side is 10 cm. Find its smaller match in cm.",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "explanation": "Multiply by 3/5: 10 × 3/5 = 6.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-14",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "standard",
+      "prompt": "Similar triangles have smaller:larger side ratio 3:5. A larger side is 15 cm. Find its smaller match in cm.",
+      "options": [
+        "8",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "Multiply by 3/5: 15 × 3/5 = 9.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-15",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "standard",
+      "prompt": "Similar triangles have smaller:larger side ratio 3:5. A larger side is 20 cm. Find its smaller match in cm.",
+      "options": [
+        "13",
+        "14",
+        "12",
+        "11"
+      ],
+      "answer": 2,
+      "explanation": "Multiply by 3/5: 20 × 3/5 = 12.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-16",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "challenge",
+      "prompt": "Similar triangles have perimeters 24 and 36 cm. A side in the first is 4 cm. Find the corresponding side in the second in cm.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "Perimeters and corresponding sides have the same ratio 2:3. The side is 4 × 3/2 = 6.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-17",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "challenge",
+      "prompt": "Similar triangles have perimeters 36 and 54 cm. A side in the first is 6 cm. Find the corresponding side in the second in cm.",
+      "options": [
+        "9",
+        "8",
+        "10",
+        "11"
+      ],
+      "answer": 0,
+      "explanation": "Perimeters and corresponding sides have the same ratio 2:3. The side is 6 × 3/2 = 9.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-18",
+      "concept": "Corresponding sides and scale",
+      "difficulty": "challenge",
+      "prompt": "Similar triangles have perimeters 48 and 72 cm. A side in the first is 8 cm. Find the corresponding side in the second in cm.",
+      "options": [
+        "11",
+        "13",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "Perimeters and corresponding sides have the same ratio 2:3. The side is 8 × 3/2 = 12.",
+      "conceptId": "scale"
+    },
+    {
+      "id": "c06-v1-19",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "foundation",
+      "prompt": "In triangle ABC, D is on AB, E on AC, DE ∥ BC. AD = 2, DB = 4, AE = 2 cm. Find EC in cm.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "AD/DB = AE/EC gives 2/4 = 2/EC. EC = 4.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-20",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "foundation",
+      "prompt": "In triangle ABC, D is on AB, E on AC, DE ∥ BC. AD = 3, DB = 6, AE = 3 cm. Find EC in cm.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "AD/DB = AE/EC gives 3/6 = 3/EC. EC = 6.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-21",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "foundation",
+      "prompt": "In triangle ABC, D is on AB, E on AC, DE ∥ BC. AD = 4, DB = 8, AE = 4 cm. Find EC in cm.",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "AD/DB = AE/EC gives 4/8 = 4/EC. EC = 8.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-22",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "standard",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. DB = 6, AE = 4, EC = 6 cm. Find AD in cm.",
+      "options": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "explanation": "AD/6 = 4/6, so AD = 4.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-23",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "standard",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. DB = 9, AE = 6, EC = 9 cm. Find AD in cm.",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "AD/9 = 6/9, so AD = 6.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-24",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "standard",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. DB = 12, AE = 8, EC = 12 cm. Find AD in cm.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "AD/12 = 8/12, so AD = 8.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-25",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "challenge",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 6, AE = 4, EC = 8 cm. Find AB in cm.",
+      "options": [
+        "18",
+        "17",
+        "19",
+        "20"
+      ],
+      "answer": 0,
+      "explanation": "AD/DB = 1/2, so DB = 12. AB = AD + DB = 18.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-26",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "challenge",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 9, AE = 6, EC = 12 cm. Find AB in cm.",
+      "options": [
+        "26",
+        "28",
+        "29",
+        "27"
+      ],
+      "answer": 3,
+      "explanation": "AD/DB = 1/2, so DB = 18. AB = AD + DB = 27.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-27",
+      "concept": "Basic proportionality theorem",
+      "difficulty": "challenge",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 12, AE = 8, EC = 16 cm. Find AB in cm.",
+      "options": [
+        "37",
+        "38",
+        "36",
+        "35"
+      ],
+      "answer": 2,
+      "explanation": "AD/DB = 1/2, so DB = 24. AB = AD + DB = 36.",
+      "conceptId": "proportionality"
+    },
+    {
+      "id": "c06-v1-28",
+      "concept": "Using three side ratios",
+      "difficulty": "foundation",
+      "prompt": "A triangle with sides 3, 4, 5 cm is similar to one with corresponding sides 6, 8, x cm. Find x.",
+      "options": [
+        "12",
+        "10",
+        "9",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "The common scale factor is 2; x = 5 × 2 = 10.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-29",
+      "concept": "Using three side ratios",
+      "difficulty": "foundation",
+      "prompt": "A triangle with sides 3, 4, 5 cm is similar to one with corresponding sides 9, 12, x cm. Find x.",
+      "options": [
+        "15",
+        "14",
+        "16",
+        "17"
+      ],
+      "answer": 0,
+      "explanation": "The common scale factor is 3; x = 5 × 3 = 15.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-30",
+      "concept": "Using three side ratios",
+      "difficulty": "foundation",
+      "prompt": "A triangle with sides 3, 4, 5 cm is similar to one with corresponding sides 12, 16, x cm. Find x.",
+      "options": [
+        "19",
+        "21",
+        "22",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "The common scale factor is 4; x = 5 × 4 = 20.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-31",
+      "concept": "Using three side ratios",
+      "difficulty": "standard",
+      "prompt": "Similar triangles have ordered side lists (5, 12, 13) and (10, x, 26). Find x.",
+      "options": [
+        "25",
+        "26",
+        "24",
+        "23"
+      ],
+      "answer": 2,
+      "explanation": "The first and third side ratios both give scale 2. The middle side is 12 × 2 = 24.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-32",
+      "concept": "Using three side ratios",
+      "difficulty": "standard",
+      "prompt": "Similar triangles have ordered side lists (5, 12, 13) and (15, x, 39). Find x.",
+      "options": [
+        "38",
+        "36",
+        "35",
+        "37"
+      ],
+      "answer": 1,
+      "explanation": "The first and third side ratios both give scale 3. The middle side is 12 × 3 = 36.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-33",
+      "concept": "Using three side ratios",
+      "difficulty": "standard",
+      "prompt": "Similar triangles have ordered side lists (5, 12, 13) and (20, x, 52). Find x.",
+      "options": [
+        "48",
+        "47",
+        "49",
+        "50"
+      ],
+      "answer": 0,
+      "explanation": "The first and third side ratios both give scale 4. The middle side is 12 × 4 = 48.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-34",
+      "concept": "Using three side ratios",
+      "difficulty": "challenge",
+      "prompt": "A triangle similar to one with sides 5, 12, 13 cm has perimeter 60 cm. Find its shortest side in cm.",
+      "options": [
+        "9",
+        "11",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "explanation": "The original perimeter is 30, so scale = 2. The shortest side is 10.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-35",
+      "concept": "Using three side ratios",
+      "difficulty": "challenge",
+      "prompt": "A triangle similar to one with sides 5, 12, 13 cm has perimeter 90 cm. Find its shortest side in cm.",
+      "options": [
+        "16",
+        "17",
+        "15",
+        "14"
+      ],
+      "answer": 2,
+      "explanation": "The original perimeter is 30, so scale = 3. The shortest side is 15.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-36",
+      "concept": "Using three side ratios",
+      "difficulty": "challenge",
+      "prompt": "A triangle similar to one with sides 5, 12, 13 cm has perimeter 120 cm. Find its shortest side in cm.",
+      "options": [
+        "22",
+        "20",
+        "19",
+        "21"
+      ],
+      "answer": 1,
+      "explanation": "The original perimeter is 30, so scale = 4. The shortest side is 20.",
+      "conceptId": "side-ratios"
+    },
+    {
+      "id": "c06-v1-37",
+      "concept": "Similar subtriangles",
+      "difficulty": "foundation",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 2, AB = 6, AC = 12 cm. Find AE in cm.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "AE/AC = AD/AB = 1/3. AE = 12/3 = 4.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-38",
+      "concept": "Similar subtriangles",
+      "difficulty": "foundation",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 3, AB = 9, AC = 18 cm. Find AE in cm.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "AE/AC = AD/AB = 1/3. AE = 18/3 = 6.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-39",
+      "concept": "Similar subtriangles",
+      "difficulty": "foundation",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 4, AB = 12, AC = 24 cm. Find AE in cm.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "AE/AC = AD/AB = 1/3. AE = 24/3 = 8.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-40",
+      "concept": "Similar subtriangles",
+      "difficulty": "standard",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 4, AE = 6, AC = 18 cm. Find AB in cm.",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "AD/AB = AE/AC = 1/3. AB = 3 × 4 = 12.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-41",
+      "concept": "Similar subtriangles",
+      "difficulty": "standard",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 6, AE = 9, AC = 27 cm. Find AB in cm.",
+      "options": [
+        "18",
+        "17",
+        "19",
+        "20"
+      ],
+      "answer": 0,
+      "explanation": "AD/AB = AE/AC = 1/3. AB = 3 × 6 = 18.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-42",
+      "concept": "Similar subtriangles",
+      "difficulty": "standard",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 8, AE = 12, AC = 36 cm. Find AB in cm.",
+      "options": [
+        "23",
+        "25",
+        "26",
+        "24"
+      ],
+      "answer": 3,
+      "explanation": "AD/AB = AE/AC = 1/3. AB = 3 × 8 = 24.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-43",
+      "concept": "Similar subtriangles",
+      "difficulty": "challenge",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 4, AB = 10, BC = 20 cm. Find DE in cm.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "DE/BC = AD/AB = 2/5. DE = 20 × 2/5 = 8.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-44",
+      "concept": "Similar subtriangles",
+      "difficulty": "challenge",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 6, AB = 15, BC = 30 cm. Find DE in cm.",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "DE/BC = AD/AB = 2/5. DE = 30 × 2/5 = 12.",
+      "conceptId": "part-whole"
+    },
+    {
+      "id": "c06-v1-45",
+      "concept": "Similar subtriangles",
+      "difficulty": "challenge",
+      "prompt": "In triangle ABC, DE ∥ BC, D on AB, E on AC. AD = 8, AB = 20, BC = 40 cm. Find DE in cm.",
+      "options": [
+        "16",
+        "15",
+        "17",
+        "18"
+      ],
+      "answer": 0,
+      "explanation": "DE/BC = AD/AB = 2/5. DE = 40 × 2/5 = 16.",
+      "conceptId": "part-whole"
+    }
+  ]
+}

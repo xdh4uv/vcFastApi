@@ -1,0 +1,793 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-14",
+  "concepts": [
+    {
+      "id": "equally-likely",
+      "title": "Equally likely outcomes",
+      "legacyLabels": [
+        "equally likely outcomes"
+      ],
+      "explanation": "When all elementary outcomes are equally likely, P(E) = favourable outcomes / total outcomes. List outcomes before counting.",
+      "example": {
+        "problem": "Choose uniformly an integer from 1 to 12, inclusive. Find P(a multiple of 3).",
+        "steps": [
+          "There are 4 multiples of 3 among 12 integers.",
+          "Probability = 1/3.",
+          "Answer: 1/3."
+        ]
+      },
+      "commonMistake": "The counting formula needs equally likely outcomes; not all verbal categories are equally likely.",
+      "checklist": [
+        "State the sample space.",
+        "Count favourable outcomes once each.",
+        "Reduce the fraction."
+      ]
+    },
+    {
+      "id": "complement",
+      "title": "Complementary events",
+      "legacyLabels": [
+        "complement"
+      ],
+      "explanation": "An event and its complement cover every outcome without overlap, so P(not E) = 1 − P(E). Probabilities lie between 0 and 1.",
+      "example": {
+        "problem": "A bag has 2 red and 5 blue balls, all equally likely to be drawn. Find P(not red).",
+        "steps": [
+          "There are 7 balls.",
+          "P(not red) = 1 − 2/7 = 5/7.",
+          "Answer: 5/7."
+        ]
+      },
+      "commonMistake": "The complement of at least one is none, not exactly one.",
+      "checklist": [
+        "Describe the complement precisely.",
+        "Subtract its probability from 1.",
+        "Check the result is in [0,1]."
+      ]
+    },
+    {
+      "id": "draws",
+      "title": "Random draws",
+      "legacyLabels": [
+        "random draw"
+      ],
+      "explanation": "For a uniformly chosen ball or numbered card, count the objects that satisfy the condition and divide by the total number of objects.",
+      "example": {
+        "problem": "Cards numbered 1 to 10 are equally likely to be drawn. Find P(a number greater than 6).",
+        "steps": [
+          "There are 4 qualifying cards out of 10.",
+          "Probability = 2/5.",
+          "Answer: 2/5."
+        ]
+      },
+      "commonMistake": "Objects are counted, not just the number of colour categories.",
+      "checklist": [
+        "Count the full collection.",
+        "Count objects meeting the condition.",
+        "Recount totals after additions."
+      ]
+    },
+    {
+      "id": "sample-space",
+      "title": "Coin sample spaces",
+      "legacyLabels": [
+        "sample space"
+      ],
+      "explanation": "Independent fair coin tosses have equally likely ordered H/T sequences. Enumerate them or count positions when calculating an event.",
+      "example": {
+        "problem": "Toss 2 independent fair coins. Find P(exactly one head).",
+        "steps": [
+          "The head can occupy 2 positions among 4 sequences.",
+          "Probability = 1/2.",
+          "Answer: 1/2."
+        ]
+      },
+      "commonMistake": "HH, HT, TH and TT are four outcomes; one-head is not a single elementary outcome.",
+      "checklist": [
+        "List ordered sequences.",
+        "Apply exactly, at least, or at most carefully.",
+        "Count favourable sequences."
+      ]
+    },
+    {
+      "id": "dice",
+      "title": "Two-dice sample spaces",
+      "legacyLabels": [
+        "two dice"
+      ],
+      "explanation": "Two independent fair six-sided dice have 36 equally likely ordered outcomes. Sums are not equally likely; count the ordered pairs that produce the event.",
+      "example": {
+        "problem": "Two independent fair dice are rolled. Find P(both scores ≤ 2).",
+        "steps": [
+          "Each die has 2 qualifying scores, giving 4 ordered pairs.",
+          "Probability = 1/9.",
+          "Answer: 1/9."
+        ]
+      },
+      "commonMistake": "(2,5) and (5,2) are different ordered outcomes.",
+      "checklist": [
+        "Use ordered pairs.",
+        "Count pairs satisfying the condition.",
+        "Divide by 36 and simplify."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c14-v1-01",
+      "concept": "Equally likely outcomes",
+      "difficulty": "foundation",
+      "prompt": "A fair six-sided die is rolled. Find P(score ≤ 2).",
+      "options": [
+        "1/3",
+        "1/4",
+        "1/5",
+        "1/2"
+      ],
+      "answer": 0,
+      "explanation": "Favourable scores are 1 through 2: 2 out of 6. Probability = 1/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-02",
+      "concept": "Equally likely outcomes",
+      "difficulty": "foundation",
+      "prompt": "A fair six-sided die is rolled. Find P(score ≤ 3).",
+      "options": [
+        "1/3",
+        "2/3",
+        "1/4",
+        "1/2"
+      ],
+      "answer": 3,
+      "explanation": "Favourable scores are 1 through 3: 3 out of 6. Probability = 1/2.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-03",
+      "concept": "Equally likely outcomes",
+      "difficulty": "foundation",
+      "prompt": "A fair six-sided die is rolled. Find P(score ≤ 4).",
+      "options": [
+        "4/5",
+        "1/2",
+        "2/3",
+        "3/4"
+      ],
+      "answer": 2,
+      "explanation": "Favourable scores are 1 through 4: 4 out of 6. Probability = 2/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-04",
+      "concept": "Equally likely outcomes",
+      "difficulty": "standard",
+      "prompt": "Choose uniformly an integer from 1 to 12, inclusive. Find P(a multiple of 3).",
+      "options": [
+        "1/2",
+        "1/3",
+        "1/4",
+        "1/5"
+      ],
+      "answer": 1,
+      "explanation": "There are 4 multiples of 3 among 12 integers. Probability = 1/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-05",
+      "concept": "Equally likely outcomes",
+      "difficulty": "standard",
+      "prompt": "Choose uniformly an integer from 1 to 18, inclusive. Find P(a multiple of 3).",
+      "options": [
+        "1/3",
+        "1/4",
+        "1/5",
+        "1/2"
+      ],
+      "answer": 0,
+      "explanation": "There are 6 multiples of 3 among 18 integers. Probability = 1/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-06",
+      "concept": "Equally likely outcomes",
+      "difficulty": "standard",
+      "prompt": "Choose uniformly an integer from 1 to 24, inclusive. Find P(a multiple of 3).",
+      "options": [
+        "1/4",
+        "1/5",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 3,
+      "explanation": "There are 8 multiples of 3 among 24 integers. Probability = 1/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-07",
+      "concept": "Equally likely outcomes",
+      "difficulty": "challenge",
+      "prompt": "Choose uniformly an integer from 1 to 12, inclusive. Find P(divisible by 2 or 3).",
+      "options": [
+        "4/5",
+        "1/2",
+        "2/3",
+        "3/4"
+      ],
+      "answer": 2,
+      "explanation": "Count multiples: 6 of 2, 4 of 3; subtract 2 multiples of 6 counted twice. Probability = 8/12 = 2/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-08",
+      "concept": "Equally likely outcomes",
+      "difficulty": "challenge",
+      "prompt": "Choose uniformly an integer from 1 to 18, inclusive. Find P(divisible by 2 or 3).",
+      "options": [
+        "1/2",
+        "2/3",
+        "3/4",
+        "4/5"
+      ],
+      "answer": 1,
+      "explanation": "Count multiples: 9 of 2, 6 of 3; subtract 3 multiples of 6 counted twice. Probability = 12/18 = 2/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-09",
+      "concept": "Equally likely outcomes",
+      "difficulty": "challenge",
+      "prompt": "Choose uniformly an integer from 1 to 24, inclusive. Find P(divisible by 2 or 3).",
+      "options": [
+        "2/3",
+        "3/4",
+        "4/5",
+        "1/2"
+      ],
+      "answer": 0,
+      "explanation": "Count multiples: 12 of 2, 8 of 3; subtract 4 multiples of 6 counted twice. Probability = 16/24 = 2/3.",
+      "conceptId": "equally-likely"
+    },
+    {
+      "id": "c14-v1-10",
+      "concept": "Complementary events",
+      "difficulty": "foundation",
+      "prompt": "P(E) = 2/10. Find P(not E).",
+      "options": [
+        "5/6",
+        "3/4",
+        "2/3",
+        "4/5"
+      ],
+      "answer": 3,
+      "explanation": "P(not E) = 1 − 2/10 = 4/5.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-11",
+      "concept": "Complementary events",
+      "difficulty": "foundation",
+      "prompt": "P(E) = 3/10. Find P(not E).",
+      "options": [
+        "3/4",
+        "4/5",
+        "7/10",
+        "2/3"
+      ],
+      "answer": 2,
+      "explanation": "P(not E) = 1 − 3/10 = 7/10.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-12",
+      "concept": "Complementary events",
+      "difficulty": "foundation",
+      "prompt": "P(E) = 4/10. Find P(not E).",
+      "options": [
+        "3/4",
+        "3/5",
+        "2/3",
+        "1/2"
+      ],
+      "answer": 1,
+      "explanation": "P(not E) = 1 − 4/10 = 3/5.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-13",
+      "concept": "Complementary events",
+      "difficulty": "standard",
+      "prompt": "A bag has 2 red and 5 blue balls, all equally likely to be drawn. Find P(not red).",
+      "options": [
+        "5/7",
+        "3/4",
+        "2/3",
+        "4/5"
+      ],
+      "answer": 0,
+      "explanation": "There are 7 balls. P(not red) = 1 − 2/7 = 5/7.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-14",
+      "concept": "Complementary events",
+      "difficulty": "standard",
+      "prompt": "A bag has 3 red and 7 blue balls, all equally likely to be drawn. Find P(not red).",
+      "options": [
+        "2/3",
+        "3/4",
+        "4/5",
+        "7/10"
+      ],
+      "answer": 3,
+      "explanation": "There are 10 balls. P(not red) = 1 − 3/10 = 7/10.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-15",
+      "concept": "Complementary events",
+      "difficulty": "standard",
+      "prompt": "A bag has 4 red and 9 blue balls, all equally likely to be drawn. Find P(not red).",
+      "options": [
+        "3/4",
+        "4/5",
+        "9/13",
+        "2/3"
+      ],
+      "answer": 2,
+      "explanation": "There are 13 balls. P(not red) = 1 − 4/13 = 9/13.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-16",
+      "concept": "Complementary events",
+      "difficulty": "challenge",
+      "prompt": "Toss 2 independent fair coins. Find P(at least one head).",
+      "options": [
+        "5/6",
+        "3/4",
+        "4/5",
+        "2/3"
+      ],
+      "answer": 1,
+      "explanation": "The complement is all tails: one sequence out of 4. Probability = 1 − 1/4 = 3/4.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-17",
+      "concept": "Complementary events",
+      "difficulty": "challenge",
+      "prompt": "Toss 3 independent fair coins. Find P(at least one head).",
+      "options": [
+        "7/8",
+        "5/6",
+        "4/5",
+        "3/4"
+      ],
+      "answer": 0,
+      "explanation": "The complement is all tails: one sequence out of 8. Probability = 1 − 1/8 = 7/8.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-18",
+      "concept": "Complementary events",
+      "difficulty": "challenge",
+      "prompt": "Toss 4 independent fair coins. Find P(at least one head).",
+      "options": [
+        "1",
+        "5/6",
+        "4/5",
+        "15/16"
+      ],
+      "answer": 3,
+      "explanation": "The complement is all tails: one sequence out of 16. Probability = 1 − 1/16 = 15/16.",
+      "conceptId": "complement"
+    },
+    {
+      "id": "c14-v1-19",
+      "concept": "Random draws",
+      "difficulty": "foundation",
+      "prompt": "A bag has 2 white and 5 black balls. Draw one uniformly. Find P(black).",
+      "options": [
+        "2/3",
+        "4/5",
+        "5/7",
+        "3/4"
+      ],
+      "answer": 2,
+      "explanation": "Total = 7; black = 5. P = 5/7.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-20",
+      "concept": "Random draws",
+      "difficulty": "foundation",
+      "prompt": "A bag has 3 white and 6 black balls. Draw one uniformly. Find P(black).",
+      "options": [
+        "1/2",
+        "2/3",
+        "3/4",
+        "4/5"
+      ],
+      "answer": 1,
+      "explanation": "Total = 9; black = 6. P = 2/3.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-21",
+      "concept": "Random draws",
+      "difficulty": "foundation",
+      "prompt": "A bag has 4 white and 7 black balls. Draw one uniformly. Find P(black).",
+      "options": [
+        "7/11",
+        "2/3",
+        "3/4",
+        "1/2"
+      ],
+      "answer": 0,
+      "explanation": "Total = 11; black = 7. P = 7/11.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-22",
+      "concept": "Random draws",
+      "difficulty": "standard",
+      "prompt": "Cards numbered 1 to 10 are equally likely to be drawn. Find P(a number greater than 6).",
+      "options": [
+        "1/3",
+        "1/2",
+        "1/4",
+        "2/5"
+      ],
+      "answer": 3,
+      "explanation": "There are 4 qualifying cards out of 10. Probability = 2/5.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-23",
+      "concept": "Random draws",
+      "difficulty": "standard",
+      "prompt": "Cards numbered 1 to 15 are equally likely to be drawn. Find P(a number greater than 9).",
+      "options": [
+        "1/2",
+        "1/4",
+        "2/5",
+        "1/3"
+      ],
+      "answer": 2,
+      "explanation": "There are 6 qualifying cards out of 15. Probability = 2/5.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-24",
+      "concept": "Random draws",
+      "difficulty": "standard",
+      "prompt": "Cards numbered 1 to 20 are equally likely to be drawn. Find P(a number greater than 12).",
+      "options": [
+        "1/4",
+        "2/5",
+        "1/3",
+        "1/2"
+      ],
+      "answer": 1,
+      "explanation": "There are 8 qualifying cards out of 20. Probability = 2/5.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-25",
+      "concept": "Random draws",
+      "difficulty": "challenge",
+      "prompt": "A bag starts with 2 red and 4 blue balls. How many red balls must be added to make P(red) = 1/2 on a uniform draw?",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "Red and blue counts must become equal. Add 4 − 2 = 2 red balls.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-26",
+      "concept": "Random draws",
+      "difficulty": "challenge",
+      "prompt": "A bag starts with 3 red and 6 blue balls. How many red balls must be added to make P(red) = 1/2 on a uniform draw?",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "explanation": "Red and blue counts must become equal. Add 6 − 3 = 3 red balls.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-27",
+      "concept": "Random draws",
+      "difficulty": "challenge",
+      "prompt": "A bag starts with 4 red and 8 blue balls. How many red balls must be added to make P(red) = 1/2 on a uniform draw?",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "Red and blue counts must become equal. Add 8 − 4 = 4 red balls.",
+      "conceptId": "draws"
+    },
+    {
+      "id": "c14-v1-28",
+      "concept": "Coin sample spaces",
+      "difficulty": "foundation",
+      "prompt": "Toss 2 independent fair coins. How many equally likely ordered sequences are possible?",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Two choices for each coin gives 2^2 = 4.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-29",
+      "concept": "Coin sample spaces",
+      "difficulty": "foundation",
+      "prompt": "Toss 3 independent fair coins. How many equally likely ordered sequences are possible?",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "Two choices for each coin gives 2^3 = 8.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-30",
+      "concept": "Coin sample spaces",
+      "difficulty": "foundation",
+      "prompt": "Toss 4 independent fair coins. How many equally likely ordered sequences are possible?",
+      "options": [
+        "15",
+        "17",
+        "18",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "Two choices for each coin gives 2^4 = 16.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-31",
+      "concept": "Coin sample spaces",
+      "difficulty": "standard",
+      "prompt": "Toss 2 independent fair coins. Find P(exactly one head).",
+      "options": [
+        "2/3",
+        "1/4",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 2,
+      "explanation": "The head can occupy 2 positions among 4 sequences. Probability = 1/2.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-32",
+      "concept": "Coin sample spaces",
+      "difficulty": "standard",
+      "prompt": "Toss 3 independent fair coins. Find P(exactly one head).",
+      "options": [
+        "1/4",
+        "3/8",
+        "1/3",
+        "1/2"
+      ],
+      "answer": 1,
+      "explanation": "The head can occupy 3 positions among 8 sequences. Probability = 3/8.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-33",
+      "concept": "Coin sample spaces",
+      "difficulty": "standard",
+      "prompt": "Toss 4 independent fair coins. Find P(exactly one head).",
+      "options": [
+        "1/4",
+        "1/5",
+        "1/3",
+        "1/6"
+      ],
+      "answer": 0,
+      "explanation": "The head can occupy 4 positions among 16 sequences. Probability = 1/4.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-34",
+      "concept": "Coin sample spaces",
+      "difficulty": "challenge",
+      "prompt": "Toss 2 independent fair coins. Find P(at most one head).",
+      "options": [
+        "4/5",
+        "2/3",
+        "5/6",
+        "3/4"
+      ],
+      "answer": 3,
+      "explanation": "One all-tail sequence plus 2 one-head sequences gives 3 favourable outcomes. Probability = 3/4.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-35",
+      "concept": "Coin sample spaces",
+      "difficulty": "challenge",
+      "prompt": "Toss 3 independent fair coins. Find P(at most one head).",
+      "options": [
+        "2/3",
+        "1/4",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 2,
+      "explanation": "One all-tail sequence plus 3 one-head sequences gives 4 favourable outcomes. Probability = 1/2.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-36",
+      "concept": "Coin sample spaces",
+      "difficulty": "challenge",
+      "prompt": "Toss 4 independent fair coins. Find P(at most one head).",
+      "options": [
+        "1/5",
+        "5/16",
+        "1/3",
+        "1/4"
+      ],
+      "answer": 1,
+      "explanation": "One all-tail sequence plus 4 one-head sequences gives 5 favourable outcomes. Probability = 5/16.",
+      "conceptId": "sample-space"
+    },
+    {
+      "id": "c14-v1-37",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "foundation",
+      "prompt": "Two independent fair dice are rolled. Find P(sum = 6).",
+      "options": [
+        "5/36",
+        "1/6",
+        "1/5",
+        "1/4"
+      ],
+      "answer": 0,
+      "explanation": "There are 5 ordered pairs with sum 6, out of 36. Probability = 5/36.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-38",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "foundation",
+      "prompt": "Two independent fair dice are rolled. Find P(sum = 7).",
+      "options": [
+        "1/5",
+        "1/4",
+        "1/3",
+        "1/6"
+      ],
+      "answer": 3,
+      "explanation": "There are 6 ordered pairs with sum 7, out of 36. Probability = 1/6.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-39",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "foundation",
+      "prompt": "Two independent fair dice are rolled. Find P(sum = 8).",
+      "options": [
+        "1/5",
+        "1/4",
+        "5/36",
+        "1/6"
+      ],
+      "answer": 2,
+      "explanation": "There are 5 ordered pairs with sum 8, out of 36. Probability = 5/36.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-40",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "standard",
+      "prompt": "Two independent fair dice are rolled. Find P(both scores ≤ 2).",
+      "options": [
+        "0",
+        "1/9",
+        "1/6",
+        "1/5"
+      ],
+      "answer": 1,
+      "explanation": "Each die has 2 qualifying scores, giving 4 ordered pairs. Probability = 1/9.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-41",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "standard",
+      "prompt": "Two independent fair dice are rolled. Find P(both scores ≤ 3).",
+      "options": [
+        "1/4",
+        "1/5",
+        "1/3",
+        "1/6"
+      ],
+      "answer": 0,
+      "explanation": "Each die has 3 qualifying scores, giving 9 ordered pairs. Probability = 1/4.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-42",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "standard",
+      "prompt": "Two independent fair dice are rolled. Find P(both scores ≤ 4).",
+      "options": [
+        "1/2",
+        "1/3",
+        "1/4",
+        "4/9"
+      ],
+      "answer": 3,
+      "explanation": "Each die has 4 qualifying scores, giving 16 ordered pairs. Probability = 4/9.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-43",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "challenge",
+      "prompt": "Two independent fair dice are rolled. Find P(sum ≥ 6).",
+      "options": [
+        "2/3",
+        "4/5",
+        "13/18",
+        "3/4"
+      ],
+      "answer": 2,
+      "explanation": "Count all ordered pairs with sums 6 through 12: 26 pairs. Probability = 13/18.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-44",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "challenge",
+      "prompt": "Two independent fair dice are rolled. Find P(sum ≥ 7).",
+      "options": [
+        "3/4",
+        "7/12",
+        "1/2",
+        "2/3"
+      ],
+      "answer": 1,
+      "explanation": "Count all ordered pairs with sums 7 through 12: 21 pairs. Probability = 7/12.",
+      "conceptId": "dice"
+    },
+    {
+      "id": "c14-v1-45",
+      "concept": "Two-dice sample spaces",
+      "difficulty": "challenge",
+      "prompt": "Two independent fair dice are rolled. Find P(sum ≥ 8).",
+      "options": [
+        "5/12",
+        "1/2",
+        "1/3",
+        "1/4"
+      ],
+      "answer": 0,
+      "explanation": "Count all ordered pairs with sums 8 through 12: 15 pairs. Probability = 5/12.",
+      "conceptId": "dice"
+    }
+  ]
+}

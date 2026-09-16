@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 BANKS = {'real-numbers': 'real-numbers-practice-v1.json', 'polynomials': 'polynomials-practice-v1.json'}
+BANKS.update({name: f'{name}-practice-v1.json' for name in (
+    'linear-equations','quadratic-equations','arithmetic-progressions','triangles','coordinate-geometry',
+    'trigonometry','trigonometry-applications','circles','circle-areas','surface-areas-volumes','statistics','probability')})
 
 
 def read_bank(name='real-numbers'):
@@ -41,19 +44,20 @@ def publish(connection, bank, apply_schema=True):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--bank', choices=BANKS, default='real-numbers')
+    parser.add_argument('--bank', choices=[*BANKS, 'all'], default='real-numbers')
     parser.add_argument('--content-only', action='store_true', help='Schema 002 must already exist; publish without DDL')
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
     url = make_url(os.environ["DATABASE_URL_UNPOOLED"])
     if "-pooler" in (url.host or ""):
         raise SystemExit("Use the schema owner's direct connection for migrations")
-    bank = read_bank(args.bank)
+    banks = [read_bank(name) for name in BANKS] if args.bank == 'all' else [read_bank(args.bank)]
     engine = create_engine(url, connect_args={"connect_timeout": 15})
     with engine.begin() as connection:
-        publish(connection, bank, apply_schema=not args.content_only)
+        for index, bank in enumerate(banks):
+            publish(connection, bank, apply_schema=not args.content_only and index == 0)
     engine.dispose()
-    print(f"Published {len(bank.concepts)} concepts and {len(bank.questions)} adaptive questions.")
+    print(f"Published {len(banks)} banks, {sum(len(b.concepts) for b in banks)} concepts and {sum(len(b.questions) for b in banks)} adaptive questions.")
 
 
 if __name__ == "__main__":

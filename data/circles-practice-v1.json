@@ -1,0 +1,790 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-10",
+  "concepts": [
+    {
+      "id": "radius",
+      "title": "Radius and tangent",
+      "legacyLabels": [
+        "tangent radius"
+      ],
+      "explanation": "The radius to the point of contact is perpendicular to a tangent. Centre, contact point and an external point form a right triangle.",
+      "example": {
+        "problem": "PA is tangent at A, O is the centre and ∠OPA = 40°. Find ∠AOP in degrees.",
+        "steps": [
+          "∠OAP = 90°, so ∠AOP = 90° − 40° = 50°.",
+          "Answer: 50."
+        ]
+      },
+      "commonMistake": "The radius must end at the point of contact for the perpendicular rule.",
+      "checklist": [
+        "Join centre to contact point.",
+        "Mark the 90° angle.",
+        "Use triangle angle sums or Pythagoras."
+      ]
+    },
+    {
+      "id": "equal-tangents",
+      "title": "Equal tangent segments",
+      "legacyLabels": [
+        "equal tangents"
+      ],
+      "explanation": "Two tangent segments from the same external point to the same circle have equal lengths. Shared external points allow equal segments to be paired in larger figures.",
+      "example": {
+        "problem": "PA and PB are tangents from P to one circle. PA = 2x + 2 and PB = 10 cm. Find x.",
+        "steps": [
+          "2x + 2 = 10, hence x = 4.",
+          "Answer: 4."
+        ]
+      },
+      "commonMistake": "Tangents from different external points need not have equal lengths.",
+      "checklist": [
+        "Identify the common external point.",
+        "Equate matching tangent lengths.",
+        "Check all lengths are positive."
+      ]
+    },
+    {
+      "id": "count",
+      "title": "Number of tangents",
+      "legacyLabels": [
+        "tangent count"
+      ],
+      "explanation": "A point inside a circle has no tangent through it, a point on it has one, and an external point has two. Compare its centre-distance with the radius.",
+      "example": {
+        "problem": "OP = 6 cm for a circle of radius 6 cm. How many tangents pass through P?",
+        "steps": [
+          "P lies on the circle, where there is exactly one tangent.",
+          "Answer: 1."
+        ]
+      },
+      "commonMistake": "A line through an interior point cuts the circle, so it is not a tangent.",
+      "checklist": [
+        "Compare OP with radius r.",
+        "Classify the point’s position.",
+        "Use the matching tangent count."
+      ]
+    },
+    {
+      "id": "length",
+      "title": "Finding tangent lengths",
+      "legacyLabels": [
+        "tangent length"
+      ],
+      "explanation": "In right triangle OAP, OA is radius r, OP is centre-distance d, and PA = √(d² − r²). OP is the hypotenuse.",
+      "example": {
+        "problem": "PA is a tangent of length 24 cm; the circle radius is 10 cm. Find OP in cm.",
+        "steps": [
+          "OP² = 576 + 100 = 676.",
+          "OP = 26.",
+          "Answer: 26."
+        ]
+      },
+      "commonMistake": "Do not subtract lengths before squaring, or mistake the radius for the hypotenuse.",
+      "checklist": [
+        "Draw radius to contact.",
+        "Write d² = r² + PA².",
+        "Take a positive root."
+      ]
+    },
+    {
+      "id": "angles",
+      "title": "Angles between tangents",
+      "legacyLabels": [
+        "angles"
+      ],
+      "explanation": "For tangents PA and PB, the smaller angle APB and smaller central angle AOB sum to 180°. OP also bisects the angle between the tangent segments.",
+      "example": {
+        "problem": "Tangents PA and PB form angle 40°. O is the centre. Find ∠APO in degrees.",
+        "steps": [
+          "OP bisects the angle between the tangent segments.",
+          "∠APO = 40°/2 = 20°.",
+          "Answer: 20."
+        ]
+      },
+      "commonMistake": "The two right angles occur at the contact points, not at P or O.",
+      "checklist": [
+        "Mark both tangent-radius right angles.",
+        "Use the quadrilateral angle sum.",
+        "Use the angle bisector only with the shared centre and point."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c10-v1-01",
+      "concept": "Radius and tangent",
+      "difficulty": "foundation",
+      "prompt": "A tangent touches a circle of radius 2 cm at A. Find the angle between OA and the tangent in degrees.",
+      "options": [
+        "90",
+        "89",
+        "91",
+        "92"
+      ],
+      "answer": 0,
+      "explanation": "A radius to the contact point is perpendicular to the tangent.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-02",
+      "concept": "Radius and tangent",
+      "difficulty": "foundation",
+      "prompt": "A tangent touches a circle of radius 3 cm at A. Find the angle between OA and the tangent in degrees.",
+      "options": [
+        "89",
+        "91",
+        "92",
+        "90"
+      ],
+      "answer": 3,
+      "explanation": "A radius to the contact point is perpendicular to the tangent.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-03",
+      "concept": "Radius and tangent",
+      "difficulty": "foundation",
+      "prompt": "A tangent touches a circle of radius 4 cm at A. Find the angle between OA and the tangent in degrees.",
+      "options": [
+        "91",
+        "92",
+        "90",
+        "89"
+      ],
+      "answer": 2,
+      "explanation": "A radius to the contact point is perpendicular to the tangent.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-04",
+      "concept": "Radius and tangent",
+      "difficulty": "standard",
+      "prompt": "PA is tangent at A, O is the centre and ∠OPA = 40°. Find ∠AOP in degrees.",
+      "options": [
+        "52",
+        "50",
+        "49",
+        "51"
+      ],
+      "answer": 1,
+      "explanation": "∠OAP = 90°, so ∠AOP = 90° − 40° = 50°.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-05",
+      "concept": "Radius and tangent",
+      "difficulty": "standard",
+      "prompt": "PA is tangent at A, O is the centre and ∠OPA = 60°. Find ∠AOP in degrees.",
+      "options": [
+        "30",
+        "29",
+        "31",
+        "32"
+      ],
+      "answer": 0,
+      "explanation": "∠OAP = 90°, so ∠AOP = 90° − 60° = 30°.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-06",
+      "concept": "Radius and tangent",
+      "difficulty": "standard",
+      "prompt": "PA is tangent at A, O is the centre and ∠OPA = 80°. Find ∠AOP in degrees.",
+      "options": [
+        "9",
+        "11",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "explanation": "∠OAP = 90°, so ∠AOP = 90° − 80° = 10°.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-07",
+      "concept": "Radius and tangent",
+      "difficulty": "challenge",
+      "prompt": "Tangents PA and PB have smaller central angle AOB = 120°. Find ∠APB in degrees.",
+      "options": [
+        "61",
+        "62",
+        "60",
+        "59"
+      ],
+      "answer": 2,
+      "explanation": "Angles at A and B are right angles. ∠APB = 360° − 180° − 120° = 60°.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-08",
+      "concept": "Radius and tangent",
+      "difficulty": "challenge",
+      "prompt": "Tangents PA and PB have smaller central angle AOB = 130°. Find ∠APB in degrees.",
+      "options": [
+        "52",
+        "50",
+        "49",
+        "51"
+      ],
+      "answer": 1,
+      "explanation": "Angles at A and B are right angles. ∠APB = 360° − 180° − 130° = 50°.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-09",
+      "concept": "Radius and tangent",
+      "difficulty": "challenge",
+      "prompt": "Tangents PA and PB have smaller central angle AOB = 140°. Find ∠APB in degrees.",
+      "options": [
+        "40",
+        "39",
+        "41",
+        "42"
+      ],
+      "answer": 0,
+      "explanation": "Angles at A and B are right angles. ∠APB = 360° − 180° − 140° = 40°.",
+      "conceptId": "radius"
+    },
+    {
+      "id": "c10-v1-10",
+      "concept": "Equal tangent segments",
+      "difficulty": "foundation",
+      "prompt": "PA and PB are tangents from P to one circle. PA = 14 cm. Find PB in cm.",
+      "options": [
+        "13",
+        "15",
+        "16",
+        "14"
+      ],
+      "answer": 3,
+      "explanation": "Tangent segments from the same external point are equal.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-11",
+      "concept": "Equal tangent segments",
+      "difficulty": "foundation",
+      "prompt": "PA and PB are tangents from P to one circle. PA = 21 cm. Find PB in cm.",
+      "options": [
+        "22",
+        "23",
+        "21",
+        "20"
+      ],
+      "answer": 2,
+      "explanation": "Tangent segments from the same external point are equal.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-12",
+      "concept": "Equal tangent segments",
+      "difficulty": "foundation",
+      "prompt": "PA and PB are tangents from P to one circle. PA = 28 cm. Find PB in cm.",
+      "options": [
+        "30",
+        "28",
+        "27",
+        "29"
+      ],
+      "answer": 1,
+      "explanation": "Tangent segments from the same external point are equal.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-13",
+      "concept": "Equal tangent segments",
+      "difficulty": "standard",
+      "prompt": "PA and PB are tangents from P to one circle. PA = 2x + 2 and PB = 10 cm. Find x.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "2x + 2 = 10, hence x = 4.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-14",
+      "concept": "Equal tangent segments",
+      "difficulty": "standard",
+      "prompt": "PA and PB are tangents from P to one circle. PA = 2x + 3 and PB = 15 cm. Find x.",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "2x + 3 = 15, hence x = 6.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-15",
+      "concept": "Equal tangent segments",
+      "difficulty": "standard",
+      "prompt": "PA and PB are tangents from P to one circle. PA = 2x + 4 and PB = 20 cm. Find x.",
+      "options": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "2x + 4 = 20, hence x = 8.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-16",
+      "concept": "Equal tangent segments",
+      "difficulty": "challenge",
+      "prompt": "A convex quadrilateral ABCD has a circle tangent to all four sides. AB = 6, BC = 8, CD = 10 cm. Find DA in cm.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "Equal tangent segments give AB + CD = BC + DA. DA = 6 + 10 − 8 = 8.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-17",
+      "concept": "Equal tangent segments",
+      "difficulty": "challenge",
+      "prompt": "A convex quadrilateral ABCD has a circle tangent to all four sides. AB = 9, BC = 12, CD = 15 cm. Find DA in cm.",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "Equal tangent segments give AB + CD = BC + DA. DA = 9 + 15 − 12 = 12.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-18",
+      "concept": "Equal tangent segments",
+      "difficulty": "challenge",
+      "prompt": "A convex quadrilateral ABCD has a circle tangent to all four sides. AB = 12, BC = 16, CD = 20 cm. Find DA in cm.",
+      "options": [
+        "15",
+        "17",
+        "18",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "Equal tangent segments give AB + CD = BC + DA. DA = 12 + 20 − 16 = 16.",
+      "conceptId": "equal-tangents"
+    },
+    {
+      "id": "c10-v1-19",
+      "concept": "Number of tangents",
+      "difficulty": "foundation",
+      "prompt": "OP = 2 cm for a circle of radius 4 cm. How many tangents pass through P?",
+      "options": [
+        "2",
+        "3",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "OP < radius, so P is inside and has no tangents.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-20",
+      "concept": "Number of tangents",
+      "difficulty": "foundation",
+      "prompt": "OP = 3 cm for a circle of radius 6 cm. How many tangents pass through P?",
+      "options": [
+        "3",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "OP < radius, so P is inside and has no tangents.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-21",
+      "concept": "Number of tangents",
+      "difficulty": "foundation",
+      "prompt": "OP = 4 cm for a circle of radius 8 cm. How many tangents pass through P?",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "OP < radius, so P is inside and has no tangents.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-22",
+      "concept": "Number of tangents",
+      "difficulty": "standard",
+      "prompt": "OP = 6 cm for a circle of radius 6 cm. How many tangents pass through P?",
+      "options": [
+        "0",
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "P lies on the circle, where there is exactly one tangent.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-23",
+      "concept": "Number of tangents",
+      "difficulty": "standard",
+      "prompt": "OP = 9 cm for a circle of radius 9 cm. How many tangents pass through P?",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "explanation": "P lies on the circle, where there is exactly one tangent.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-24",
+      "concept": "Number of tangents",
+      "difficulty": "standard",
+      "prompt": "OP = 12 cm for a circle of radius 12 cm. How many tangents pass through P?",
+      "options": [
+        "3",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "P lies on the circle, where there is exactly one tangent.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-25",
+      "concept": "Number of tangents",
+      "difficulty": "challenge",
+      "prompt": "A circle has radius 4 cm. P is 2 cm outside its boundary along a radius extended. How many tangents pass through P?",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "OP = 6 > radius 4; P is external, so two tangents exist.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-26",
+      "concept": "Number of tangents",
+      "difficulty": "challenge",
+      "prompt": "A circle has radius 6 cm. P is 3 cm outside its boundary along a radius extended. How many tangents pass through P?",
+      "options": [
+        "1",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "explanation": "OP = 9 > radius 6; P is external, so two tangents exist.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-27",
+      "concept": "Number of tangents",
+      "difficulty": "challenge",
+      "prompt": "A circle has radius 8 cm. P is 4 cm outside its boundary along a radius extended. How many tangents pass through P?",
+      "options": [
+        "3",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "OP = 12 > radius 8; P is external, so two tangents exist.",
+      "conceptId": "count"
+    },
+    {
+      "id": "c10-v1-28",
+      "concept": "Finding tangent lengths",
+      "difficulty": "foundation",
+      "prompt": "OP = 10 cm and radius OA = 6 cm. PA is tangent at A. Find PA in cm.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "PA² = 100 − 36 = 64. PA = 8.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-29",
+      "concept": "Finding tangent lengths",
+      "difficulty": "foundation",
+      "prompt": "OP = 15 cm and radius OA = 9 cm. PA is tangent at A. Find PA in cm.",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "PA² = 225 − 81 = 144. PA = 12.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-30",
+      "concept": "Finding tangent lengths",
+      "difficulty": "foundation",
+      "prompt": "OP = 20 cm and radius OA = 12 cm. PA is tangent at A. Find PA in cm.",
+      "options": [
+        "15",
+        "17",
+        "18",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "PA² = 400 − 144 = 256. PA = 16.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-31",
+      "concept": "Finding tangent lengths",
+      "difficulty": "standard",
+      "prompt": "PA is a tangent of length 24 cm; the circle radius is 10 cm. Find OP in cm.",
+      "options": [
+        "27",
+        "28",
+        "26",
+        "25"
+      ],
+      "answer": 2,
+      "explanation": "OP² = 576 + 100 = 676. OP = 26.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-32",
+      "concept": "Finding tangent lengths",
+      "difficulty": "standard",
+      "prompt": "PA is a tangent of length 36 cm; the circle radius is 15 cm. Find OP in cm.",
+      "options": [
+        "41",
+        "39",
+        "38",
+        "40"
+      ],
+      "answer": 1,
+      "explanation": "OP² = 1296 + 225 = 1521. OP = 39.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-33",
+      "concept": "Finding tangent lengths",
+      "difficulty": "standard",
+      "prompt": "PA is a tangent of length 48 cm; the circle radius is 20 cm. Find OP in cm.",
+      "options": [
+        "52",
+        "51",
+        "53",
+        "54"
+      ],
+      "answer": 0,
+      "explanation": "OP² = 2304 + 400 = 2704. OP = 52.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-34",
+      "concept": "Finding tangent lengths",
+      "difficulty": "challenge",
+      "prompt": "An external point is 26 cm from the centre; its tangent length is 24 cm. Find the radius in cm.",
+      "options": [
+        "9",
+        "11",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "explanation": "r² = 676 − 576 = 100. r = 10.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-35",
+      "concept": "Finding tangent lengths",
+      "difficulty": "challenge",
+      "prompt": "An external point is 39 cm from the centre; its tangent length is 36 cm. Find the radius in cm.",
+      "options": [
+        "16",
+        "17",
+        "15",
+        "14"
+      ],
+      "answer": 2,
+      "explanation": "r² = 1521 − 1296 = 225. r = 15.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-36",
+      "concept": "Finding tangent lengths",
+      "difficulty": "challenge",
+      "prompt": "An external point is 52 cm from the centre; its tangent length is 48 cm. Find the radius in cm.",
+      "options": [
+        "22",
+        "20",
+        "19",
+        "21"
+      ],
+      "answer": 1,
+      "explanation": "r² = 2704 − 2304 = 400. r = 20.",
+      "conceptId": "length"
+    },
+    {
+      "id": "c10-v1-37",
+      "concept": "Angles between tangents",
+      "difficulty": "foundation",
+      "prompt": "Tangents PA and PB form angle 40°. Find the smaller central angle AOB in degrees.",
+      "options": [
+        "140",
+        "139",
+        "141",
+        "142"
+      ],
+      "answer": 0,
+      "explanation": "∠AOB = 180° − 40° = 140°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-38",
+      "concept": "Angles between tangents",
+      "difficulty": "foundation",
+      "prompt": "Tangents PA and PB form angle 60°. Find the smaller central angle AOB in degrees.",
+      "options": [
+        "119",
+        "121",
+        "122",
+        "120"
+      ],
+      "answer": 3,
+      "explanation": "∠AOB = 180° − 60° = 120°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-39",
+      "concept": "Angles between tangents",
+      "difficulty": "foundation",
+      "prompt": "Tangents PA and PB form angle 80°. Find the smaller central angle AOB in degrees.",
+      "options": [
+        "101",
+        "102",
+        "100",
+        "99"
+      ],
+      "answer": 2,
+      "explanation": "∠AOB = 180° − 80° = 100°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-40",
+      "concept": "Angles between tangents",
+      "difficulty": "standard",
+      "prompt": "Tangents PA and PB form angle 40°. O is the centre. Find ∠APO in degrees.",
+      "options": [
+        "22",
+        "20",
+        "19",
+        "21"
+      ],
+      "answer": 1,
+      "explanation": "OP bisects the angle between the tangent segments. ∠APO = 40°/2 = 20°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-41",
+      "concept": "Angles between tangents",
+      "difficulty": "standard",
+      "prompt": "Tangents PA and PB form angle 60°. O is the centre. Find ∠APO in degrees.",
+      "options": [
+        "30",
+        "29",
+        "31",
+        "32"
+      ],
+      "answer": 0,
+      "explanation": "OP bisects the angle between the tangent segments. ∠APO = 60°/2 = 30°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-42",
+      "concept": "Angles between tangents",
+      "difficulty": "standard",
+      "prompt": "Tangents PA and PB form angle 80°. O is the centre. Find ∠APO in degrees.",
+      "options": [
+        "39",
+        "41",
+        "42",
+        "40"
+      ],
+      "answer": 3,
+      "explanation": "OP bisects the angle between the tangent segments. ∠APO = 80°/2 = 40°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-43",
+      "concept": "Angles between tangents",
+      "difficulty": "challenge",
+      "prompt": "Tangents PA and PB touch at A and B. O is the centre and ∠APO = 20°. Find the smaller central angle AOB in degrees.",
+      "options": [
+        "141",
+        "142",
+        "140",
+        "139"
+      ],
+      "answer": 2,
+      "explanation": "∠APB = 2 × 20° = 40°. ∠AOB = 140°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-44",
+      "concept": "Angles between tangents",
+      "difficulty": "challenge",
+      "prompt": "Tangents PA and PB touch at A and B. O is the centre and ∠APO = 30°. Find the smaller central angle AOB in degrees.",
+      "options": [
+        "122",
+        "120",
+        "119",
+        "121"
+      ],
+      "answer": 1,
+      "explanation": "∠APB = 2 × 30° = 60°. ∠AOB = 120°.",
+      "conceptId": "angles"
+    },
+    {
+      "id": "c10-v1-45",
+      "concept": "Angles between tangents",
+      "difficulty": "challenge",
+      "prompt": "Tangents PA and PB touch at A and B. O is the centre and ∠APO = 40°. Find the smaller central angle AOB in degrees.",
+      "options": [
+        "100",
+        "99",
+        "101",
+        "102"
+      ],
+      "answer": 0,
+      "explanation": "∠APB = 2 × 40° = 80°. ∠AOB = 100°.",
+      "conceptId": "angles"
+    }
+  ]
+}

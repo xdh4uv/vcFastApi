@@ -1,0 +1,790 @@
+{
+  "courseId": "ncert-maths-10-v1",
+  "chapterId": "ch-07",
+  "concepts": [
+    {
+      "id": "distance",
+      "title": "Distance between points",
+      "legacyLabels": [
+        "distance"
+      ],
+      "explanation": "Distance is √[(x₂ − x₁)² + (y₂ − y₁)²]. Horizontal or vertical distances are absolute coordinate differences.",
+      "example": {
+        "problem": "Find the distance between (0, 0) and (6, 8).",
+        "steps": [
+          "Distance² = 36 + 64 = 100.",
+          "Distance = 10.",
+          "Answer: 10."
+        ]
+      },
+      "commonMistake": "A coordinate difference may be negative, but distance cannot be.",
+      "checklist": [
+        "Subtract matching coordinates.",
+        "Square and add.",
+        "Take the nonnegative square root."
+      ]
+    },
+    {
+      "id": "midpoint",
+      "title": "Midpoints",
+      "legacyLabels": [
+        "midpoint"
+      ],
+      "explanation": "The midpoint averages corresponding coordinates: ((x₁ + x₂)/2, (y₁ + y₂)/2). You can rearrange to find a missing endpoint.",
+      "example": {
+        "problem": "The midpoint of A(-2, 2) and B(x, 10) has x-coordinate 4. Find x.",
+        "steps": [
+          "(-2 + x)/2 = 4.",
+          "x = 10.",
+          "Answer: 10."
+        ]
+      },
+      "commonMistake": "Average x with x and y with y, not x with y.",
+      "checklist": [
+        "Write the two coordinate averages.",
+        "Solve missing coordinates separately.",
+        "Check the midpoint lies between endpoints."
+      ]
+    },
+    {
+      "id": "section",
+      "title": "Internal division of a segment",
+      "legacyLabels": [
+        "section formula"
+      ],
+      "explanation": "If AP:PB = m:n, then P = ((mxB + nxA)/(m+n), (myB + nyA)/(m+n)). The coordinate of the opposite endpoint receives each weight.",
+      "example": {
+        "problem": "P divides A(-2, 2), B(10, 14) internally with AP:PB = 2:1. Find Py.",
+        "steps": [
+          "Py = (2 × 14 + 2)/3 = 10.",
+          "Answer: 10."
+        ]
+      },
+      "commonMistake": "Reversing the weights generally places the point on the wrong side of the midpoint.",
+      "checklist": [
+        "Label A, B and the ratio order.",
+        "Use opposite endpoint weights.",
+        "Check P lies inside AB."
+      ]
+    },
+    {
+      "id": "equidistant",
+      "title": "Equidistant points",
+      "legacyLabels": [
+        "equal distances"
+      ],
+      "explanation": "Set the squared distances to the two given points equal. Squaring avoids unnecessary square roots; expand carefully to solve the remaining coordinate.",
+      "example": {
+        "problem": "Point (x, 0) is equidistant from (-2, 2) and (6, 2). Find x.",
+        "steps": [
+          "(x + 2)² + 4 = (x − 6)² + 4.",
+          "Expansion gives x = 2.",
+          "Answer: 2."
+        ]
+      },
+      "commonMistake": "Equal distances do not mean equal x-coordinates.",
+      "checklist": [
+        "Write both squared distances.",
+        "Expand and cancel common terms.",
+        "Substitute the coordinate into both distances."
+      ]
+    },
+    {
+      "id": "coordinate-shapes",
+      "title": "Lengths in coordinate figures",
+      "legacyLabels": [],
+      "explanation": "Use the distance formula to find side lengths, compare squared lengths to recognise figures, and add lengths for perimeter.",
+      "example": {
+        "problem": "A rhombus has vertices (6,0), (0,8), (-6,0), (0,-8). Find its perimeter.",
+        "steps": [
+          "Each side has length √(36+64) = 10.",
+          "Perimeter = 40.",
+          "Answer: 40."
+        ]
+      },
+      "commonMistake": "A diagonal and a side are different lengths.",
+      "checklist": [
+        "Label which points are joined.",
+        "Compute all needed distances.",
+        "Use the geometry only after checking lengths."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "c07-v1-01",
+      "concept": "Distance between points",
+      "difficulty": "foundation",
+      "prompt": "Find the distance between (2, 2) and (10, 2).",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "The y-coordinates agree, so distance = |10 − 2| = 8.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-02",
+      "concept": "Distance between points",
+      "difficulty": "foundation",
+      "prompt": "Find the distance between (3, 2) and (15, 2).",
+      "options": [
+        "11",
+        "13",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "The y-coordinates agree, so distance = |15 − 3| = 12.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-03",
+      "concept": "Distance between points",
+      "difficulty": "foundation",
+      "prompt": "Find the distance between (4, 2) and (20, 2).",
+      "options": [
+        "17",
+        "18",
+        "16",
+        "15"
+      ],
+      "answer": 2,
+      "explanation": "The y-coordinates agree, so distance = |20 − 4| = 16.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-04",
+      "concept": "Distance between points",
+      "difficulty": "standard",
+      "prompt": "Find the distance between (0, 0) and (6, 8).",
+      "options": [
+        "12",
+        "10",
+        "9",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "Distance² = 36 + 64 = 100. Distance = 10.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-05",
+      "concept": "Distance between points",
+      "difficulty": "standard",
+      "prompt": "Find the distance between (0, 0) and (9, 12).",
+      "options": [
+        "15",
+        "14",
+        "16",
+        "17"
+      ],
+      "answer": 0,
+      "explanation": "Distance² = 81 + 144 = 225. Distance = 15.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-06",
+      "concept": "Distance between points",
+      "difficulty": "standard",
+      "prompt": "Find the distance between (0, 0) and (12, 16).",
+      "options": [
+        "19",
+        "21",
+        "22",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "Distance² = 144 + 256 = 400. Distance = 20.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-07",
+      "concept": "Distance between points",
+      "difficulty": "challenge",
+      "prompt": "Find the distance between (-2, 4) and (8, -20).",
+      "options": [
+        "27",
+        "28",
+        "26",
+        "25"
+      ],
+      "answer": 2,
+      "explanation": "Coordinate differences are 10 and -24. Distance = √(676) = 26.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-08",
+      "concept": "Distance between points",
+      "difficulty": "challenge",
+      "prompt": "Find the distance between (-3, 6) and (12, -30).",
+      "options": [
+        "41",
+        "39",
+        "38",
+        "40"
+      ],
+      "answer": 1,
+      "explanation": "Coordinate differences are 15 and -36. Distance = √(1521) = 39.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-09",
+      "concept": "Distance between points",
+      "difficulty": "challenge",
+      "prompt": "Find the distance between (-4, 8) and (16, -40).",
+      "options": [
+        "52",
+        "51",
+        "53",
+        "54"
+      ],
+      "answer": 0,
+      "explanation": "Coordinate differences are 20 and -48. Distance = √(2704) = 52.",
+      "conceptId": "distance"
+    },
+    {
+      "id": "c07-v1-10",
+      "concept": "Midpoints",
+      "difficulty": "foundation",
+      "prompt": "Find the x-coordinate of the midpoint of (2, 0) and (10, 4).",
+      "options": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "x = (2 + 10)/2 = 6.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-11",
+      "concept": "Midpoints",
+      "difficulty": "foundation",
+      "prompt": "Find the x-coordinate of the midpoint of (3, 0) and (15, 4).",
+      "options": [
+        "10",
+        "11",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "x = (3 + 15)/2 = 9.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-12",
+      "concept": "Midpoints",
+      "difficulty": "foundation",
+      "prompt": "Find the x-coordinate of the midpoint of (4, 0) and (20, 4).",
+      "options": [
+        "14",
+        "12",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "x = (4 + 20)/2 = 12.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-13",
+      "concept": "Midpoints",
+      "difficulty": "standard",
+      "prompt": "The midpoint of A(-2, 2) and B(x, 10) has x-coordinate 4. Find x.",
+      "options": [
+        "10",
+        "9",
+        "11",
+        "12"
+      ],
+      "answer": 0,
+      "explanation": "(-2 + x)/2 = 4. x = 10.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-14",
+      "concept": "Midpoints",
+      "difficulty": "standard",
+      "prompt": "The midpoint of A(-3, 3) and B(x, 15) has x-coordinate 6. Find x.",
+      "options": [
+        "14",
+        "16",
+        "17",
+        "15"
+      ],
+      "answer": 3,
+      "explanation": "(-3 + x)/2 = 6. x = 15.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-15",
+      "concept": "Midpoints",
+      "difficulty": "standard",
+      "prompt": "The midpoint of A(-4, 4) and B(x, 20) has x-coordinate 8. Find x.",
+      "options": [
+        "21",
+        "22",
+        "20",
+        "19"
+      ],
+      "answer": 2,
+      "explanation": "(-4 + x)/2 = 8. x = 20.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-16",
+      "concept": "Midpoints",
+      "difficulty": "challenge",
+      "prompt": "A rectangle has diagonal endpoints (-4, 2) and (8, 14). Find the y-coordinate of the intersection of its diagonals.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "Rectangle diagonals bisect each other. The intersection y-coordinate is (2 + 14)/2 = 8.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-17",
+      "concept": "Midpoints",
+      "difficulty": "challenge",
+      "prompt": "A rectangle has diagonal endpoints (-6, 3) and (12, 21). Find the y-coordinate of the intersection of its diagonals.",
+      "options": [
+        "12",
+        "11",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "explanation": "Rectangle diagonals bisect each other. The intersection y-coordinate is (3 + 21)/2 = 12.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-18",
+      "concept": "Midpoints",
+      "difficulty": "challenge",
+      "prompt": "A rectangle has diagonal endpoints (-8, 4) and (16, 28). Find the y-coordinate of the intersection of its diagonals.",
+      "options": [
+        "15",
+        "17",
+        "18",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "Rectangle diagonals bisect each other. The intersection y-coordinate is (4 + 28)/2 = 16.",
+      "conceptId": "midpoint"
+    },
+    {
+      "id": "c07-v1-19",
+      "concept": "Internal division of a segment",
+      "difficulty": "foundation",
+      "prompt": "P divides A(0, 0), B(12, 0) internally with AP:PB = 1:2. Find Px.",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "Px = (1 × 12 + 2 × 0)/3 = 4.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-20",
+      "concept": "Internal division of a segment",
+      "difficulty": "foundation",
+      "prompt": "P divides A(0, 0), B(18, 0) internally with AP:PB = 1:2. Find Px.",
+      "options": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "Px = (1 × 18 + 2 × 0)/3 = 6.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-21",
+      "concept": "Internal division of a segment",
+      "difficulty": "foundation",
+      "prompt": "P divides A(0, 0), B(24, 0) internally with AP:PB = 1:2. Find Px.",
+      "options": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "Px = (1 × 24 + 2 × 0)/3 = 8.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-22",
+      "concept": "Internal division of a segment",
+      "difficulty": "standard",
+      "prompt": "P divides A(-2, 2), B(10, 14) internally with AP:PB = 2:1. Find Py.",
+      "options": [
+        "9",
+        "11",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "explanation": "Py = (2 × 14 + 2)/3 = 10.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-23",
+      "concept": "Internal division of a segment",
+      "difficulty": "standard",
+      "prompt": "P divides A(-3, 3), B(15, 21) internally with AP:PB = 2:1. Find Py.",
+      "options": [
+        "16",
+        "17",
+        "15",
+        "14"
+      ],
+      "answer": 2,
+      "explanation": "Py = (2 × 21 + 3)/3 = 15.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-24",
+      "concept": "Internal division of a segment",
+      "difficulty": "standard",
+      "prompt": "P divides A(-4, 4), B(20, 28) internally with AP:PB = 2:1. Find Py.",
+      "options": [
+        "22",
+        "20",
+        "19",
+        "21"
+      ],
+      "answer": 1,
+      "explanation": "Py = (2 × 28 + 4)/3 = 20.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-25",
+      "concept": "Internal division of a segment",
+      "difficulty": "challenge",
+      "prompt": "P(2, 4) lies between A(-2, 0) and B(10, 12). If AP:PB = m:1, find m.",
+      "options": [
+        "1/2",
+        "1/3",
+        "2/3",
+        "1/4"
+      ],
+      "answer": 0,
+      "explanation": "The x-displacements AP and PB are 4 and 8; their ratio is 1:2. Thus m = 1/2.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-26",
+      "concept": "Internal division of a segment",
+      "difficulty": "challenge",
+      "prompt": "P(3, 6) lies between A(-3, 0) and B(15, 18). If AP:PB = m:1, find m.",
+      "options": [
+        "1/3",
+        "2/3",
+        "1/4",
+        "1/2"
+      ],
+      "answer": 3,
+      "explanation": "The x-displacements AP and PB are 6 and 12; their ratio is 1:2. Thus m = 1/2.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-27",
+      "concept": "Internal division of a segment",
+      "difficulty": "challenge",
+      "prompt": "P(4, 8) lies between A(-4, 0) and B(20, 24). If AP:PB = m:1, find m.",
+      "options": [
+        "2/3",
+        "1/4",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 2,
+      "explanation": "The x-displacements AP and PB are 8 and 16; their ratio is 1:2. Thus m = 1/2.",
+      "conceptId": "section"
+    },
+    {
+      "id": "c07-v1-28",
+      "concept": "Equidistant points",
+      "difficulty": "foundation",
+      "prompt": "Point (x, 0) is equidistant from (-2, 0) and (6, 0). Find x.",
+      "options": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "It is the midpoint on the x-axis: x = (-2 + 6)/2 = 2.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-29",
+      "concept": "Equidistant points",
+      "difficulty": "foundation",
+      "prompt": "Point (x, 0) is equidistant from (-3, 0) and (9, 0). Find x.",
+      "options": [
+        "3",
+        "2",
+        "4",
+        "5"
+      ],
+      "answer": 0,
+      "explanation": "It is the midpoint on the x-axis: x = (-3 + 9)/2 = 3.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-30",
+      "concept": "Equidistant points",
+      "difficulty": "foundation",
+      "prompt": "Point (x, 0) is equidistant from (-4, 0) and (12, 0). Find x.",
+      "options": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "explanation": "It is the midpoint on the x-axis: x = (-4 + 12)/2 = 4.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-31",
+      "concept": "Equidistant points",
+      "difficulty": "standard",
+      "prompt": "Point (x, 0) is equidistant from (-2, 2) and (6, 2). Find x.",
+      "options": [
+        "3",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "(x + 2)² + 4 = (x − 6)² + 4. Expansion gives x = 2.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-32",
+      "concept": "Equidistant points",
+      "difficulty": "standard",
+      "prompt": "Point (x, 0) is equidistant from (-3, 3) and (9, 3). Find x.",
+      "options": [
+        "5",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "(x + 3)² + 9 = (x − 9)² + 9. Expansion gives x = 3.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-33",
+      "concept": "Equidistant points",
+      "difficulty": "standard",
+      "prompt": "Point (x, 0) is equidistant from (-4, 4) and (12, 4). Find x.",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "(x + 4)² + 16 = (x − 12)² + 16. Expansion gives x = 4.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-34",
+      "concept": "Equidistant points",
+      "difficulty": "challenge",
+      "prompt": "Point (x, 0) is equidistant from (-2, 2) and (6, 6). Find x.",
+      "options": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "explanation": "(x + 2)² + 4 = (x − 6)² + 36. After cancellation, 16x = 64; x = 4.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-35",
+      "concept": "Equidistant points",
+      "difficulty": "challenge",
+      "prompt": "Point (x, 0) is equidistant from (-3, 3) and (9, 9). Find x.",
+      "options": [
+        "7",
+        "8",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "(x + 3)² + 9 = (x − 9)² + 81. After cancellation, 24x = 144; x = 6.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-36",
+      "concept": "Equidistant points",
+      "difficulty": "challenge",
+      "prompt": "Point (x, 0) is equidistant from (-4, 4) and (12, 12). Find x.",
+      "options": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "(x + 4)² + 16 = (x − 12)² + 144. After cancellation, 32x = 256; x = 8.",
+      "conceptId": "equidistant"
+    },
+    {
+      "id": "c07-v1-37",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "foundation",
+      "prompt": "A rectangle has vertices (0,0), (6,0), (6,8), (0,8). Find its perimeter.",
+      "options": [
+        "28",
+        "27",
+        "29",
+        "30"
+      ],
+      "answer": 0,
+      "explanation": "Adjacent sides are 6 and 8. Perimeter = 2(6 + 8) = 28.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-38",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "foundation",
+      "prompt": "A rectangle has vertices (0,0), (9,0), (9,12), (0,12). Find its perimeter.",
+      "options": [
+        "41",
+        "43",
+        "44",
+        "42"
+      ],
+      "answer": 3,
+      "explanation": "Adjacent sides are 9 and 12. Perimeter = 2(9 + 12) = 42.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-39",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "foundation",
+      "prompt": "A rectangle has vertices (0,0), (12,0), (12,16), (0,16). Find its perimeter.",
+      "options": [
+        "57",
+        "58",
+        "56",
+        "55"
+      ],
+      "answer": 2,
+      "explanation": "Adjacent sides are 12 and 16. Perimeter = 2(12 + 16) = 56.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-40",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "standard",
+      "prompt": "A rhombus has vertices (6,0), (0,8), (-6,0), (0,-8). Find its perimeter.",
+      "options": [
+        "42",
+        "40",
+        "39",
+        "41"
+      ],
+      "answer": 1,
+      "explanation": "Each side has length √(36+64) = 10. Perimeter = 40.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-41",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "standard",
+      "prompt": "A rhombus has vertices (9,0), (0,12), (-9,0), (0,-12). Find its perimeter.",
+      "options": [
+        "60",
+        "59",
+        "61",
+        "62"
+      ],
+      "answer": 0,
+      "explanation": "Each side has length √(81+144) = 15. Perimeter = 60.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-42",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "standard",
+      "prompt": "A rhombus has vertices (12,0), (0,16), (-12,0), (0,-16). Find its perimeter.",
+      "options": [
+        "79",
+        "81",
+        "82",
+        "80"
+      ],
+      "answer": 3,
+      "explanation": "Each side has length √(144+256) = 20. Perimeter = 80.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-43",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "challenge",
+      "prompt": "For A(0,0), B(6,8), C(12,16), find AB + BC − AC.",
+      "options": [
+        "2",
+        "3",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "AB = BC = 10; AC = 20. The difference is 0, consistent with B lying on AC.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-44",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "challenge",
+      "prompt": "For A(0,0), B(9,12), C(18,24), find AB + BC − AC.",
+      "options": [
+        "3",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "AB = BC = 15; AC = 30. The difference is 0, consistent with B lying on AC.",
+      "conceptId": "coordinate-shapes"
+    },
+    {
+      "id": "c07-v1-45",
+      "concept": "Lengths in coordinate figures",
+      "difficulty": "challenge",
+      "prompt": "For A(0,0), B(12,16), C(24,32), find AB + BC − AC.",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "AB = BC = 20; AC = 40. The difference is 0, consistent with B lying on AC.",
+      "conceptId": "coordinate-shapes"
+    }
+  ]
+}
