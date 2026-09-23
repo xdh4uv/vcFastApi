@@ -13,6 +13,12 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000"
     cors_origin_regex: str = r"https://([a-z0-9-]+\.)?vercel\.app"
     uploads_dir: str = "uploads"
+    content_api_key: Optional[str] = None
+    content_pipeline_enabled: bool = False
+    content_api_base_url: Optional[str] = None
+    content_provider: str = 'openai-compatible'
+    content_output_mode: str = 'json_object'
+    content_model: Optional[str] = None
 
     @property
     def cors_origin_list(self) -> list[str]:

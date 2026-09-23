@@ -9,8 +9,12 @@ from sqlalchemy.orm import Session
 
 from ..core.database import get_db
 from ..core.security import get_current_user
+from ..core.config import settings
 from ..models.learningCourseModel import LearningAttempt, LearningCourse, LearningPreference, LearningProgress, LearningConcept
 from ..services.adaptive import load_insights, select_questions
+from ..services.content import cached_lesson, source_document, digest, PROMPT_VERSION, explanation_depth
+from ..models.contentModel import ContentGeneration
+from ..schemas.content import GeneratedLesson
 from ..models.subModuleMasterModel import SubModuleMaster
 from ..models.usersModel import User
 from ..schemas.learning import AnswerSubmission, Course, LevelSelection, ResetRequest
@@ -152,7 +156,12 @@ def find_chapter(course, chapter_id):
 def get_chapter(course_id: str, chapter_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
     chapter = find_chapter(load_course(db, course_id), chapter_id)
     adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=chapter_id).first() is not None
-    return {**chapter.model_dump(exclude={"questions", "finalQuestion"}), "questionCount": len(chapter.questions), "adaptiveAvailable": adaptive}
+    variant = None
+    if settings.content_pipeline_enabled:
+        depth = explanation_depth(db, user.id, course_id, chapter_id, adaptive)
+        variant = {**cached_lesson(db, course_id, chapter, depth['tier']), 'selection': depth}
+    return {**chapter.model_dump(exclude={"questions", "finalQuestion"}), "questionCount": len(chapter.questions),
+            "adaptiveAvailable": adaptive, "contentVariant": variant}
 
 
 @router.put("/courses/{course_id}/chapters/{chapter_id}/read")
@@ -315,3 +324,20 @@ def start_practice(course_id: str, chapter_id: str, db: Session = Depends(learni
     result = attempt_view(draft)
     db.commit()
     return result
+
+@router.get('/content/{generation_id}')
+def get_content_generation(generation_id: UUID, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
+    if not settings.content_pipeline_enabled:
+        raise HTTPException(404, 'Lesson versions are not enabled.')
+    row = db.get(ContentGeneration, generation_id)
+    if not row or row.status != 'ready':
+        raise HTTPException(404, 'Lesson version not available.')
+    chapter = find_chapter(load_course(db, row.course_id), row.chapter_id)
+    if row.prompt_version != PROMPT_VERSION or row.source_hash != digest(source_document(db, row.course_id, chapter)):
+        raise HTTPException(410, 'Lesson source changed. Reopen the chapter for current material.')
+    try:
+        content = GeneratedLesson.model_validate(row.content).model_dump()
+    except ValidationError:
+        raise HTTPException(503, 'Lesson version is unavailable.') from None
+    return {'id': str(row.id), 'courseId': row.course_id, 'chapterId': row.chapter_id, 'tier': row.tier,
+            'verified': row.verified, 'generated': content}
