@@ -110,11 +110,10 @@ class AuthRegressionTests(unittest.TestCase):
         sql = str(select(User).compile(dialect=postgresql.dialect()))
         self.assertIn("FROM public.users", sql)
 
-    def test_startup_initializes_public_users_only(self):
+    def test_startup_leaves_schema_to_flyway(self):
         with patch.object(Base.metadata, "create_all") as create_all:
             importlib.import_module("app.main")
-        self.assertEqual([table.fullname for table in create_all.call_args.kwargs["tables"]],
-                         ["public.users"])
+        create_all.assert_not_called()
 
 
 if __name__ == "__main__":

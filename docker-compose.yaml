@@ -1,0 +1,104 @@
+# Local development stack: Postgres 17 + Flyway + FastAPI (reload) + Vite (HMR).
+# Usage and troubleshooting: docs/local-runner.md
+#
+#   cp .env.docker.example .env.docker
+#   docker compose up
+#
+# Startup order: db → flyway (migrate) → seed (course + practice banks) → api → web.
+
+x-local-db: &local-db
+  DATABASE_URL: postgresql://vchitr:vchitr@db:5432/vchitr
+  # Scripts prefer this over DATABASE_URL; pinned locally so they can never reach Neon
+  # through a DATABASE_URL_UNPOOLED left in the repository's .env.
+  DATABASE_URL_UNPOOLED: postgresql://vchitr:vchitr@db:5432/vchitr
+  PYTHONDONTWRITEBYTECODE: "1"
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: vchitr
+      POSTGRES_USER: vchitr
+      POSTGRES_PASSWORD: vchitr
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro,z
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vchitr -d vchitr"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  flyway:
+    image: flyway/flyway:11
+    command: migrate
+    environment:
+      FLYWAY_URL: jdbc:postgresql://db:5432/vchitr
+      FLYWAY_USER: vchitr
+      FLYWAY_PASSWORD: vchitr
+      # db/dev holds local-only repeatable seeds; the remote pipeline uses db/migration only.
+      FLYWAY_LOCATIONS: filesystem:/flyway/sql,filesystem:/flyway/dev
+      FLYWAY_VALIDATE_MIGRATION_NAMING: "true"
+    volumes:
+      - ./db/migration:/flyway/sql:ro,z
+      - ./db/dev:/flyway/dev:ro,z
+    depends_on:
+      db:
+        condition: service_healthy
+
+  seed:
+    build: .
+    command: >
+      sh -c "python -m scripts.seed_learning --content-only &&
+             python -m scripts.seed_adaptive --bank all --content-only"
+    environment: *local-db
+    volumes:
+      - .:/app:z
+    depends_on:
+      flyway:
+        condition: service_completed_successfully
+
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    env_file: .env.docker
+    environment:
+      <<: *local-db
+      UPLOADS_DIR: /data/uploads
+    volumes:
+      - .:/app:z
+      - uploads:/data/uploads
+    ports:
+      - "8000:8000"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+
+  web:
+    image: node:22
+    working_dir: /app
+    # Reinstall only when package-lock.json changes; node_modules lives in a volume.
+    command: >
+      sh -c 'h=$$(sha256sum package-lock.json | cut -d" " -f1);
+             if [ "$$(cat node_modules/.lock-hash 2>/dev/null)" != "$$h" ]; then
+               npm ci && echo "$$h" > node_modules/.lock-hash;
+             fi;
+             exec npm run dev -- --host 0.0.0.0 --port 5173 --strictPort'
+    env_file: .env.docker
+    environment:
+      # Called from the browser on the host, so this is localhost, not http://api:8000.
+      VITE_API_BASE_URL: http://localhost:8000
+    volumes:
+      - ${FRONTEND_DIR:-../vchitr-frontend}:/app:z
+      - web_node_modules:/app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  uploads:
+  web_node_modules:

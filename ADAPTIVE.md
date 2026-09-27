@@ -1,5 +1,7 @@
 # Class 10 adaptive practice
 
+> **Schema changes are now managed by Flyway** (`db/migration/`, applied by CI). The migration steps below record how V1–V3 were first rolled out; on a Flyway-managed database use the scripts' content-only modes. See [docs/03-database.md](docs/03-database.md#5-schema-changes-and-migrations).
+
 All 14 chapters of the existing Class 10 Maths course support adaptive practice. Each has five concept revision cards and 45 original MCQs: 70 cards and 630 questions in Neon. Each concept has three variants at each of three difficulties. Answer keys have independent regression checks. A teacher has not reviewed these starter banks; do not describe them as exhaustive textbook coverage or validated measures of mastery. See CLASS10_CONTENT.md for the chapter map and limits.
 
 ## Migration and publishing
@@ -15,7 +17,7 @@ python -m scripts.seed_adaptive --bank all --content-only
 python -m scripts.verify_adaptive_db --bank all
 ```
 
-Seed applies migrations/002_adaptive_practice.sql and publishes the immutable versioned bank in one transaction. Existing question snapshots, answers, scores and read markers are preserved. Existing final attempts are classified as final. Repeating the seed is safe; changed published question documents fail instead of being overwritten. Use a new question ID for revised wording or keys. Updating revision cards requires an explicit reviewed migration.
+Seed applies db/migration/V2__adaptive_practice.sql and publishes the immutable versioned bank in one transaction. Existing question snapshots, answers, scores and read markers are preserved. Existing final attempts are classified as final. Repeating the seed is safe; changed published question documents fail instead of being overwritten. Use a new question ID for revised wording or keys. Updating revision cards requires an explicit reviewed migration.
 
 For an existing adaptive installation, `--content-only` publishes content without reapplying migration 002 or replacing indexes. `--bank all` publishes all 14 banks in one transaction; an invalid or conflicting bank rolls back the whole batch. New chapters need no schema or runtime API/frontend code: availability is discovered from the concept table. The default bank remains Real Numbers for compatibility. Each verifier checks its requested bank, or all banks.
 

@@ -24,7 +24,7 @@ def read_bank(name='real-numbers'):
 def publish(connection, bank, apply_schema=True):
     connection.execute(text("SELECT pg_advisory_xact_lock(71020402)"))
     if apply_schema:
-        connection.execute(text((ROOT / "migrations/002_adaptive_practice.sql").read_text(encoding="utf-8")))
+        connection.execute(text((ROOT / "db/migration/V2__adaptive_practice.sql").read_text(encoding="utf-8")))
     course = connection.execute(text("SELECT content FROM modules.learning_courses WHERE course_id=:id"), {"id": bank.courseId}).scalar_one()
     assert any(c["id"] == bank.chapterId for c in course["chapters"]), "Chapter must exist"
     values = dict(course=bank.courseId, chapter=bank.chapterId,

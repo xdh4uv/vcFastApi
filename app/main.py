@@ -6,13 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from .core.config import settings
-from .core.database import Base, engine
 from .routers import auth, profile, learning
 
-Base.metadata.create_all(
-    bind=engine,
-    tables=[t for t in Base.metadata.sorted_tables if t.schema in (None, "public")],
-)
+# The schema is owned by Flyway (db/migration); the app never creates tables.
 
 app = FastAPI(title="vcFastApi Auth")
 

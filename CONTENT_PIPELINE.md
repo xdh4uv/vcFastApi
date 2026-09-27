@@ -1,5 +1,7 @@
 # Adaptive lesson content pipeline
 
+> **Schema changes are now managed by Flyway** (`db/migration/`, applied by CI). The migration steps below record how V1–V3 were first rolled out; on a Flyway-managed database use the scripts' content-only modes. See [docs/03-database.md](docs/03-database.md#5-schema-changes-and-migrations).
+
 The backend selects explanation depth from existing chapter results, then reads an adapted lesson from PostgreSQL. Default depth serves the original lesson unchanged. Missing, outdated or invalid adapted content falls back to that original lesson. Student requests never call a model provider.
 
 ## Automatic explanation depth
@@ -34,7 +36,7 @@ For compatible endpoints, json_object requests JSON mode, json_schema requests s
 
 ## Migration and rollout
 
-1. On an isolated database branch, run `python -m scripts.generate_content --migrate-only` using DATABASE_URL_UNPOOLED set to the schema owner's direct (non-pooler) connection. This applies migrations/003_content_pipeline.sql without a provider key or call. Verify the content table, partial unique index and admin SELECT grant. The migration is additive and repeatable.
+1. On an isolated database branch, run `python -m scripts.generate_content --migrate-only` using DATABASE_URL_UNPOOLED set to the schema owner's direct (non-pooler) connection. This applies db/migration/V3__content_pipeline.sql without a provider key or call. Verify the content table, partial unique index and admin SELECT grant. The migration is additive and repeatable.
 2. Set DATABASE_URL_UNPOOLED in the operator environment to that direct connection; DATABASE_URL remains the normal runtime connection. Existing API settings, including JWT_SECRET, are still required by the app's settings loader.
 3. Inspect source without calling the provider: `python -m scripts.generate_content --chapter all --tier both --dry-run`.
 4. Generate one sample: `python -m scripts.generate_content --chapter ch-01 --tier beginner --max-generations 1`. Inspect stored content for mathematical correctness. Schema validation does not establish correctness or teacher review.

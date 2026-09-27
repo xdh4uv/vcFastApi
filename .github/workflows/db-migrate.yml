@@ -1,0 +1,109 @@
+# Replays every Flyway migration on a throwaway Postgres 17, then applies pending
+# migrations to the remote (Neon) database on pushes to master.
+#
+# Required secrets (repository or `production` environment):
+#   NEON_FLYWAY_URL       jdbc:postgresql://<direct host, no -pooler>/<db>?sslmode=require
+#   NEON_FLYWAY_USER      schema-owner role
+#   NEON_FLYWAY_PASSWORD
+#
+# One-time prerequisite: the remote must be baselined at version 3 (see docs/03-database.md).
+# Without that, Flyway refuses to migrate a non-empty schema that has no history table.
+name: Database migrations
+
+on:
+  push:
+    branches: [master]
+    paths: ["db/migration/**", ".github/workflows/db-migrate.yml"]
+  pull_request:
+    paths: ["db/migration/**", "db/dev/**", ".github/workflows/db-migrate.yml"]
+  workflow_dispatch:
+  # Lets a deploy workflow run this first: `uses: ./.github/workflows/db-migrate.yml` with `secrets: inherit`.
+  workflow_call:
+
+concurrency:
+  group: db-migrate-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  FLYWAY_IMAGE: flyway/flyway:11
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: vchitr
+          POSTGRES_USER: vchitr
+          POSTGRES_PASSWORD: vchitr
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U vchitr -d vchitr"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      PGPASSWORD: vchitr
+      DATABASE_URL: postgresql://vchitr:vchitr@localhost:5432/vchitr
+      DATABASE_URL_UNPOOLED: postgresql://vchitr:vchitr@localhost:5432/vchitr
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create roles that exist on remote
+        run: psql -h localhost -U vchitr -d vchitr -f db/init/00-roles.sql
+
+      - name: Apply all migrations to an empty database
+        run: >
+          docker run --rm --network host
+          -v "$PWD/db/migration:/flyway/sql:ro" -v "$PWD/db/dev:/flyway/dev:ro"
+          -e FLYWAY_URL=jdbc:postgresql://localhost:5432/vchitr
+          -e FLYWAY_USER=vchitr -e FLYWAY_PASSWORD=vchitr
+          -e FLYWAY_LOCATIONS=filesystem:/flyway/sql,filesystem:/flyway/dev
+          -e FLYWAY_VALIDATE_MIGRATION_NAMING=true
+          "$FLYWAY_IMAGE" migrate
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Publish content on the migrated schema
+        run: |
+          pip install -r requirements.txt
+          python -m scripts.seed_learning --content-only
+          python -m scripts.seed_adaptive --bank all --content-only
+          python -m scripts.verify_adaptive_db --bank all
+
+  migrate:
+    needs: verify
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: db-migrate-production
+      cancel-in-progress: false
+    env:
+      FLYWAY_URL: ${{ secrets.NEON_FLYWAY_URL }}
+      FLYWAY_USER: ${{ secrets.NEON_FLYWAY_USER }}
+      FLYWAY_PASSWORD: ${{ secrets.NEON_FLYWAY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refuse the pooled endpoint
+        run: |
+          case "$FLYWAY_URL" in
+            "") echo "NEON_FLYWAY_URL is not set"; exit 1 ;;
+            *-pooler*) echo "Use the direct Neon host; the pooler breaks Flyway's lock"; exit 1 ;;
+          esac
+
+      - name: Migrate remote
+        run: |
+          flyway() {
+            docker run --rm -v "$PWD/db/migration:/flyway/sql:ro" \
+              -e FLYWAY_URL -e FLYWAY_USER -e FLYWAY_PASSWORD \
+              -e FLYWAY_LOCATIONS=filesystem:/flyway/sql \
+              -e FLYWAY_VALIDATE_MIGRATION_NAMING=true \
+              "$FLYWAY_IMAGE" "$@"
+          }
+          flyway info
+          flyway migrate
+          flyway info

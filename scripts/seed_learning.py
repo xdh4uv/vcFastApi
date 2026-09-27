@@ -2,7 +2,9 @@
 
 Run from the repository root: python -m scripts.seed_learning
 Use DATABASE_URL_UNPOOLED for Neon migrations. No existing version is overwritten.
+With Flyway-managed schemas, pass --content-only to publish without DDL.
 """
+import argparse
 import os
 from pathlib import Path
 
@@ -15,8 +17,9 @@ from app.schemas.learning import Course
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def publish(connection, course: Course):
-    connection.execute(text((ROOT / "migrations/001_learning_courses.sql").read_text(encoding="utf-8")))
+def publish(connection, course: Course, apply_schema=True):
+    if apply_schema:
+        connection.execute(text((ROOT / "db/migration/V1__learning_courses.sql").read_text(encoding="utf-8")))
     subject_id = connection.execute(text(
         "SELECT sub_module_id FROM modules.sub_modules_master WHERE lower(sub_module_name) IN ('math', 'maths', 'mathematics')"
     )).scalar_one()
@@ -32,6 +35,9 @@ def publish(connection, course: Course):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--content-only", action="store_true", help="Schema V1 must already exist; publish without DDL")
+    args = parser.parse_args()
     load_dotenv(ROOT / ".env")
     url = make_url(os.environ.get("DATABASE_URL_UNPOOLED") or os.environ["DATABASE_URL"])
     if "-pooler" in (url.host or ""):
@@ -39,7 +45,7 @@ def main():
     course = Course.model_validate_json((ROOT / "data/ncert-maths-10-v1.json").read_text(encoding="utf-8"))
     engine = create_engine(url, connect_args={"connect_timeout": 15})
     with engine.begin() as connection:
-        publish(connection, course)
+        publish(connection, course, apply_schema=not args.content_only)
     print(f"Published {course.id}: {len(course.chapters)} chapters, {sum(len(c.questions) + 1 for c in course.chapters)} questions.")
     engine.dispose()
 

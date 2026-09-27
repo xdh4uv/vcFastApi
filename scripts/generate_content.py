@@ -56,7 +56,7 @@ def main():
         connection.commit()
         try:
             if args.migrate or args.migrate_only:
-                connection.execute(text((Path(__file__).resolve().parents[1] / 'migrations/003_content_pipeline.sql').read_text()))
+                connection.execute(text((Path(__file__).resolve().parents[1] / 'db/migration/V3__content_pipeline.sql').read_text()))
                 connection.commit()
                 if args.migrate_only:
                     print('Applied content schema 003; no provider call.')

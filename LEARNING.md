@@ -1,5 +1,7 @@
 # Learning courses and results
 
+> **Schema changes are now managed by Flyway** (`db/migration/`, applied by CI). The migration steps below record how V1–V3 were first rolled out; on a Flyway-managed database use the scripts' content-only modes. See [docs/03-database.md](docs/03-database.md#5-schema-changes-and-migrations).
+
 The frontend opens Learning → subject. GET /learning/subjects/{subject_name} returns the user's saved level and the available course for it. If no level is saved, the frontend prompts once and PUTs the selection. Profile lists the same preferences and changes them through the same endpoint. Only levels with published coursework are selectable.
 
 ## Database ownership and migration
@@ -31,7 +33,7 @@ Keep migration credentials separate from runtime credentials. The runtime cannot
 python -m scripts.verify_learning_db
 ```
 
-The seed applies migrations/001_learning_courses.sql and publishes data/ncert-maths-10-v1.json in one transaction. It preserves existing rows and fails if an existing course version differs. Repeating it is safe. No migration runs automatically during application startup. No database credential belongs in source control.
+The seed applies db/migration/V1__learning_courses.sql and publishes data/ncert-maths-10-v1.json in one transaction. It preserves existing rows and fails if an existing course version differs. Repeating it is safe. No migration runs automatically during application startup. No database credential belongs in source control.
 
 Tables, all in modules:
 
