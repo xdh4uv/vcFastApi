@@ -34,13 +34,43 @@ Switch provider URL, protocol, model and key together. No DB migration or fronte
 
 For compatible endpoints, json_object requests JSON mode, json_schema requests strict structured output, and text omits response_format for models without JSON-mode support. Every mode includes the schema in the instructions and undergoes the same local Pydantic validation. Select a mode supported by the chosen model. A refusal, truncation, malformed JSON or unsupported API parameter fails the job; it is never published as a usable lesson. Text mode still requires a JSON object, without code fences. No tools or model-executed code are enabled.
 
+### NIM Nemotron Ultra request settings
+
+The hosted playground uses streaming and an explicit thinking flag. Configure the operator environment to match it:
+
+```dotenv
+CONTENT_PROVIDER=openai-compatible
+CONTENT_API_BASE_URL=https://integrate.api.nvidia.com/v1
+CONTENT_MODEL=nvidia/nemotron-3-ultra-550b-a55b
+CONTENT_OUTPUT_MODE=text
+CONTENT_STREAM=true
+CONTENT_MAX_TOKENS=16384
+CONTENT_READ_TIMEOUT=180
+CONTENT_TEMPERATURE=1
+CONTENT_TOP_P=0.95
+CONTENT_ENABLE_THINKING=true
+CONTENT_PIPELINE_ENABLED=false
+```
+
+The key must be a NVIDIA key, configured separately. These options do not solve provider overload. Without overrides, existing providers retain the 6000-token / 90-second / non-streaming defaults. The token limit is bounded to 1–32768 and the read timeout to 10–600 seconds. Streaming has an additional elapsed-time check between received lines. Sampling and streaming overrides currently apply to Chat Completions adapters; unset them for Anthropic. `CONTENT_ENABLE_THINKING` is specific to NIM and must be unset for another provider.
+
+Only final-answer `content` deltas are collected. Reasoning deltas are discarded. A stream must finish with `stop` and `[DONE]`; a disconnect, truncation, refusal or error event fails generation. An HTTP 200 followed by a 503 event is recorded as `provider_http_503`, not a successful answer. Timeouts are distinguished from connection failures. Responses are closed on all paths; no automatic retries or model switches occur.
+
+### Check the provider before publishing
+
+Run `python -m scripts.check_content_provider --chapter ch-02 --tier both`. This uses the normal runtime database connection in a read-only transaction, including current chapter and revision-card source. It needs neither the generated-content table nor the owner connection. It sends no assessment keys or student data and performs no DB writes. Pipeline enablement is not required.
+
+Each request creates a UUID report in ignored `.content-checks/` before the provider call. The report retains source/hash, request settings, raw answer, numeric usage and the precise validation field/type/message, without headers or keys. A failure stops the run. Success means output-schema compliance; mathematical correctness still requires reviewing the stored examples. This checker provides reproducible diagnostics for both tiers; it does not publish or mark a lesson teacher-reviewed.
+
+Prompt version `lesson-v2` explicitly requires one JSON object, the correct string/array types, no code fences and Unicode maths rather than backslash commands. The strict lesson schema is unchanged. Generation settings participate in cache identity and are retained in usage metadata under `request_options`; provider-reported numeric token/cost fields remain at the top level. Generation failures print safe field-level validation diagnostics, while preserving raw output for inspection.
+
 ## Migration and rollout
 
 1. On an isolated database branch, run `python -m scripts.generate_content --migrate-only` using DATABASE_URL_UNPOOLED set to the schema owner's direct (non-pooler) connection. This applies db/migration/V3__content_pipeline.sql without a provider key or call. Verify the content table, partial unique index and admin SELECT grant. The migration is additive and repeatable.
 2. Set DATABASE_URL_UNPOOLED in the operator environment to that direct connection; DATABASE_URL remains the normal runtime connection. Existing API settings, including JWT_SECRET, are still required by the app's settings loader.
 3. Inspect source without calling the provider: `python -m scripts.generate_content --chapter all --tier both --dry-run`.
 4. Generate one sample: `python -m scripts.generate_content --chapter ch-01 --tier beginner --max-generations 1`. Inspect stored content for mathematical correctness. Schema validation does not establish correctness or teacher review.
-5. After validation, repeat the migration against the app database and pre-generate there. `python -m scripts.generate_content --chapter all --tier both --max-generations 28` covers all 14 chapters and both adapted depths. Existing matching generations are reused. The default limit is one call; a failed job stops the run. Each call has a 6000-token output cap, 10-second connection timeout and 90-second read timeout. These are bounded requests, not a currency budget.
+5. After validation, repeat the migration against the app database and pre-generate there. `python -m scripts.generate_content --chapter all --tier both --max-generations 28` covers all 14 chapters and both adapted depths. Existing matching generations are reused. The default limit is one call; a failed job stops the run. Default requests have a 6000-token output cap, 10-second connection timeout and 90-second read timeout, with bounded operator overrides above. These are bounded requests, not a currency budget.
 6. Deploy the backend with CONTENT_PIPELINE_ENABLED=true only after migration. Deploy the frontend. The disabled default does not query the new table, making an early deployment safe. The HTTP-serving environment does not need a provider key: only the publisher does.
 
 `--migrate` can apply schema 003 before generation, using the owner connection. `--dry-run` cannot perform migration or recovery writes. The command holds a session advisory lock on its direct connection to serialize publishers. Pending jobs are committed before provider calls. After a publisher crash, rerun with `--recover-pending` only after diagnosing the failure; the exclusive lock ensures no other publisher is active. An uncertain provider timeout can have consumed tokens even though it recorded a failure, so there is no automatic retry.
@@ -59,6 +89,8 @@ Run `python -m unittest discover -s tests`. Offline tests use disposable SQLite 
 
 Verification completed: 56 backend tests and 5 frontend tests passed, along with TypeScript, ESLint and the production build. Local HTTP checks exercised authentication, different depths for two students, cache reuse, UUID retrieval and fallbacks. Browser checks confirmed automatic Beginner selection, section navigation, reload persistence, missing-variant fallback and Default for a chapter without evidence. These checks used SQLite and fixture-generated content, not a live provider or Neon.
 
-Implementation defaults disabled. As of 24 September 2026, live NIM generation and Neon migration still require working operator credentials. The Neon connector is rejecting project-scoped calls and the previous isolated-branch credentials no longer authenticate. No mock-generated lesson has been published to the app database.
+Implementation defaults disabled. Verification on 30 September 2026: 62 offline backend tests pass, including stream completion, in-stream 503 overloads, discarded reasoning, truncation/refusal rejection, malformed events, timeout redaction, validation diagnostics and request-option cache identity. A live read-only check retrieved Polynomials and its revision cards from the app database, but NIM Ultra returned `provider_http_503` before any lesson could be validated. The local report records that failed request; no lesson was published and Advanced generation was not attempted after the failure.
+
+The app database `vchitr-main` has all 14 chapters but not `modules.learning_content_generations`; `DATABASE_URL_UNPOOLED` is absent locally. The Neon connector now accepts project-scoped branch listing. Verify Flyway migration V3 on an isolated branch and apply the missing schema consistently with the existing Flyway history before publishing reviewed real-provider lessons or enabling the feature. Publishing still needs a schema-owner direct connection. No mock-generated lesson has been published to the app database.
 
 Provider references: [NVIDIA LLM API](https://docs.api.nvidia.com/nim/re/reference/llm-apis), [OpenRouter Chat Completions](https://openrouter.ai/docs/api/api-reference/chat/send-chat-completion-request), [Anthropic structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).

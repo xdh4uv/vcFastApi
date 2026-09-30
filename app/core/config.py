@@ -1,6 +1,7 @@
 from typing import Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
 
 
 class Settings(BaseSettings):
@@ -19,6 +20,21 @@ class Settings(BaseSettings):
     content_provider: str = 'openai-compatible'
     content_output_mode: str = 'json_object'
     content_model: Optional[str] = None
+    content_stream: bool = False
+    content_max_tokens: int = Field(default=6000, ge=1, le=32768)
+    content_read_timeout: int = Field(default=90, ge=10, le=600)
+    content_temperature: Optional[float] = Field(default=None, ge=0, le=2)
+    content_top_p: Optional[float] = Field(default=None, gt=0, le=1)
+    content_enable_thinking: Optional[bool] = None
+
+    @property
+    def content_request_options(self) -> dict:
+        return {
+            'max_tokens': self.content_max_tokens, 'stream': self.content_stream,
+            'read_timeout': self.content_read_timeout,
+            'temperature': self.content_temperature, 'top_p': self.content_top_p,
+            'enable_thinking': self.content_enable_thinking,
+        }
 
     @property
     def cors_origin_list(self) -> list[str]:

@@ -10,7 +10,7 @@ from app.models.contentModel import ContentGeneration
 from app.models.learningCourseModel import LearningCourse, LearningConcept, PracticeQuestion
 from app.routers import learning
 from app.services.content import cached_lesson, digest, source_document, explanation_depth
-from app.services.content_generation import generate, request_lesson, GenerationError
+from app.services.content_generation import generate, request_lesson, GenerationError, validation_issues
 from app.schemas.learning import ResetRequest
 from scripts.seed_adaptive import read_bank
 
@@ -150,7 +150,7 @@ class ContentTests(unittest.TestCase):
         with self.assertRaises(HTTPException) as caught:
             self.call(learning.get_content_generation, row.id)
         self.assertEqual(caught.exception.status_code, 410)
-        with patch('app.services.content.PROMPT_VERSION', 'lesson-v2'):
+        with patch('app.services.content.PROMPT_VERSION', 'future-lesson-version'):
             self.assertEqual(cached_lesson(self.db, baseline.COURSE, self.chapter, 'beginner')['status'], 'unavailable')
 
     def test_tier_model_and_source_are_distinct_cache_keys(self):
@@ -216,5 +216,82 @@ class ContentTests(unittest.TestCase):
         with self.assertRaisesRegex(GenerationError, 'provider_http_429'):
             request_lesson(self.source, 'beginner', 'test-model', 'secret')
         post.side_effect = requests.Timeout('sensitive request details')
-        with self.assertRaisesRegex(GenerationError, '^provider_connection_failed$'):
+        with self.assertRaisesRegex(GenerationError, '^provider_timeout$'):
             request_lesson(self.source, 'beginner', 'test-model', 'secret')
+
+    @patch('app.services.content_generation.requests.post')
+    def test_stream_collects_answer_not_reasoning_and_keeps_usage(self, post):
+        raw = json.dumps(LESSON)
+        events = [
+            {'choices': [{'index': 0, 'delta': {'reasoning_content': 'private reasoning'}}]},
+            {'choices': [{'index': 0, 'delta': {'content': raw[:25]}}]},
+            {'choices': [{'index': 0, 'delta': {'content': raw[25:]}, 'finish_reason': 'stop'}]},
+            {'choices': [], 'usage': {'completion_tokens': 99, 'cost': 0, 'secret': 'ignore'}},
+        ]
+        response = Mock(status_code=200)
+        response.iter_lines.return_value = [b': heartbeat'] + [b'data: ' + json.dumps(e).encode() for e in events] + [b'data: [DONE]']
+        post.return_value = response
+        result = request_lesson(self.source, 'advanced', 'nvidia/nemotron-3-ultra-550b-a55b', 'key',
+            provider='openai-compatible', base_url='https://integrate.api.nvidia.com/v1', output_mode='text',
+            stream=True, max_tokens=16384, read_timeout=180, temperature=1, top_p=.95, enable_thinking=True)
+        self.assertEqual(result, (raw, {'completion_tokens': 99, 'cost': 0}, 'end_turn'))
+        payload = post.call_args.kwargs['json']
+        self.assertTrue(payload['stream'])
+        self.assertEqual(payload['chat_template_kwargs'], {'enable_thinking': True})
+        self.assertNotIn('response_format', payload)
+        self.assertEqual(post.call_args.kwargs['timeout'], (10, 180))
+        response.close.assert_called_once()
+
+    @patch('app.services.content_generation.requests.post')
+    def test_stream_rejects_overload_even_after_http_200(self, post):
+        post.return_value = Mock(status_code=200)
+        post.return_value.iter_lines.return_value = [b'data: {"error":{"message":"sensitive details","code":503}}']
+        with self.assertRaisesRegex(GenerationError, '^provider_http_503$'):
+            request_lesson(self.source, 'advanced', 'model', 'key', provider='openai-compatible',
+                           base_url='https://integrate.api.nvidia.com/v1', stream=True)
+        post.return_value.close.assert_called_once()
+
+    @patch('app.services.content_generation.requests.post')
+    def test_missing_done_truncation_and_refusal_are_not_success(self, post):
+        for finish, refusal, done in [('stop', None, False), ('length', None, True), ('stop', 'no', True)]:
+            event = {'choices': [{'delta': {'content': json.dumps(LESSON), 'refusal': refusal}, 'finish_reason': finish}]}
+            response = Mock(status_code=200)
+            response.iter_lines.return_value = [b'data: ' + json.dumps(event).encode()] + ([b'data: [DONE]'] if done else [])
+            post.return_value = response
+            raw, usage, reason = request_lesson(self.source, 'advanced', 'model', 'key', provider='openai-compatible',
+                                               base_url='https://integrate.api.nvidia.com/v1', stream=True)
+            failed, _ = self.create(provider=Mock(return_value=(raw, usage, reason)))
+            self.assertEqual(failed.status, 'failed')
+            self.assertEqual(failed.error_code, 'incomplete_or_refused')
+
+    @patch('app.services.content_generation.requests.post')
+    def test_stream_rejects_malformed_events_and_times_out(self, post):
+        response = Mock(status_code=200)
+        post.return_value = response
+        response.iter_lines.return_value = [b'data: broken JSON']
+        with self.assertRaisesRegex(GenerationError, '^invalid_provider_response$'):
+            request_lesson(self.source, 'advanced', 'model', 'key', provider='openai-compatible',
+                           base_url='https://integrate.api.nvidia.com/v1', stream=True)
+        response.iter_lines.side_effect = requests.Timeout('secret details')
+        with self.assertRaisesRegex(GenerationError, '^provider_timeout$'):
+            request_lesson(self.source, 'advanced', 'model', 'key', provider='openai-compatible',
+                           base_url='https://integrate.api.nvidia.com/v1', stream=True)
+
+    def test_validation_diagnostics_and_request_options_cache_identity(self):
+        bad = deepcopy(LESSON)
+        bad['sections'][0]['example']['steps'] = ['Only one step']
+        issues = validation_issues(json.dumps(bad))
+        self.assertEqual(issues[0]['path'], ['sections', 0, 'example', 'steps'])
+        self.assertNotIn('Only one step', json.dumps(issues))
+        first, _ = generate(self.db, self.source, 'advanced', 'model', self.provider, request_options={'stream': True})
+        second, _ = generate(self.db, self.source, 'advanced', 'model', self.provider, request_options={'stream': False})
+        self.assertNotEqual(first.cache_key, second.cache_key)
+        self.assertEqual(first.usage['request_options'], {'stream': True})
+        self.assertEqual(first.usage['input_tokens'], 100)
+
+    @patch('app.services.content_generation.requests.post')
+    def test_nim_options_cannot_leak_into_other_providers(self, post):
+        for provider, endpoint in [('openai-compatible', 'https://openrouter.ai/api/v1'), ('anthropic', 'https://api.anthropic.com/v1')]:
+            with self.assertRaises(ValueError):
+                request_lesson(self.source, 'advanced', 'model', 'key', provider=provider, base_url=endpoint, enable_thinking=True)
+        post.assert_not_called()

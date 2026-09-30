@@ -1,6 +1,7 @@
 """Operator-only generation; student HTTP requests never invoke this module."""
 from datetime import datetime, timezone
 import json
+import time
 from urllib.parse import urlsplit
 from uuid import uuid4
 
@@ -19,7 +20,10 @@ Return plain-text strings, Unicode maths where useful; no HTML, Markdown links o
 Return 2–8 sections, each with explanation, a fully worked example and a short self-check prompt.
 Use 2–12 steps per example, 1–8 explanation paragraphs per section and 2–8 takeaways.
 Each string must be nonempty and at most 6000 characters. Keep the whole lesson concise enough
-to finish within the output budget. The JSON must match the supplied schema.'''
+to finish within the output budget. Return exactly one JSON object matching the supplied schema.
+Do not wrap it in code fences or add commentary, headings outside JSON, or extra keys.
+summary, title, problem and checkYourself are strings; explanation, steps and takeaways
+are arrays of strings. Use literal Unicode maths instead of backslash commands.'''
 DIRECTIONS = {
     'beginner': 'Use simpler language, define terms, explain prerequisites, concrete examples before rules, and small explicit steps.',
     'advanced': 'Add derivations, justified connections within chapter scope, edge cases and challenging worked examples. Reduce routine hand-holding.',
@@ -28,6 +32,62 @@ DIRECTIONS = {
 
 class GenerationError(Exception):
     pass
+
+
+def validation_issues(raw):
+    """Operator diagnostics without including input text or provider credentials."""
+    try:
+        GeneratedLesson.model_validate_json(raw)
+        return []
+    except ValidationError as exc:
+        return [{'path': list(e['loc']), 'type': e['type'], 'message': e['msg']}
+                for e in exc.errors(include_input=False, include_url=False)[:8]]
+
+
+def numeric_usage(value):
+    if not isinstance(value, dict):
+        raise ValueError('Invalid usage type')
+    return {k: v for k, v in value.items() if type(v) in (int, float) and v >= 0}
+
+
+def stream_response(response, read_timeout):
+    """Accept only complete final-answer content, never reasoning deltas."""
+    chunks, usage, finish, refused, done = [], {}, None, False, False
+    started = time.monotonic()
+    size = 0
+    for line in response.iter_lines(chunk_size=512):
+        if time.monotonic() - started > read_timeout:
+            raise GenerationError('provider_stream_timeout')
+        if not line or not line.startswith(b'data:'):
+            continue
+        data = line[5:].strip()
+        if data == b'[DONE]':
+            done = True
+            break
+        event = json.loads(data)
+        if event.get('error'):
+            code = event['error'].get('code') if isinstance(event['error'], dict) else None
+            raise GenerationError(f'provider_http_{code}' if type(code) is int and 400 <= code <= 599 else 'provider_stream_error')
+        if event.get('usage') is not None:
+            usage.update(numeric_usage(event['usage']))
+        for choice in event.get('choices', []):
+            if choice.get('index', 0) != 0:
+                continue
+            delta = choice.get('delta', {})
+            content = delta.get('content') or ''
+            if not isinstance(content, str):
+                raise ValueError('Invalid content type')
+            size += len(content)
+            if size > 250000:
+                raise GenerationError('provider_output_too_large')
+            chunks.append(content)
+            refused = refused or bool(delta.get('refusal'))
+            if choice.get('finish_reason') == 'error':
+                raise GenerationError('provider_stream_error')
+            if choice.get('finish_reason'):
+                finish = choice['finish_reason']
+    reason = 'end_turn' if done and finish == 'stop' and not refused else 'incomplete'
+    return ''.join(chunks), usage, reason
 
 
 def provider_schema(value):
@@ -47,9 +107,24 @@ def validate_provider(provider, base_url, output_mode):
         raise ValueError('Content provider requires an HTTPS base URL without credentials, query or fragment.')
 
 
+def validate_request_options(provider, base_url, *, max_tokens=6000, stream=False, read_timeout=90,
+                             temperature=None, top_p=None, enable_thinking=None):
+    if not 1 <= max_tokens <= 32768 or not 10 <= read_timeout <= 600:
+        raise ValueError('Invalid content token or timeout limit.')
+    if temperature is not None and not 0 <= temperature <= 2 or top_p is not None and not 0 < top_p <= 1:
+        raise ValueError('Invalid content sampling options.')
+    if provider == 'anthropic' and (stream or any(x is not None for x in (temperature, top_p, enable_thinking))):
+        raise ValueError('These content options require a Chat Completions provider.')
+    if enable_thinking is not None and (provider != 'openai-compatible' or urlsplit(base_url).hostname != 'integrate.api.nvidia.com'):
+        raise ValueError('CONTENT_ENABLE_THINKING is specific to NVIDIA NIM; unset when switching providers.')
+
+
 def request_lesson(source, tier, model, api_key, max_tokens=6000, *, provider='anthropic',
-                   base_url='https://api.anthropic.com/v1', output_mode='json_object'):
+                   base_url='https://api.anthropic.com/v1', output_mode='json_object',
+                   stream=False, read_timeout=90, temperature=None, top_p=None, enable_thinking=None):
     validate_provider(provider, base_url, output_mode)
+    validate_request_options(provider, base_url, max_tokens=max_tokens, stream=stream, read_timeout=read_timeout,
+                             temperature=temperature, top_p=top_p, enable_thinking=enable_thinking)
     schema = provider_schema(GeneratedLesson.model_json_schema())
     user = DIRECTIONS[tier] + '\nReference JSON:\n' + json.dumps(source, ensure_ascii=False)
     headers = {'Content-Type': 'application/json'}
@@ -63,22 +138,34 @@ def request_lesson(source, tier, model, api_key, max_tokens=6000, *, provider='a
         endpoint = base_url.rstrip('/') + '/chat/completions'
         headers['Authorization'] = 'Bearer ' + api_key
         token_field = 'max_completion_tokens' if provider == 'openai' else 'max_tokens'
-        payload = {'model': model, token_field: max_tokens, 'stream': False,
+        payload = {'model': model, token_field: max_tokens, 'stream': stream,
             'messages': [{'role': 'system', 'content': SYSTEM + '\nOutput JSON schema:\n' + json.dumps(schema)},
                          {'role': 'user', 'content': user}]}
         if output_mode == 'json_object':
             payload['response_format'] = {'type': 'json_object'}
         elif output_mode == 'json_schema':
             payload['response_format'] = {'type': 'json_schema', 'json_schema': {'name': 'lesson', 'strict': True, 'schema': schema}}
+        if temperature is not None:
+            payload['temperature'] = temperature
+        if top_p is not None:
+            payload['top_p'] = top_p
+        if enable_thinking is not None:
+            payload['chat_template_kwargs'] = {'enable_thinking': enable_thinking}
+        if stream:
+            headers['Accept'] = 'text/event-stream'
+            if urlsplit(base_url).hostname == 'openrouter.ai':
+                payload['stream_options'] = {'include_usage': True}
     try:
-        response = requests.post(endpoint, json=payload, headers=headers, timeout=(10, 90), allow_redirects=False)
-    except requests.RequestException:
-        raise GenerationError('provider_connection_failed') from None
-    if response.status_code != 200:
-        raise GenerationError(f'provider_http_{response.status_code}')
-    try:
+        response = requests.post(endpoint, json=payload, headers=headers, timeout=(10, read_timeout), allow_redirects=False,
+                                 **({'stream': True} if stream else {}))
+        if response.status_code != 200:
+            raise GenerationError(f'provider_http_{response.status_code}')
+        if stream:
+            return stream_response(response, read_timeout)
         body = response.json()
-        usage = {k: v for k, v in body.get('usage', {}).items() if type(v) in (int, float) and v >= 0}
+        if body.get('error'):
+            raise GenerationError('provider_response_error')
+        usage = numeric_usage(body.get('usage') or {})
         if provider == 'anthropic':
             raw = ''.join(block['text'] for block in body['content'] if block.get('type') == 'text')
             reason = body.get('stop_reason')
@@ -89,22 +176,30 @@ def request_lesson(source, tier, model, api_key, max_tokens=6000, *, provider='a
         if not isinstance(raw, str):
             raise ValueError('Invalid content type')
         return raw, usage, reason
+    except requests.Timeout:
+        raise GenerationError('provider_timeout') from None
+    except requests.RequestException:
+        raise GenerationError('provider_connection_failed') from None
     except (ValueError, KeyError, TypeError, IndexError, AttributeError):
         raise GenerationError('invalid_provider_response') from None
+    finally:
+        if 'response' in locals():
+            response.close()
 
 
-def generate(db, source, tier, model, provider, *, provider_name='openai-compatible', endpoint='', output_mode='json_object'):
+def generate(db, source, tier, model, provider, *, provider_name='openai-compatible', endpoint='', output_mode='json_object', request_options=None):
     if tier not in DIRECTIONS:
         raise ValueError('Only beginner and advanced lessons are generated.')
     source_hash = digest(source)
-    cache_key = digest([source_hash, tier, PROMPT_VERSION, provider_name, endpoint, model, output_mode])
+    cache_key = digest([source_hash, tier, PROMPT_VERSION, provider_name, endpoint, model, output_mode, request_options or {}])
     existing = db.query(ContentGeneration).filter(ContentGeneration.cache_key == cache_key,
         ContentGeneration.status.in_(['pending', 'ready'])).first()
     if existing:
         return existing, False
     row = ContentGeneration(id=uuid4(), course_id=source['courseId'], chapter_id=source['chapter']['id'],
         tier=tier, source_hash=source_hash, cache_key=cache_key, prompt_version=PROMPT_VERSION,
-        model=model, provider=provider_name, endpoint=endpoint, output_mode=output_mode, status='pending', source=source, usage={})
+        model=model, provider=provider_name, endpoint=endpoint, output_mode=output_mode, status='pending', source=source,
+        usage={'request_options': request_options} if request_options else {})
     db.add(row)
     try:
         db.commit()  # Persist identity before a paid call; unique key prevents concurrent duplicate work.
@@ -117,7 +212,7 @@ def generate(db, source, tier, model, provider, *, provider_name='openai-compati
         raise
     try:
         raw, usage, stop_reason = provider(source, tier, model)
-        row.raw_response, row.usage = raw, usage
+        row.raw_response, row.usage = raw, {**row.usage, **usage}
         if stop_reason != 'end_turn':
             raise GenerationError('incomplete_or_refused')
         row.content = GeneratedLesson.model_validate_json(raw).model_dump()

@@ -32,7 +32,8 @@ def main():
     from app.models.learningCourseModel import LearningCourse
     from app.schemas.learning import Course
     from app.services.content import source_document
-    from app.services.content_generation import generate, request_lesson, validate_provider
+    from app.services.content_generation import generate, request_lesson, validate_provider, validate_request_options, validation_issues
+    from app.core.config import settings
     if not os.environ.get('DATABASE_URL_UNPOOLED'):
         parser.error('Set DATABASE_URL_UNPOOLED to the schema owner direct connection.')
     url = make_url(os.environ['DATABASE_URL_UNPOOLED'])
@@ -47,6 +48,7 @@ def main():
         if not model or not key or not base_url:
             parser.error('Configure CONTENT_MODEL, CONTENT_API_KEY and CONTENT_API_BASE_URL before generation.')
         validate_provider(provider, base_url, output_mode)
+        validate_request_options(provider, base_url, **settings.content_request_options)
     engine = create_engine(url, connect_args={'connect_timeout': 15})
     count = 0
     with engine.connect() as connection:
@@ -86,11 +88,16 @@ def main():
                             print('Paid-call limit reached. Rerun to continue; completed variants are reused.')
                             break
                         row, called = generate(db, source, tier, model,
-                            lambda s, t, m: request_lesson(s, t, m, key, provider=provider, base_url=base_url, output_mode=output_mode),
-                            provider_name=provider, endpoint=base_url, output_mode=output_mode)
+                            lambda s, t, m: request_lesson(s, t, m, key, provider=provider, base_url=base_url, output_mode=output_mode,
+                                                          **settings.content_request_options),
+                            provider_name=provider, endpoint=base_url, output_mode=output_mode,
+                            request_options=settings.content_request_options)
                         count += int(called)
                         print(f'{chapter.id} {tier}: {row.status} id={row.id} calls={count} error={row.error_code or "none"}')
                         if row.status == 'failed':
+                            if row.error_code == 'invalid_lesson':
+                                import json
+                                print(json.dumps(validation_issues(row.raw_response), ensure_ascii=True))
                             raise SystemExit('Generation failed; stopped to avoid further spend. Inspect stored error and usage.')
         finally:
             connection.rollback()

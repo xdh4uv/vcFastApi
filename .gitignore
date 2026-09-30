@@ -8,3 +8,4 @@ venv/
 .vscode/
 *.egg-info/
 .env.docker
+.content-checks/
