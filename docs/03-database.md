@@ -113,13 +113,13 @@ erDiagram
         jsonb content
     }
     learning_preferences {
-        int user_id PK_FK
-        uuid subject_id PK_FK
+        int user_id PK, FK
+        uuid subject_id PK, FK
         string level
     }
     learning_progress {
-        int user_id PK_FK
-        string course_id PK_FK
+        int user_id PK, FK
+        string course_id PK, FK
         jsonb read "list of chapter ids"
     }
     learning_attempts {
@@ -138,7 +138,7 @@ erDiagram
         timestamptz submitted_at "null while draft"
     }
     learning_concepts {
-        string course_id PK_FK
+        string course_id PK, FK
         string chapter_id PK
         string concept_id PK
         jsonb material "revision card"
