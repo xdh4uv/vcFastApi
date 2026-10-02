@@ -103,6 +103,15 @@ class TutorAdapterTests(unittest.TestCase):
         self.assertNotIn('reasoning_effort', payload)
         self.assertNotIn('include_reasoning', payload)
 
+    def test_groq_math_wrappers_become_plain_text_in_one_request(self):
+        self.respond(r'No unique polynomial: \(p_r(x)=(x-2)(x-r),\quad r\in\mathbb{R}\).')
+        with patch.multiple(tutor.settings, content_api_base_url='https://api.groq.com/openai/v1',
+                            content_model='openai/gpt-oss-120b'):
+            answer, _ = self.ask()
+        self.assertEqual(answer, 'No unique polynomial: p_r(x)=(x-2)(x-r),  r∈ℝ.')
+        self.post.assert_called_once()
+        self.response.close.assert_called_once()
+
     def test_groq_stream_ignores_reasoning_and_incomplete_answer_stays_rejected(self):
         events = [
             {'choices': [{'delta': {'reasoning': 'Internal analysis'}, 'finish_reason': None}]},

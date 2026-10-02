@@ -21,3 +21,20 @@ class TutorTextTests(unittest.TestCase):
         for text in [r'\frac12', r'\sqrt[3]{8}', r'\begin{cases}x=1\end{cases}', '<script>alert(1)</script>', '**', '']:
             with self.assertRaises(ValueError):
                 normalize_answer(text)
+
+    def test_real_number_set_membership_keeps_conditions_and_negation(self):
+        self.assertEqual(normalize_answer(r'\(p_r(x)=(x-2)(x-r),\quad r\in\mathbb{R}\)'),
+                         'p_r(x)=(x-2)(x-r),  r∈ℝ')
+        self.assertEqual(normalize_answer(r'\(\sqrt{2}\notin\mathbb{Q}\)'), '√(2)∉ℚ')
+        self.assertEqual(normalize_answer(r'\(\forall r\in\mathbb{R},\;p_r(2)=0\)'), '∀ r∈ℝ, p_r(2)=0')
+
+    def test_boxed_results_keep_fraction_and_addition_precedence(self):
+        self.assertEqual(normalize_answer(r'\[2\boxed{x^{2}+1}\]'), '2(x²+1)')
+        self.assertEqual(normalize_answer(r'\boxed{\frac{1}{\frac{2}{3}}}'), '((1)/((2)/(3)))')
+        self.assertEqual(normalize_answer(r'\boxed{\sqrt{x^{2}+1}}'), '(√(x²+1))')
+
+    def test_new_notation_does_not_allow_unknown_commands_or_executable_markup(self):
+        for text in [r'\mathbb{X}', r'\boxed{\input{secret}}', r'\boxed{<script>alert(1)</script>}',
+                     r'\boxed{x^{r}}', r'\href{https://example.com}{answer}', r'\inside', r'\notinside']:
+            with self.assertRaises(ValueError):
+                normalize_answer(text)
