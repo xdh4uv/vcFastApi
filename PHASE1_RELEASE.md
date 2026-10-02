@@ -22,13 +22,16 @@ The runtime `admin` role has SELECT on generated content. Publication/approval u
 
 ### Reviewed curriculum
 
-The bounded full-course publication is in progress; current-source review counts are checked directly against the database, not all historical ready rows. Intermittent NIM HTTP 503s stop each batch. Completed variants are reused on explicit continuation. Default lessons remain the authored database content; only Beginner/Advanced variants need generation. No student request regenerates a lesson.
+**28/28 current-source variants are ready and reviewed in the app database**: Beginner and Advanced for all 14 Class 10 Mathematics chapters. The final read-only audit used runtime role `admin` and the actual cache reader, validating current source hashes, `lesson-v4`, schema, authored steps and quality checks. Default lessons remain the authored database content. No student request regenerates a lesson.
 
-Review checks include every explanation, worked example, self-check and takeaway. Corrections found so far include zero-denominator conditions, rational/irrational zero exceptions, quadratic-only graph claims, exclusion of complex roots, fractional AP differences, AP zero-term existence, valid triangle correspondence and coordinate-axis distance conditions. This operator review is not a claim of teacher certification.
+Intermittent NIM HTTP 503s stopped several batches. Explicit continuations reused completed variants; the final eight-variant batch succeeded. Failed/stale drafts remain for diagnosis and cannot be served. Successful publication does not prove provider availability for a later live tutor request.
+
+Review checks included every explanation, worked example, self-check and takeaway. Corrections included zero-denominator conditions, rational/irrational zero exceptions, quadratic-only graph claims, exclusion of complex roots, fractional AP differences, AP zero-term existence, valid triangle correspondence, coordinate-axis distance conditions, shared-height assumptions, full-disk boundaries, exposed surfaces, median-frequency direction, continuous class boundaries and independence in probability. This operator review is not a claim of teacher certification.
 
 ## Verification evidence
 
 - Backend: **99 tests passed** locally, covering provider contracts/failures, review gating/corrections, normalization, grading/reset, ownership, engagement, aptitude and pilot arithmetic.
+- GitHub Actions [verification run](https://github.com/xdh4uv/vcFastApi/actions/runs/37000575870) passed empty PostgreSQL migration replay through V7, all-bank seeding/verification and backend regressions for code commit `6943bb5`. Remote migration was skipped behind its activation variable.
 - Enabled API smoke on the isolated Neon clone, with runtime `admin` role: **25 checks passed**. Authentication, enrollment, saved level, chapter retrieval, reviewed generation retrieval, ownership, final-test lock, idempotent reading events, tutor persistence, feedback/flags, duplicate-safe Notes, backend grading, idempotent submission and reset preserving Notes were exercised. The tutor was explicitly stubbed for these API checks.
 - Cached lesson benchmark: **20/20 successful HTTP requests, p95 0.987 seconds**, including authentication and Neon retrieval. This is sequential traffic through a local backend against the clone, not production load testing or browser paint latency.
 - `python -m scripts.recompute_aptitude` passed on the clone and recomputed three course profiles. This validates the command, not the production scheduler.
