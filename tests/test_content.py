@@ -148,6 +148,31 @@ class ContentTests(unittest.TestCase):
         self.assertEqual(self.db.query(ContentGeneration).count(), 0)
         self.provider.assert_not_called()
 
+    @patch('app.services.content_generation.requests.post')
+    def test_groq_structured_lesson_and_invalid_configuration(self, post):
+        post.return_value = Mock(status_code=200)
+        post.return_value.json.return_value = {'choices': [{'message': {'content': json.dumps(LESSON)}, 'finish_reason': 'stop'}], 'usage': {}}
+        raw, _, reason = request_lesson(self.source, 'beginner', 'openai/gpt-oss-120b', 'test-key',
+            provider='openai-compatible', base_url='https://api.groq.com/openai/v1', output_mode='json_schema',
+            reasoning_effort='medium', max_tokens=4096)
+        self.assertEqual(json.loads(raw), LESSON)
+        self.assertEqual(reason, 'end_turn')
+        payload = post.call_args.kwargs['json']
+        self.assertEqual(payload['max_completion_tokens'], 4096)
+        self.assertEqual(payload['reasoning_effort'], 'medium')
+        self.assertFalse(payload['include_reasoning'])
+        self.assertTrue(payload['response_format']['json_schema']['strict'])
+        self.assertNotIn('chat_template_kwargs', payload)
+        post.reset_mock()
+        for options in [{'stream': True, 'output_mode': 'json_schema'}, {'reasoning_effort': 'invalid'}, {'enable_thinking': False}]:
+            with self.assertRaises(ValueError):
+                request_lesson(self.source, 'beginner', 'openai/gpt-oss-120b', 'test-key',
+                    provider='openai-compatible', base_url='https://api.groq.com/openai/v1', **options)
+        with self.assertRaises(ValueError):
+            request_lesson(self.source, 'beginner', 'unsupported-model', 'test-key', provider='openai-compatible',
+                base_url='https://api.groq.com/openai/v1', reasoning_effort='medium')
+        post.assert_not_called()
+
     def test_changed_source_and_prompt_do_not_serve_stale_versions(self):
         row, _ = self.create()
         row.verified = True

@@ -116,7 +116,7 @@ def validate_provider(provider, base_url, output_mode):
 
 
 def validate_request_options(provider, base_url, *, max_tokens=6000, stream=False, read_timeout=90,
-                             temperature=None, top_p=None, enable_thinking=None):
+                             temperature=None, top_p=None, enable_thinking=None, reasoning_effort=None):
     if not 1 <= max_tokens <= 32768 or not 10 <= read_timeout <= 600:
         raise ValueError('Invalid content token or timeout limit.')
     if temperature is not None and not 0 <= temperature <= 2 or top_p is not None and not 0 < top_p <= 1:
@@ -125,14 +125,32 @@ def validate_request_options(provider, base_url, *, max_tokens=6000, stream=Fals
         raise ValueError('These content options require a Chat Completions provider.')
     if enable_thinking is not None and (provider != 'openai-compatible' or urlsplit(base_url).hostname != 'integrate.api.nvidia.com'):
         raise ValueError('CONTENT_ENABLE_THINKING is specific to NVIDIA NIM; unset when switching providers.')
+    if reasoning_effort is not None and (reasoning_effort not in {'low', 'medium', 'high'} or
+            provider != 'openai-compatible' or urlsplit(base_url).hostname != 'api.groq.com'):
+        raise ValueError('Reasoning effort requires a supported Groq model; unset when switching providers.')
+
+
+def chat_completion_options(provider, base_url, model, max_tokens, reasoning_effort=None):
+    """Keep Groq GPT-OSS options out of other providers' request bodies."""
+    groq = provider == 'openai-compatible' and urlsplit(base_url).hostname == 'api.groq.com'
+    result = {'max_completion_tokens' if provider == 'openai' or groq else 'max_tokens': max_tokens}
+    if groq and model in {'openai/gpt-oss-20b', 'openai/gpt-oss-120b'}:
+        result.update(reasoning_effort=reasoning_effort or 'medium', include_reasoning=False)
+    elif reasoning_effort is not None:
+        raise ValueError('Configured reasoning effort is supported only for Groq GPT-OSS models.')
+    return result
 
 
 def request_lesson(source, tier, model, api_key, max_tokens=6000, *, provider='anthropic',
                    base_url='https://api.anthropic.com/v1', output_mode='json_object',
-                   stream=False, read_timeout=90, temperature=None, top_p=None, enable_thinking=None):
+                   stream=False, read_timeout=90, temperature=None, top_p=None, enable_thinking=None,
+                   reasoning_effort=None):
     validate_provider(provider, base_url, output_mode)
     validate_request_options(provider, base_url, max_tokens=max_tokens, stream=stream, read_timeout=read_timeout,
-                             temperature=temperature, top_p=top_p, enable_thinking=enable_thinking)
+                             temperature=temperature, top_p=top_p, enable_thinking=enable_thinking,
+                             reasoning_effort=reasoning_effort)
+    if urlsplit(base_url).hostname == 'api.groq.com' and stream and output_mode == 'json_schema':
+        raise ValueError('Groq JSON Schema output requires CONTENT_STREAM=false.')
     schema = provider_schema(GeneratedLesson.model_json_schema())
     user = (DIRECTIONS[tier] + '\n' + scope_rules(source)
             + '\napprovedProblems JSON:\n' + json.dumps(approved_problems(source), ensure_ascii=False)
@@ -147,8 +165,7 @@ def request_lesson(source, tier, model, api_key, max_tokens=6000, *, provider='a
     else:
         endpoint = base_url.rstrip('/') + '/chat/completions'
         headers['Authorization'] = 'Bearer ' + api_key
-        token_field = 'max_completion_tokens' if provider == 'openai' else 'max_tokens'
-        payload = {'model': model, token_field: max_tokens, 'stream': stream,
+        payload = {'model': model, **chat_completion_options(provider, base_url, model, max_tokens, reasoning_effort), 'stream': stream,
             'messages': [{'role': 'system', 'content': SYSTEM + '\nOutput JSON schema:\n' + json.dumps(schema)},
                          {'role': 'user', 'content': user}]}
         if output_mode == 'json_object':

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 from urllib.parse import urlsplit
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     content_api_key: Optional[str] = None
     tutor_enabled: bool = False
     tutor_enable_thinking: Optional[bool] = None
+    tutor_reasoning_effort: Optional[Literal['low', 'medium', 'high']] = None
     tutor_temperature: float = Field(default=0.2, ge=0, le=2)
     tutor_max_tokens: int = Field(default=1536, ge=256, le=4096)
     tutor_read_timeout: int = Field(default=45, ge=10, le=45)
@@ -34,6 +35,7 @@ class Settings(BaseSettings):
     content_temperature: Optional[float] = Field(default=None, ge=0, le=2)
     content_top_p: Optional[float] = Field(default=None, gt=0, le=1)
     content_enable_thinking: Optional[bool] = None
+    content_reasoning_effort: Optional[Literal['low', 'medium', 'high']] = None
 
     @property
     def content_request_options(self) -> dict:
@@ -45,6 +47,7 @@ class Settings(BaseSettings):
             'read_timeout': self.content_read_timeout,
             'temperature': self.content_temperature, 'top_p': self.content_top_p,
             'enable_thinking': thinking,
+            'reasoning_effort': self.content_reasoning_effort,
         }
 
     @property

@@ -14,6 +14,7 @@ class TutorAdapterTests(unittest.TestCase):
                                 content_api_base_url='https://integrate.api.nvidia.com/v1', content_model='test-model',
                                 content_api_key='test-key', content_stream=False, content_enable_thinking=True,
                                 content_temperature=1, tutor_enable_thinking=None, tutor_temperature=.2,
+                                content_reasoning_effort=None, tutor_reasoning_effort=None,
                                 tutor_read_timeout=45, tutor_max_tokens=1536)
         config.start()
         self.addCleanup(config.stop)
@@ -86,3 +87,33 @@ class TutorAdapterTests(unittest.TestCase):
             self.ask()
         self.post.assert_called_once()
         self.response.close.assert_called_once()
+
+    def test_groq_gpt_oss_uses_explicit_reasoning_without_leaking_options(self):
+        with patch.multiple(tutor.settings, content_api_base_url='https://api.groq.com/openai/v1',
+                            content_model='openai/gpt-oss-120b', tutor_reasoning_effort='high'):
+            self.assertEqual(self.ask(), (ANSWER, {}))
+        payload = self.post.call_args.kwargs['json']
+        self.assertEqual(payload['reasoning_effort'], 'high')
+        self.assertFalse(payload['include_reasoning'])
+        self.assertEqual(payload['max_completion_tokens'], 1536)
+        self.assertNotIn('max_tokens', payload)
+        self.assertNotIn('chat_template_kwargs', payload)
+        self.ask()
+        payload = self.post.call_args.kwargs['json']
+        self.assertNotIn('reasoning_effort', payload)
+        self.assertNotIn('include_reasoning', payload)
+
+    def test_groq_stream_ignores_reasoning_and_incomplete_answer_stays_rejected(self):
+        events = [
+            {'choices': [{'delta': {'reasoning': 'Internal analysis'}, 'finish_reason': None}]},
+            {'choices': [{'delta': {'content': ANSWER}, 'finish_reason': 'stop'}]},
+        ]
+        self.response.iter_lines.return_value = [b'data: ' + json.dumps(event).encode() for event in events] + [b'data: [DONE]']
+        with patch.multiple(tutor.settings, content_api_base_url='https://api.groq.com/openai/v1',
+                            content_model='openai/gpt-oss-120b', content_stream=True):
+            self.assertEqual(self.ask(), (ANSWER, {}))
+            events[-1]['choices'][0]['finish_reason'] = 'length'
+            self.response.iter_lines.return_value = [b'data: ' + json.dumps(event).encode() for event in events] + [b'data: [DONE]']
+            with self.assertRaisesRegex(GenerationError, '^invalid_tutor_answer$'):
+                self.ask()
+        self.assertNotIn('reasoning_format', self.post.call_args.kwargs['json'])
