@@ -1,0 +1,25 @@
+name: Nightly aptitude scores
+on:
+  schedule:
+    - cron: '30 19 * * *'
+  workflow_dispatch:
+concurrency:
+  group: aptitude-nightly
+  cancel-in-progress: false
+jobs:
+  recompute:
+    if: vars.APTITUDE_NIGHTLY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      DATABASE_URL: ${{ secrets.APTITUDE_DATABASE_URL }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      ENGAGEMENT_ENABLED: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m scripts.recompute_aptitude

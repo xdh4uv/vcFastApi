@@ -15,6 +15,11 @@ from ..services.adaptive import load_insights, select_questions
 from ..services.content import cached_lesson, source_document, digest, PROMPT_VERSION, explanation_depth
 from ..models.contentModel import ContentGeneration
 from ..schemas.content import GeneratedLesson
+from ..services.engagement import reading_source, reading_view, record_event
+from ..models.engagementModel import AttemptTiming
+from ..models.aptitudeModel import Enrollment, AptitudeProfile
+from ..services.aptitude import recompute, profile_view
+from ..services.access import learning_access, require_course_access
 from ..models.subModuleMasterModel import SubModuleMaster
 from ..models.usersModel import User
 from ..schemas.learning import AnswerSubmission, Course, LevelSelection, ResetRequest
@@ -32,7 +37,7 @@ def learning_db(db: Session = Depends(get_db)):
         raise HTTPException(503, "Learning is temporarily unavailable. Please retry.") from None
 
 
-router = APIRouter(prefix="/learning", tags=["learning"], dependencies=[Depends(no_cache)])
+router = APIRouter(prefix="/learning", tags=["learning"], dependencies=[Depends(no_cache), Depends(learning_access)])
 LEVELS = [
     ("elementary", "Elementary school", "Classes 1–5"),
     ("middle-school", "Middle school", "Classes 6–8"),
@@ -75,6 +80,8 @@ def get_subject(subject_name: str, db: Session = Depends(learning_db), user: Use
     subject = db.query(SubModuleMaster).filter(func.lower(SubModuleMaster.sub_module_name).in_(aliases)).first()
     if not subject:
         raise HTTPException(404, "Subject not found.")
+    if settings.engagement_enabled and not db.get(Enrollment, (user.id, subject.sub_module_id)):
+        raise HTTPException(403, "Enroll in this subject first.")
     result = subject_view(db, user, subject)
     if include_course:
         result["course"] = get_course(result["courseId"], db, user) if result["courseId"] else None
@@ -83,7 +90,10 @@ def get_subject(subject_name: str, db: Session = Depends(learning_db), user: Use
 
 @router.get("/preferences")
 def get_preferences(db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
-    return [subject_view(db, user, s) for s in db.query(SubModuleMaster).order_by(SubModuleMaster.sub_module_name).all()]
+    query = db.query(SubModuleMaster)
+    if settings.engagement_enabled:
+        query = query.join(Enrollment, Enrollment.subject_id == SubModuleMaster.sub_module_id).filter(Enrollment.user_id == user.id)
+    return [subject_view(db, user, s) for s in query.order_by(SubModuleMaster.sub_module_name).all()]
 
 
 @router.put("/subjects/{subject_id}/level")
@@ -93,6 +103,8 @@ def set_level(subject_id: UUID, body: LevelSelection, db: Session = Depends(lear
         raise HTTPException(404, "Subject not found.")
     if not db.query(LearningCourse).filter_by(subject_id=subject_id, level=body.level).first():
         raise HTTPException(422, "Coursework is not available for this level yet.")
+    if settings.engagement_enabled and not db.get(Enrollment, (user.id, subject_id)):
+        raise HTTPException(403, "Enroll in this subject first.")
     # Serialise preference changes across devices without an insert race.
     db.query(User).filter_by(id=user.id).with_for_update().one()
     preference = db.get(LearningPreference, (user.id, subject_id))
@@ -141,7 +153,8 @@ def progress_view(db, user, course):
 @router.get("/courses/{course_id}")
 def get_course(course_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
     course = load_course(db, course_id)
-    return {"id": course.id, "title": course.title, "chapters": [{"id": c.id, "title": c.title} for c in course.chapters],
+    aptitude = profile_view(db, db.get(AptitudeProfile, (user.id, course.id))) if settings.engagement_enabled else None
+    return {"aptitude": aptitude, "engagementEnabled": settings.engagement_enabled, "id": course.id, "title": course.title, "chapters": [{"id": c.id, "title": c.title} for c in course.chapters],
             "progress": progress_view(db, user, course)}
 
 
@@ -158,10 +171,16 @@ def get_chapter(course_id: str, chapter_id: str, db: Session = Depends(learning_
     adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=chapter_id).first() is not None
     variant = None
     if settings.content_pipeline_enabled:
-        depth = explanation_depth(db, user.id, course_id, chapter_id, adaptive)
+        if settings.engagement_enabled:
+            profile = db.get(AptitudeProfile, (user.id, course_id))
+            depth = {"tier": profile.tier if profile else "default", "evidenceCount": profile.evidence_count if profile else 0, "percent": None, "reason": "five-signals" if profile and profile.signals.get("eligible") else "more-evidence-needed"}
+        else:
+            depth = explanation_depth(db, user.id, course_id, chapter_id, adaptive)
         variant = {**cached_lesson(db, course_id, chapter, depth['tier']), 'selection': depth}
-    return {**chapter.model_dump(exclude={"questions", "finalQuestion"}), "questionCount": len(chapter.questions),
-            "adaptiveAvailable": adaptive, "contentVariant": variant}
+    result = {**chapter.model_dump(exclude={"questions", "finalQuestion"}), "questionCount": len(chapter.questions),
+              "adaptiveAvailable": adaptive, "contentVariant": variant}
+    result["readingProgress"] = reading_view(db, user.id, course_id, chapter_id, reading_source(result)) if settings.engagement_enabled else None
+    return result
 
 
 @router.put("/courses/{course_id}/chapters/{chapter_id}/read")
@@ -215,6 +234,9 @@ def start_attempt(course_id: str, test_id: str, db: Session = Depends(learning_d
         attempt = LearningAttempt(user_id=user.id, course_id=course_id, test_id=test_id, kind="final" if test_id == "final" else "chapter", questions=questions, answers={})
         db.add(attempt)
     db.flush()
+    if settings.engagement_enabled and not db.get(AttemptTiming, attempt.id):
+        db.add(AttemptTiming(attempt_id=attempt.id, seconds={}, updated_at=attempt.created_at))
+        record_event(db, user.id, course_id, test_id, "TEST_STARTED", {"attemptId": str(attempt.id)})
     result = attempt_view(attempt)
     db.commit()
     return result
@@ -272,9 +294,14 @@ def submit_attempt(course_id: str, attempt_id: UUID, body: AnswerSubmission, db:
     attempt.revision += 1
     db.flush()
     db.refresh(attempt)
+    if settings.engagement_enabled:
+        timing = db.get(AttemptTiming, attempt.id)
+        record_event(db, user.id, course_id, attempt.test_id, "TEST_COMPLETED", {"attemptId": str(attempt.id), "correct": attempt.correct, "total": attempt.total, "questionSeconds": timing.seconds if timing else {}})
     result = attempt_view(attempt)
     if attempt.kind == "adaptive":
         result["insights"] = load_insights(db, user.id, course_id, attempt.test_id)[0]
+    if settings.engagement_enabled:
+        result["aptitude"] = profile_view(db, recompute(db, user.id, course_id))
     # Build the response while the progress lock still prevents a concurrent reset.
     db.commit()
     return result
@@ -285,6 +312,11 @@ def reset_results(course_id: str, body: ResetRequest, db: Session = Depends(lear
     course = load_course(db, course_id)
     lock_progress(db, user.id, course_id)
     db.query(LearningAttempt).filter_by(user_id=user.id, course_id=course_id).delete(synchronize_session=False)
+    if settings.engagement_enabled:
+        from ..models.engagementModel import LearningEvent
+        db.query(LearningEvent).filter_by(user_id=user.id, course_id=course_id).filter(LearningEvent.event_type.in_(["TEST_STARTED", "TEST_COMPLETED", "QUESTION_TIME"])).delete(synchronize_session=False)
+    if settings.engagement_enabled:
+        recompute(db, user.id, course_id)
     db.commit()
     return progress_view(db, user, course)
 
@@ -321,6 +353,9 @@ def start_practice(course_id: str, chapter_id: str, db: Session = Depends(learni
                                 questions=questions, answers={}, selection_metadata=metadata)
         db.add(draft)
     db.flush()
+    if settings.engagement_enabled and not db.get(AttemptTiming, draft.id):
+        db.add(AttemptTiming(attempt_id=draft.id, seconds={}, updated_at=draft.created_at))
+        record_event(db, user.id, course_id, chapter_id, "TEST_STARTED", {"attemptId": str(draft.id)})
     result = attempt_view(draft)
     db.commit()
     return result
@@ -332,6 +367,7 @@ def get_content_generation(generation_id: UUID, db: Session = Depends(learning_d
     row = db.get(ContentGeneration, generation_id)
     if not row or row.status != 'ready':
         raise HTTPException(404, 'Lesson version not available.')
+    require_course_access(db, user.id, row.course_id)
     chapter = find_chapter(load_course(db, row.course_id), row.chapter_id)
     if row.prompt_version != PROMPT_VERSION or row.source_hash != digest(source_document(db, row.course_id, chapter)):
         raise HTTPException(410, 'Lesson source changed. Reopen the chapter for current material.')

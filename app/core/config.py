@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     cors_origin_regex: str = r"https://([a-z0-9-]+\.)?vercel\.app"
     uploads_dir: str = "uploads"
     content_api_key: Optional[str] = None
+    tutor_enabled: bool = False
+    engagement_enabled: bool = False
+    reading_test_threshold: int = Field(default=75, ge=1, le=100)
     content_pipeline_enabled: bool = False
     content_api_base_url: Optional[str] = None
     content_provider: str = 'openai-compatible'

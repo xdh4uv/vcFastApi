@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from .core.config import settings
-from .routers import auth, profile, learning
+from .routers import auth, profile, learning, engagement, tutor, enrollment
 
 # The schema is owned by Flyway (db/migration); the app never creates tables.
 
@@ -33,6 +33,9 @@ app.include_router(auth.router)
 app.include_router(profile.router)
 app.include_router(moduleMaster.router)
 app.include_router(learning.router)
+app.include_router(engagement.router)
+app.include_router(tutor.router)
+app.include_router(enrollment.router)
 
 @app.get("/health")
 def health() -> dict[str, str]:
