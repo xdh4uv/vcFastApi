@@ -8,7 +8,7 @@ from ..models.learningCourseModel import LearningConcept
 from ..schemas.content import GeneratedLesson
 from .adaptive import load_insights
 
-PROMPT_VERSION = 'lesson-v2'
+PROMPT_VERSION = 'lesson-v3'
 
 
 def explanation_depth(db, user_id, course_id, chapter_id, adaptive_available):
@@ -45,10 +45,14 @@ def cached_lesson(db, course_id, chapter, tier):
         return metadata
     source = source_document(db, course_id, chapter)
     row = db.query(ContentGeneration).filter_by(course_id=course_id, chapter_id=chapter.id, tier=tier,
-        source_hash=digest(source), prompt_version=PROMPT_VERSION, status='ready').order_by(ContentGeneration.created_at.desc()).first()
+        source_hash=digest(source), prompt_version=PROMPT_VERSION, status='ready', verified=True).order_by(ContentGeneration.created_at.desc()).first()
     if row:
         try:
             content = GeneratedLesson.model_validate(row.content).model_dump()
+            from .content_quality import quality_issues
+            if quality_issues(content, source):
+                metadata['status'] = 'unavailable'
+                return metadata
         except ValidationError:
             metadata['status'] = 'unavailable'
             return metadata

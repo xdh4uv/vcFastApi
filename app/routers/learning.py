@@ -365,14 +365,18 @@ def get_content_generation(generation_id: UUID, db: Session = Depends(learning_d
     if not settings.content_pipeline_enabled:
         raise HTTPException(404, 'Lesson versions are not enabled.')
     row = db.get(ContentGeneration, generation_id)
-    if not row or row.status != 'ready':
+    if not row or row.status != 'ready' or not row.verified:
         raise HTTPException(404, 'Lesson version not available.')
     require_course_access(db, user.id, row.course_id)
     chapter = find_chapter(load_course(db, row.course_id), row.chapter_id)
-    if row.prompt_version != PROMPT_VERSION or row.source_hash != digest(source_document(db, row.course_id, chapter)):
+    source = source_document(db, row.course_id, chapter)
+    if row.prompt_version != PROMPT_VERSION or row.source_hash != digest(source):
         raise HTTPException(410, 'Lesson source changed. Reopen the chapter for current material.')
     try:
         content = GeneratedLesson.model_validate(row.content).model_dump()
+        from ..services.content_quality import quality_issues
+        if quality_issues(content, source):
+            raise HTTPException(503, 'Lesson version is unavailable.')
     except ValidationError:
         raise HTTPException(503, 'Lesson version is unavailable.') from None
     return {'id': str(row.id), 'courseId': row.course_id, 'chapterId': row.chapter_id, 'tier': row.tier,

@@ -105,7 +105,7 @@ flowchart TD
 3. It calls the provider (`request_lesson`). The provider can be `anthropic` (Messages API with a JSON schema) or `openai` / `openai-compatible` (Chat Completions with `response_format` set by `CONTENT_OUTPUT_MODE`). Output is capped at 6000 tokens, with a 10 s connect and 90 s read timeout, and redirects are not followed.
 4. It validates the output locally against `GeneratedLesson`: 2–8 sections, each with explanation, worked example and self-check, plus 2–8 takeaways, all plain text. The row becomes `ready`. A refusal, truncation, HTTP error or invalid JSON makes it `failed`, with an `error_code`.
 
-Failed rows are kept, and nothing is retried automatically. The script holds a session advisory lock so only one publisher runs at a time. `verified` stays `false` until a person reviews the content; the API returns it so the UI can label lessons as unreviewed.
+Failed rows are kept, and nothing is retried automatically. The script holds a session advisory lock so only one publisher runs at a time. `verified` stays `false` until an operator reviews every worked solution and curriculum boundary, then explicitly approves with `python -m scripts.review_content <generation-id> --approve`. Unreviewed variants cannot be served through the chapter endpoint or direct generation URL; students continue receiving the base lesson. Prompt version `lesson-v3` also checks that worked-example problems and self-checks reuse supplied authored problems, rejects unsupported Class 10 topics, and enforces plain text. These checks supplement human mathematical review.
 
 ### Rollout state
 

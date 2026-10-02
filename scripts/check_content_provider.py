@@ -23,6 +23,7 @@ def main():
     from app.models.learningCourseModel import LearningCourse
     from app.schemas.learning import Course
     from app.schemas.content import GeneratedLesson
+    from app.services.content_quality import use_authored_examples
     from app.services.content import digest, source_document, PROMPT_VERSION
     from app.services.content_generation import request_lesson, GenerationError, validation_issues, validate_provider, validate_request_options
 
@@ -65,13 +66,13 @@ def main():
                 provider=settings.content_provider, base_url=settings.content_api_base_url,
                 output_mode=settings.content_output_mode, **settings.content_request_options)
             report.update(rawResponse=raw, usage=usage, stopReason=reason)
-            issues = validation_issues(raw)
+            issues = validation_issues(raw, source)
             if reason != 'end_turn':
                 report.update(status='failed', error='incomplete_or_refused')
             elif issues:
                 report.update(status='failed', error='invalid_lesson', validationIssues=issues)
             else:
-                report.update(status='valid', lesson=GeneratedLesson.model_validate_json(raw).model_dump())
+                report.update(status='valid', lesson=use_authored_examples(GeneratedLesson.model_validate_json(raw).model_dump(), source))
         except GenerationError as exc:
             report.update(status='failed', error=str(exc))
         report['elapsedSeconds'] = round(time.monotonic() - started, 1)

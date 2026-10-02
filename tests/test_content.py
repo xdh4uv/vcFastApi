@@ -16,12 +16,15 @@ from scripts.seed_adaptive import read_bank
 
 LESSON = {'summary': 'Prime factors reveal the structure of whole numbers.', 'sections': [
     {'title': 'Prime factorisation', 'explanation': ['Split a composite number into prime factors.'],
-     'example': {'problem': 'Factorise 12.', 'steps': ['12 = 2 × 6.', '6 = 2 × 3, so 12 = 2² × 3.']},
-     'checkYourself': 'Factorise 18.'},
+     'example': {'problem': 'Find the HCF and LCM of 84 and 126.', 'steps': ['84 = 2² × 3 × 7 and 126 = 2 × 3² × 7.', 'HCF = 42 and LCM = 252.']},
+     'checkYourself': 'Find the HCF and LCM of 84 and 126.'},
     {'title': 'Common factors', 'explanation': ['The HCF uses the lowest shared prime powers.'],
-     'example': {'problem': 'Find HCF(12, 18).', 'steps': ['12 = 2² × 3 and 18 = 2 × 3².', 'HCF = 2 × 3 = 6.']},
-     'checkYourself': 'Find HCF(8, 12).'}],
+     'example': {'problem': 'Find the HCF and LCM of 84 and 126.', 'steps': ['HCF uses the smaller shared powers.', 'HCF = 2 × 3 × 7 = 42.']},
+     'checkYourself': 'Find the HCF and LCM of 84 and 126.'}],
     'takeaways': ['Factorisation ends at prime factors.', 'Use common prime powers to find the HCF.']}
+for section in LESSON['sections']:
+    section['example'] = deepcopy(baseline.CONTENT['chapters'][0]['example'])
+    section['checkYourself'] = section['example']['problem']
 
 
 class ContentTests(unittest.TestCase):
@@ -59,6 +62,12 @@ class ContentTests(unittest.TestCase):
         self.assertTrue(called)
         self.assertEqual(row.status, 'ready')
         self.assertFalse(row.verified)
+        self.assertEqual(cached_lesson(self.db, baseline.COURSE, self.chapter, 'beginner')['status'], 'unavailable')
+        with self.assertRaises(HTTPException) as caught:
+            self.call(learning.get_content_generation, row.id)
+        self.assertEqual(caught.exception.status_code, 404)
+        from scripts.review_content import approve
+        approve(self.db, row, self.source)
         self.assertEqual(row.usage['output_tokens'], 200)
         self.assertEqual(self.create()[0].id, row.id)
         self.provider.assert_called_once()
@@ -80,8 +89,9 @@ class ContentTests(unittest.TestCase):
                                         difficulty=q.difficulty, status='approved', content=q.model_dump()))
         self.db.commit()
         self.source = source_document(self.db, baseline.COURSE, self.chapter)
-        self.create(tier='beginner')
-        self.create(tier='advanced')
+        from scripts.review_content import approve
+        approve(self.db, self.create(tier='beginner')[0], self.source)
+        approve(self.db, self.create(tier='advanced')[0], self.source)
         self.submit(self.start('ch-01'), correct=False)
         self.submit(self.start('ch-01'), correct=False)
         self.assertEqual(self.call(learning.get_chapter, baseline.COURSE, 'ch-01')['contentVariant']['selection']['evidenceCount'], 5)
@@ -140,6 +150,7 @@ class ContentTests(unittest.TestCase):
 
     def test_changed_source_and_prompt_do_not_serve_stale_versions(self):
         row, _ = self.create()
+        row.verified = True
         source = self.db.get(LearningCourse, baseline.COURSE)
         edited = deepcopy(source.content)
         edited['chapters'][0]['goal'] = 'Revised chapter goal'
@@ -195,6 +206,7 @@ class ContentTests(unittest.TestCase):
 
     def test_corrupt_ready_document_falls_back(self):
         row, _ = self.create()
+        row.verified = True
         row.content = {'summary': 'broken'}
         self.db.commit()
         self.assertEqual(cached_lesson(self.db, baseline.COURSE, self.chapter, 'beginner')['status'], 'unavailable')
@@ -288,6 +300,52 @@ class ContentTests(unittest.TestCase):
         self.assertNotEqual(first.cache_key, second.cache_key)
         self.assertEqual(first.usage['request_options'], {'stream': True})
         self.assertEqual(first.usage['input_tokens'], 100)
+
+    def test_quality_rejects_new_exercises_scope_and_markup(self):
+        for field, value in [('checkYourself', 'If the product of zeroes of 2x²+bx−6 is −3, find b.'),
+                             ('explanation', ['Use complex roots to solve this Class 10 problem.']),
+                             ('explanation', ['Use \\(x^2\\) here.'])]:
+            bad = deepcopy(LESSON)
+            bad['sections'][0][field] = value
+            issues = validation_issues(json.dumps(bad), self.source)
+            self.assertTrue(issues)
+            row, _ = self.create(provider=Mock(return_value=(json.dumps(bad), {}, 'end_turn')))
+            self.assertEqual(row.status, 'failed')
+            self.assertEqual(row.error_code, 'invalid_lesson')
+            self.assertIsNone(row.content)
+
+    def test_approval_rejects_stale_or_invalid_content(self):
+        from scripts.review_content import approve
+        row, _ = self.create()
+        row.prompt_version = 'lesson-v2'
+        with self.assertRaises(ValueError):
+            approve(self.db, row, self.source)
+        self.assertFalse(row.verified)
+        row.prompt_version = 'lesson-v3'
+        row.content = deepcopy(LESSON)
+        row.content['sections'][0]['checkYourself'] = 'Unreviewed invented exercise'
+        with self.assertRaises(ValueError):
+            approve(self.db, row, self.source)
+        self.assertFalse(row.verified)
+
+    def test_worked_solution_is_authored_and_tampering_prevents_approval(self):
+        from scripts.review_content import approve
+        bad = deepcopy(LESSON)
+        bad['sections'][0]['example']['steps'] = ['84 and 126 have no common factor.', 'HCF = 1.']
+        row, _ = self.create(provider=Mock(return_value=(json.dumps(bad), {}, 'end_turn')))
+        self.assertEqual(row.status, 'ready')
+        self.assertEqual(row.content['sections'][0]['example'], self.source['chapter']['example'])
+        self.assertIn('HCF = 1.', row.raw_response)
+        row.content = bad
+        with self.assertRaises(ValueError):
+            approve(self.db, row, self.source)
+        self.assertFalse(row.verified)
+        row.verified = True
+        self.db.commit()
+        self.assertEqual(cached_lesson(self.db, baseline.COURSE, self.chapter, 'beginner')['status'], 'unavailable')
+        with self.assertRaises(HTTPException) as caught:
+            self.call(learning.get_content_generation, row.id)
+        self.assertEqual(caught.exception.status_code, 503)
 
     @patch('app.services.content_generation.requests.post')
     def test_nim_options_cannot_leak_into_other_providers(self, post):

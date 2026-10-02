@@ -94,10 +94,12 @@ def main():
                             request_options=settings.content_request_options)
                         count += int(called)
                         print(f'{chapter.id} {tier}: {row.status} id={row.id} calls={count} error={row.error_code or "none"}')
+                        if row.status == 'ready' and not row.verified:
+                            print('Awaiting mathematical review. Students continue to receive the original lesson.')
                         if row.status == 'failed':
                             if row.error_code == 'invalid_lesson':
                                 import json
-                                print(json.dumps(validation_issues(row.raw_response), ensure_ascii=True))
+                                print(json.dumps(validation_issues(row.raw_response, source), ensure_ascii=True))
                             raise SystemExit('Generation failed; stopped to avoid further spend. Inspect stored error and usage.')
         finally:
             connection.rollback()

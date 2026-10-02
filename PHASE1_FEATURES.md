@@ -20,7 +20,11 @@ reading, tests, existing conversations and Notes do not require the provider to 
   profiles, include only the last four completed turns, and use the course's explanation tier. Questions and
   generated answers are stored in PostgreSQL. Failed answers remain visible without a fabricated response.
   The default cap is 10 requests/hour and 40/day per user, with one pending request across courses.
-  Requests have 2048 output tokens and a 45-second provider read timeout. No automatic provider retries.
+  Tutor requests default to 1536 output tokens, temperature 0.2 and a 45-second provider read timeout.
+  NIM thinking defaults off for tutors, independently of lesson generation. Response-header wait consumes
+  the stream-processing budget. Network reads still have a bounded timeout; this is not a hard wall-clock
+  guarantee under a stalled connection. No automatic provider retries. Invalid Markdown/LaTeX/HTML answers
+  are rejected instead of saved as usable responses.
 - Helpfulness is optional and editable; manual flags are recorded once. A flag records a review request;
   it does not notify a person or guarantee a human response. No reviewer dashboard is required in Phase 1.
 - Notes copy only a completed answer owned by the current student. Duplicate saves reuse the same note.
