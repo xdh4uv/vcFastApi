@@ -1,5 +1,8 @@
 # Phase 1 engagement, tutor, Notes and aptitude
 
+Current release evidence and deferred production activation: [PHASE1_RELEASE.md](PHASE1_RELEASE.md).
+The actual app database was audited at V2 and migrated through V6 on 2 October 2026.
+
 Migrations V4–V6 add seven tables without changing existing coursework or test snapshots.
 The code defaults disabled (`ENGAGEMENT_ENABLED=false`, `TUTOR_ENABLED=false`).
 Enable engagement only after all three migrations are applied. Tutor generation is independently gated;
@@ -23,8 +26,8 @@ reading, tests, existing conversations and Notes do not require the provider to 
   Tutor requests default to 1536 output tokens, temperature 0.2 and a 45-second provider read timeout.
   NIM thinking defaults off for tutors, independently of lesson generation. Response-header wait consumes
   the stream-processing budget. Network reads still have a bounded timeout; this is not a hard wall-clock
-  guarantee under a stalled connection. No automatic provider retries. Invalid Markdown/LaTeX/HTML answers
-  are rejected instead of saved as usable responses.
+  guarantee under a stalled connection. No automatic provider retries. A conservative subset of Markdown
+  and LaTeX is normalized to readable plain text; unsupported commands and HTML are rejected.
 - Helpfulness is optional and editable; manual flags are recorded once. A flag records a review request;
   it does not notify a person or guarantee a human response. No reviewer dashboard is required in Phase 1.
 - Notes copy only a completed answer owned by the current student. Duplicate saves reuse the same note.
@@ -53,10 +56,10 @@ conversations, Notes, enrollment and education level. Other courses are unchange
 
 ## Rollout
 
-1. Verify the exact target DB and current schema. The connected `vchitr-main` app DB had V1/V2 structures
-   but **no Flyway history** and **no V3 content table** at the October 2 check. Do not baseline at version 3
-   or 6 while those changes are absent. Establish the correct baseline only after auditing existing schema;
-   then apply V3–V6 through Flyway. Never edit an already applied migration checksum.
+1. The connected `vchitr-main` app DB on the Neon development branch was audited against V1/V2,
+   baselined at version 2, migrated through V6 and validated on October 2. A fresh branch clone passed first;
+   ordered data fingerprints confirmed existing user/course/test rows were preserved on both targets.
+   Do not apply that baseline to another database without its own audit. Never edit applied migration checksums.
 2. V4–V6 were tested on an isolated Neon branch cloned from the actual app DB. SQLite regressions cover
    telemetry, ownership, retries, grading/reset integration, Notes, provider failures and aptitude policies.
    Browser tests use an explicitly disposable SQLite fixture and a stub tutor; they do not prove live model quality.

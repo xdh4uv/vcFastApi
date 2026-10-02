@@ -321,7 +321,7 @@ class ContentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             approve(self.db, row, self.source)
         self.assertFalse(row.verified)
-        row.prompt_version = 'lesson-v3'
+        row.prompt_version = 'lesson-v4'
         row.content = deepcopy(LESSON)
         row.content['sections'][0]['checkYourself'] = 'Unreviewed invented exercise'
         with self.assertRaises(ValueError):
@@ -346,6 +346,31 @@ class ContentTests(unittest.TestCase):
         with self.assertRaises(HTTPException) as caught:
             self.call(learning.get_content_generation, row.id)
         self.assertEqual(caught.exception.status_code, 503)
+
+    def test_review_can_correct_unpublished_prose_but_cannot_change_a_reviewed_version(self):
+        from scripts.review_content import approve
+        row, _ = self.create()
+        original = row.raw_response
+        corrected = deepcopy(row.content)
+        corrected['summary'] = 'Euclid’s division algorithm finds the HCF of positive integers.'
+        approve(self.db, row, self.source, corrected)
+        self.assertTrue(row.verified)
+        self.assertEqual(row.raw_response, original)
+        self.assertEqual(row.content['summary'], corrected['summary'])
+        with self.assertRaises(ValueError):
+            approve(self.db, row, self.source, corrected)
+
+    def test_invalid_prose_can_be_repaired_but_provider_failure_cannot_be_approved(self):
+        from scripts.review_content import approve
+        bad = deepcopy(LESSON)
+        bad['sections'][0]['checkYourself'] = 'Invented ambiguous exercise'
+        row, _ = self.create(provider=Mock(return_value=(json.dumps(bad), {}, 'end_turn')))
+        self.assertEqual(row.status, 'failed')
+        approve(self.db, row, self.source, deepcopy(LESSON))
+        self.assertTrue(row.verified)
+        row.verified, row.status, row.error_code = False, 'failed', 'provider_timeout'
+        with self.assertRaises(ValueError):
+            approve(self.db, row, self.source, deepcopy(LESSON))
 
     @patch('app.services.content_generation.requests.post')
     def test_nim_options_cannot_leak_into_other_providers(self, post):

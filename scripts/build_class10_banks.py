@@ -40,6 +40,8 @@ class ChapterBank:
         options = values[shift:] + values[:shift]
         q = dict(id=f'c{self.chapter:02d}-v1-{len(self.questions)+1:02d}',conceptId=self.current['id'],concept=self.current['title'],
                  difficulty=LEVELS[tier],prompt=prompt,options=options,answer=options.index(str(correct)),explanation=' '.join(steps))
+        if self.chapter == 9 and self.current['id'] == 'angles' and tier == 1:
+            q['id'] = q['id'].replace('-v1-', '-v2-')  # Corrected angle justification; keep published v1 snapshots immutable.
         self.questions.append(q)
         if tier == 1 and 'example' not in self.current:
             self.current['example'] = dict(problem=prompt,steps=[*steps, f'Answer: {correct}.'])
@@ -297,7 +299,7 @@ def applications():
             for n in [2,3,4]:
                 if ci == 0:
                     if t == 0: b.q(t,f'An observer looks upward at a tower along a line {10*n}° above the horizontal. What is this angle called?','Angle of elevation',['An upward angle from the observer’s horizontal is an angle of elevation.'],['Angle of depression','Right angle','Straight angle'])
-                    elif t == 1: b.q(t,f'From a tower top the angle of depression to a ground point is {10*n}°. Find the angle of elevation back to the tower top in degrees.',10*n,['The two horizontals are parallel, so the corresponding angles are equal.'])
+                    elif t == 1: b.q(t,f'From a tower top the angle of depression to a ground point is {10*n}°. Find the angle of elevation back to the tower top in degrees.',10*n,['The parallel horizontals and shared line of sight give equal alternate interior angles: depression equals elevation.'])
                     else: b.q(t,f'A line of sight to a tower top is {10*n}° above horizontal. Find the acute angle between that line and the vertical tower in degrees.',90-10*n,['The horizontal and tower are perpendicular.',f'The two acute angles sum to 90°: {90-10*n}°.'])
                 elif ci == 1:
                     if t == 0: b.q(t,f'From ground level {10*n} m from a vertical pole, elevation to its top is 45°. Find its height in m.',10*n,[f'H = {10*n} tan45° = {10*n}.'])

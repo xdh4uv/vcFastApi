@@ -39,14 +39,20 @@ class TutorAdapterTests(unittest.TestCase):
         self.assertTrue(tutor.settings.content_enable_thinking)
         self.response.close.assert_called_once()
 
-    def test_markdown_latex_html_or_incomplete_answer_is_not_served(self):
-        for answer in ['**Zeroes:** 2 and 3.', r'\(x^2\)', '$x^2$', '<b>Answer</b>', '`x²`']:
+    def test_unsupported_markup_or_incomplete_answer_is_not_served(self):
+        for answer in ['<b>Answer</b>', r'\begin{matrix}1&2\end{matrix}', '[Answer](https://example.com)', '```python\nprint(2)\n```']:
             self.respond(answer)
             with self.assertRaisesRegex(GenerationError, '^invalid_tutor_format$'):
                 self.ask()
         self.respond(ANSWER, 'length')
         with self.assertRaisesRegex(GenerationError, '^invalid_tutor_answer$'):
             self.ask()
+
+    def test_harmless_formatting_is_normalized_without_another_provider_call(self):
+        self.respond(r'**Not unique.** A monic quadratic with one zero 2 is \(p(x)=(x-2)(x-r)\). We need another condition.')
+        answer, _ = self.ask()
+        self.assertEqual(answer, 'Not unique. A monic quadratic with one zero 2 is p(x)=(x-2)(x-r). We need another condition.')
+        self.post.assert_called_once()
 
     def test_non_nim_provider_does_not_inherit_nim_thinking(self):
         with patch.object(tutor.settings, 'content_api_base_url', 'https://openrouter.ai/api/v1'):
@@ -57,6 +63,13 @@ class TutorAdapterTests(unittest.TestCase):
             self.ask()
         self.assertEqual(self.post.call_args.args[0], 'https://api.anthropic.com/v1/messages')
         self.assertFalse(self.post.call_args.kwargs['stream'])
+
+    def test_lesson_thinking_default_is_nim_only_and_explicit_override_is_preserved(self):
+        with patch.object(tutor.settings, 'content_enable_thinking', None):
+            self.assertFalse(tutor.settings.content_request_options['enable_thinking'])
+            with patch.object(tutor.settings, 'content_api_base_url', 'https://openrouter.ai/api/v1'):
+                self.assertIsNone(tutor.settings.content_request_options['enable_thinking'])
+        self.assertTrue(tutor.settings.content_request_options['enable_thinking'])
 
     def test_stream_budget_includes_wait_for_response_headers(self):
         event = {'choices': [{'index': 0, 'delta': {'content': ANSWER}, 'finish_reason': 'stop'}]}

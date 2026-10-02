@@ -44,6 +44,13 @@ def scope_rules(source):
         rules += (' For a quadratic with zeroes r,s, ax²+bx+c = a(x−r)(x−s): never omit a. '
                   'A repeated quadratic zero has multiplicity two and touches the axis; do not claim '
                   'that every repeated zero of an arbitrary polynomial never crosses it. '
+                  'Keep the quadratic restriction explicit in takeaways about repeated zeroes. '
+                  'Multiplying a monic polynomial by a nonzero constant preserves its zeroes; '
+                  'it is non-monic only when that constant is not 1. Never say every nonzero '
+                  'multiple is non-monic. '
+                  'Stay with factorisation, zeroes, coefficients and graphical interpretation. '
+                  'Do not introduce the quadratic formula or discriminant; those belong to the '
+                  'Quadratic Equations chapter, not this supplied Polynomials reference. '
                   'Do not introduce general multiplicity theorems beyond the supplied quadratic examples.')
     return rules
 
@@ -62,6 +69,17 @@ def quality_issues(lesson, source):
                 if not re.search(re.escape(match.group()), reference, re.I):
                     issues.append({'path': path, 'type': 'out_of_scope', 'message': 'Topic is outside the supplied Class 10 reference.'})
                     break
+        if class10 and source['chapter'].get('id') == 'ch-02':
+            normalized = value.lower().replace('‑', '-').replace('−', '-')
+            if re.search(r'\b(?:discriminant|quadratic formula)\b', normalized):
+                issues.append({'path': path, 'type': 'out_of_scope', 'message': 'Use only the supplied Polynomials methods; quadratic-equation methods belong to another chapter.'})
+            claim = re.search(r'\b(?:any|every)\s+non[- ]?zero\s+constant\b[^.!?\n]{0,200}\bnon[- ]monic\b', normalized)
+            if claim and not re.search(r'(?:≠|!=|not|except|other than)\s*1\b', normalized):
+                issues.append({'path': path, 'type': 'invalid_scaling_claim',
+                               'message': 'Scaling by 1 preserves monic form; retain the a != 1 condition.'})
+            if path[0] == 'takeaways' and re.search(r'repeated\s+(?:real\s+)?zero', normalized) and re.search(r'touch|cross', normalized) and 'quadratic' not in normalized:
+                issues.append({'path': path, 'type': 'unqualified_repeated_zero',
+                               'message': 'Graph claims about repeated zeroes must explicitly retain quadratic scope.'})
     check_text(lesson['summary'], ['summary'])
     for index, section in enumerate(lesson['sections']):
         base = ['sections', index]

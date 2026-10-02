@@ -2,9 +2,11 @@
 
 > **Schema changes are now managed by Flyway** (`db/migration/`, applied by CI). The migration steps below record how V1–V3 were first rolled out; on a Flyway-managed database use the scripts' content-only modes. See [docs/03-database.md](docs/03-database.md#5-schema-changes-and-migrations).
 
-The backend selects explanation depth from existing chapter results, then reads an adapted lesson from PostgreSQL. Default depth serves the original lesson unchanged. Missing, outdated or invalid adapted content falls back to that original lesson. Student requests never call a model provider.
+The backend selects explanation depth from stored learning evidence, then reads an adapted lesson from PostgreSQL. Default depth serves the original lesson unchanged. Missing, outdated or invalid adapted content falls back to that original lesson. Lesson requests never call a model provider; the separately enabled tutor does call the provider for questions.
 
 ## Automatic explanation depth
+
+With `ENGAGEMENT_ENABLED=true`, the stored course aptitude profile selects depth from five signals: test performance, learning consistency, reading engagement, question resolution and review avoidance. Eligibility, weights and limitations are documented in [PHASE1_FEATURES.md](PHASE1_FEATURES.md). Missing or insufficient evidence selects Default. Education level remains unchanged. The following chapter-results policy remains as the fallback when engagement is disabled.
 
 Reuse existing first-answer evidence, at most the five most recent distinct answers per concept. Repeated fixed questions and exhausted-bank revision do not inflate evidence. Require at least ten counted answers and at least one answer for every chapter concept; otherwise use Default. Below 60% correct selects Beginner, 60% to below 80% selects Default, and 80% or above selects Advanced. This is a transparent chapter-level heuristic, not the future five-signal aptitude engine. Resetting results resets this selection. Education level and assessment selection remain unchanged.
 
@@ -48,7 +50,7 @@ CONTENT_MAX_TOKENS=16384
 CONTENT_READ_TIMEOUT=180
 CONTENT_TEMPERATURE=1
 CONTENT_TOP_P=0.95
-CONTENT_ENABLE_THINKING=true
+CONTENT_ENABLE_THINKING=false
 CONTENT_PIPELINE_ENABLED=false
 ```
 
@@ -62,7 +64,7 @@ Run `python -m scripts.check_content_provider --chapter ch-02 --tier both`. This
 
 Each request creates a UUID report in ignored `.content-checks/` before the provider call. The report retains source/hash, request settings, raw answer, numeric usage and the precise validation field/type/message, without headers or keys. A failure stops the run. Success means schema compliance and passing the deterministic quality checks; mathematical correctness still requires reviewing the assembled lesson. This checker provides reproducible diagnostics for both tiers; it does not publish or mark a lesson teacher-reviewed.
 
-Prompt version `lesson-v3` requires one JSON object, Unicode maths and 2–5 concise sections. Both worked-example problems and self-check prompts must be copied verbatim from the supplied, authored chapter/revision examples. The server attaches the original authored steps to each selected problem, so the model does not supply the final worked solution. Raw model output is retained for diagnostics. Generated explanation paragraphs may add reasoning, but may not invent new exercises or change their conditions. Class 10 guidance explicitly excludes complex roots and university topics. Local checks reject unapproved problems, selected out-of-scope terms and Markdown/HTML/LaTeX; reviewed content is also checked for altered worked steps on retrieval. These checks do not prove that arbitrary explanation prose is correct; operator review remains required. Old prompt versions are not served.
+Prompt version `lesson-v4` requires one JSON object, Unicode maths and 2–5 concise sections. Both worked-example problems and self-check prompts must be copied verbatim from the supplied, authored chapter/revision examples. The server attaches the original authored steps to each selected problem, so the model does not supply the final worked solution. Raw model output is retained for diagnostics. Generated explanation paragraphs may add reasoning, but may not invent new exercises or change their conditions. Class 10 guidance explicitly excludes complex roots and university topics. Local checks reject unapproved problems, selected out-of-scope terms and Markdown/HTML/LaTeX; reviewed content is also checked for altered worked steps on retrieval. These checks do not prove that arbitrary explanation prose is correct; operator review remains required. Old prompt versions are not served.
 
 Generation settings participate in cache identity and are retained under `request_options`; provider-reported numeric usage remains at the top level. Diagnostics include schema and quality-check failures without provider headers or keys.
 
@@ -72,11 +74,17 @@ New ready generations have `verified=false` and cannot be retrieved through eith
 
 Inspect with `python -m scripts.review_content <generation-id>`. Review every worked solution, self-check, explanation and curriculum boundary. Then explicitly approve with `python -m scripts.review_content <generation-id> --approve`, using the schema owner's direct `DATABASE_URL_UNPOOLED`. Approval rechecks the source hash, prompt version, schema and deterministic quality checks before setting the existing `verified` flag. No additional migration is needed.
 
+Correct an unreviewed draft with `python -m scripts.review_content <generation-id> --approve --content-file corrected.json`. The original raw response remains intact. A schema-valid `invalid_lesson` failure can be repaired this way; provider failures/refusals/timeouts cannot. Reviewed versions are immutable. Approval rechecks current source, schema, prompt and curriculum guards.
+
+The v4 Polynomials checks also reject selected misleading scaling claims, unqualified repeated-root takeaways and quadratic-equation methods outside that chapter. They are deliberately narrow; every explanation still needs mathematical review.
+
 ### Separate tutor settings
 
-Tutor defaults are `TUTOR_MAX_TOKENS=1536`, `TUTOR_TEMPERATURE=0.2`, `TUTOR_READ_TIMEOUT=45`. On NIM, thinking defaults to false independently of `CONTENT_ENABLE_THINKING`; `TUTOR_ENABLE_THINKING` is a separate explicit override. Leave it unset when switching to other providers. Header wait counts against the stream-processing budget, though a stalled network read can still reach its own socket timeout. Tutors reject formatted answers and incomplete responses rather than displaying raw LaTeX or fabricated success. Provider outages remain failures; no automatic retries are added.
+Tutor defaults are `TUTOR_MAX_TOKENS=1536`, `TUTOR_TEMPERATURE=0.2`, `TUTOR_READ_TIMEOUT=45`. On NIM, thinking defaults to false independently of `CONTENT_ENABLE_THINKING`; `TUTOR_ENABLE_THINKING` is a separate explicit override. Leave it unset when switching to other providers. Header wait counts against the stream-processing budget, though a stalled network read can still reach its own socket timeout. Tutor answers undergo conservative plain-text normalization: common Markdown wrappers and supported LaTeX operators, fractions and square roots become readable Unicode/plain text with fraction parentheses preserved. Unsupported commands, HTML and incomplete responses are rejected. This is not a general LaTeX parser. Provider outages remain failures; no automatic retries are added.
 
 ## Migration and rollout
+
+**Current workflow:** use Flyway for schema changes, not the legacy `--migrate` convenience flags below. On 2 October 2026 the actual app target (`vchitr-main`, Neon development branch) was verified against V1/V2, baselined at 2, migrated through V6 and validated. Existing user/course/test data fingerprints were unchanged. Cloud Run activation is deferred at the user’s request. See [PHASE1_RELEASE.md](PHASE1_RELEASE.md) for current checks and activation steps.
 
 1. On an isolated database branch, run `python -m scripts.generate_content --migrate-only` using DATABASE_URL_UNPOOLED set to the schema owner's direct (non-pooler) connection. This applies db/migration/V3__content_pipeline.sql without a provider key or call. Verify the content table, partial unique index and admin SELECT grant. The migration is additive and repeatable.
 2. Set DATABASE_URL_UNPOOLED in the operator environment to that direct connection; DATABASE_URL remains the normal runtime connection. Existing API settings, including JWT_SECRET, are still required by the app's settings loader.
@@ -105,6 +113,6 @@ Implementation defaults disabled. Verification on 30 September 2026: 62 offline 
 
 Fix verification on 2 October 2026: 85 backend tests pass, including review-gated serving, authored worked-solution assembly, altered-solution rejection and separate tutor settings. Live Beginner and Advanced Polynomials tutor checks returned correct plain-text answers in 6.52 and 6.8 seconds with NIM thinking disabled. Other calls returned 503, and the final Advanced lesson check timed out after 181.5 seconds; provider availability and final-template live lesson quality remain unverified. No content was published or approved, no production flags changed, and no database migration ran during this fix.
 
-The app database `vchitr-main` has all 14 chapters but not `modules.learning_content_generations`; `DATABASE_URL_UNPOOLED` is absent locally. The Neon connector now accepts project-scoped branch listing. Verify Flyway migration V3 on an isolated branch and apply the missing schema consistently with the existing Flyway history before publishing reviewed real-provider lessons or enabling the feature. Publishing still needs a schema-owner direct connection. No mock-generated lesson has been published to the app database.
+The current app database is migrated through V6, with Flyway history established after auditing the existing V2 schema. Publishing uses an ephemeral direct owner connection; it is not persisted in local `.env`. No mock-generated lesson has been published to the app database. The isolated verification branch uses a stub tutor only to test API persistence and ownership; live NIM quality and availability are checked separately.
 
 Provider references: [NVIDIA LLM API](https://docs.api.nvidia.com/nim/re/reference/llm-apis), [OpenRouter Chat Completions](https://openrouter.ai/docs/api/api-reference/chat/send-chat-completion-request), [Anthropic structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).

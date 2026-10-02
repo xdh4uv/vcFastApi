@@ -1,4 +1,5 @@
 from typing import Optional
+from urllib.parse import urlsplit
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
@@ -36,11 +37,14 @@ class Settings(BaseSettings):
 
     @property
     def content_request_options(self) -> dict:
+        thinking = self.content_enable_thinking
+        if thinking is None and self.content_provider == 'openai-compatible' and urlsplit(self.content_api_base_url or '').hostname == 'integrate.api.nvidia.com':
+            thinking = False
         return {
             'max_tokens': self.content_max_tokens, 'stream': self.content_stream,
             'read_timeout': self.content_read_timeout,
             'temperature': self.content_temperature, 'top_p': self.content_top_p,
-            'enable_thinking': self.content_enable_thinking,
+            'enable_thinking': thinking,
         }
 
     @property

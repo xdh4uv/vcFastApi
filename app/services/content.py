@@ -8,7 +8,7 @@ from ..models.learningCourseModel import LearningConcept
 from ..schemas.content import GeneratedLesson
 from .adaptive import load_insights
 
-PROMPT_VERSION = 'lesson-v3'
+PROMPT_VERSION = 'lesson-v4'
 
 
 def explanation_depth(db, user_id, course_id, chapter_id, adaptive_available):

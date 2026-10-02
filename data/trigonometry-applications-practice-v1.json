@@ -12,7 +12,7 @@
       "example": {
         "problem": "From a tower top the angle of depression to a ground point is 20°. Find the angle of elevation back to the tower top in degrees.",
         "steps": [
-          "The two horizontals are parallel, so the corresponding angles are equal.",
+          "The parallel horizontals and shared line of sight give equal alternate interior angles: depression equals elevation.",
           "Answer: 20."
         ]
       },
@@ -157,7 +157,7 @@
       "conceptId": "angles"
     },
     {
-      "id": "c09-v1-04",
+      "id": "c09-v2-04",
       "concept": "Elevation and depression",
       "difficulty": "standard",
       "prompt": "From a tower top the angle of depression to a ground point is 20°. Find the angle of elevation back to the tower top in degrees.",
@@ -168,11 +168,11 @@
         "21"
       ],
       "answer": 1,
-      "explanation": "The two horizontals are parallel, so the corresponding angles are equal.",
+      "explanation": "The parallel horizontals and shared line of sight give equal alternate interior angles: depression equals elevation.",
       "conceptId": "angles"
     },
     {
-      "id": "c09-v1-05",
+      "id": "c09-v2-05",
       "concept": "Elevation and depression",
       "difficulty": "standard",
       "prompt": "From a tower top the angle of depression to a ground point is 30°. Find the angle of elevation back to the tower top in degrees.",
@@ -183,11 +183,11 @@
         "32"
       ],
       "answer": 0,
-      "explanation": "The two horizontals are parallel, so the corresponding angles are equal.",
+      "explanation": "The parallel horizontals and shared line of sight give equal alternate interior angles: depression equals elevation.",
       "conceptId": "angles"
     },
     {
-      "id": "c09-v1-06",
+      "id": "c09-v2-06",
       "concept": "Elevation and depression",
       "difficulty": "standard",
       "prompt": "From a tower top the angle of depression to a ground point is 40°. Find the angle of elevation back to the tower top in degrees.",
@@ -198,7 +198,7 @@
         "40"
       ],
       "answer": 3,
-      "explanation": "The two horizontals are parallel, so the corresponding angles are equal.",
+      "explanation": "The parallel horizontals and shared line of sight give equal alternate interior angles: depression equals elevation.",
       "conceptId": "angles"
     },
     {

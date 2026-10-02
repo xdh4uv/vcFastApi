@@ -291,6 +291,10 @@ db/
 | V1 | Learning courses, preferences, progress and attempts, including the `CHECK` constraints the ORM does not know about. |
 | V2 | Adds `kind` and `selection_metadata` to attempts, back-fills `kind='final'`, rebuilds the draft index with `kind`, creates `learning_concepts` and `learning_practice_questions`, grants `SELECT` to `admin`. |
 | V3 | Additive: `learning_content_generations`, its indexes and a `SELECT` grant to `admin`. |
+| V4 | Reading progress, engagement events and question timing. |
+| V5 | Tutor conversations and saved Notes. |
+| V6 | Enrollment backfill and aptitude profiles. |
+| V7 | Corrects the reviewed elevation/depression justification, assigns revised question IDs and retires old questions from future selection while preserving snapshots. |
 
 Flyway records applied versions in `public.flyway_schema_history` and checksums each file. Rules:
 
@@ -307,22 +311,25 @@ Flyway records applied versions in `public.flyway_schema_history` and checksums 
 | CI (pull requests and `master`) | `verify` job in `.github/workflows/db-migrate.yml`: empty Postgres 17 → all migrations → publish course and banks → verify | `db/migration` + `db/dev` |
 | Remote (Neon) | `migrate` job in the same workflow, only on pushes to `master`, after `verify` passes | `db/migration` only |
 
-The remote job connects with the secrets `NEON_FLYWAY_URL` (JDBC URL of the **direct**, non-`-pooler` host, with `?sslmode=require`), `NEON_FLYWAY_USER` and `NEON_FLYWAY_PASSWORD` (the schema owner). It refuses a pooler URL, because Flyway's lock needs a session connection. It runs `info`, `migrate`, `info`. Runs are serialised by a `concurrency` group, and the `production` environment can be given a required reviewer in GitHub settings.
+The remote job requires repository variable `DATABASE_MIGRATIONS_ENABLED=true` and secrets `NEON_FLYWAY_URL` (JDBC URL of the **direct**, non-`-pooler` host, with `?sslmode=require`), `NEON_FLYWAY_USER` and `NEON_FLYWAY_PASSWORD` (the schema owner). It refuses a pooler URL and runs `info`, `migrate`, `info`. Verification and regressions still run when remote migrations are disabled. Runs are serialised; the `production` environment can have a required reviewer.
 
 ### One-time: baseline the remote database
 
-The remote database was built before Flyway and is already at the equivalent of V3. Before the first CI migration, a maintainer tells Flyway so, once:
+Never assume an existing database is at V3. On 2 October 2026, `vchitr-main` on the `development` Neon branch had V1/V2 but no V3 or Flyway history. Its V1/V2 columns, defaults, constraints, indexes and runtime grants were audited against migrations replayed into a fresh PostgreSQL 17 reference. Only then was it baselined at version 2 and migrated through V6. The procedure was rehearsed on a fresh Neon clone; existing user/course/attempt data fingerprints were unchanged on both targets.
+
+For another unmanaged database, determine its real schema version and use that audited version. Example for the audited V2 state, with credentials supplied through environment variables:
 
 ```bash
 docker run --rm -v "$PWD/db/migration:/flyway/sql:ro,z" \
-  -e FLYWAY_URL='jdbc:postgresql://<direct-host>/<db>?sslmode=require' \
-  -e FLYWAY_USER=<owner> -e FLYWAY_PASSWORD=<password> \
-  flyway/flyway:11 baseline -baselineVersion=3 -baselineDescription="pre-Flyway schema"
+  -e FLYWAY_URL -e FLYWAY_USER -e FLYWAY_PASSWORD \
+  flyway/flyway:11 baseline -baselineVersion=2 -baselineDescription="audited V1-V2 schema"
 ```
 
-After that, `flyway info` against remote lists the baseline at version 3 (earlier files are marked below baseline), and `migrate` applies only V4 onwards. Until it is done, Flyway refuses to touch remote: it reports "Found non-empty schema(s) "public" but no schema history table". The workflow deliberately does not set `baselineOnMigrate`, so this can never happen silently.
+Baseline excludes migrations at or below its version; the V2 baseline allows V3 onwards to run. Do not baseline at 3 if V3 is absent. Do not rerun baseline on a managed database or repair checksums to hide drift. The workflow leaves `baselineOnMigrate` disabled. [Flyway baseline reference](https://documentation.red-gate.com/flyway/reference/commands/baseline).
 
-It is also worth running the `pg_dump --schema-only` shown at the top of `V0__existing_tables.sql` once and aligning V0 with its output, so that local and CI databases match remote exactly.
+The migration owner also needs `CREATE` on `public` for history and `CREATE` on `modules` for feature tables. On this app database, its existing database owner granted `USAGE, CREATE ON SCHEMA public TO neondb_owner` after rehearsal; the migration owner already held module-create and user-reference privileges. Runtime role `admin` remains read-only on generated content.
+
+Audit legacy schema drift separately. Never edit an already-applied migration to reconcile it; use a new versioned migration when necessary.
 
 ### Scripts and DDL
 

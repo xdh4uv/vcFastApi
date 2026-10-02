@@ -5,7 +5,7 @@ The learning module has two adaptive features on top of the fixed course:
 1. **Adaptive practice.** Short, focused question sets that the server picks for each student, based on how they have answered so far, concept by concept.
 2. **Adapted lesson content.** The same chapter lesson at a different explanation depth (Beginner / Default / Advanced), chosen from the student's results and served from content generated ahead of time.
 
-Both are deterministic on the request path. No model is called while a student is using the app. This page explains how the pieces fit together. The operational runbooks live at the repository root: [ADAPTIVE.md](../ADAPTIVE.md), [CLASS10_CONTENT.md](../CLASS10_CONTENT.md) and [CONTENT_PIPELINE.md](../CONTENT_PIPELINE.md).
+Both are deterministic on the request path; lessons and practice do not call a model. The separately enabled doubt tutor makes live provider calls. This page explains how the pieces fit together. The operational runbooks live at the repository root: [ADAPTIVE.md](../ADAPTIVE.md), [CLASS10_CONTENT.md](../CLASS10_CONTENT.md) and [CONTENT_PIPELINE.md](../CONTENT_PIPELINE.md).
 
 ## 1. Where things live
 
@@ -74,7 +74,7 @@ These thresholds are product heuristics, not validated measures of mastery. The 
 
 ### Choosing a depth (`explanation_depth`)
 
-This runs only when `CONTENT_PIPELINE_ENABLED=true` and the chapter has adaptive content. It reuses the same evidence as practice:
+With `ENGAGEMENT_ENABLED=true`, the stored five-signal course profile selects the tier instead (see [PHASE1_FEATURES.md](../PHASE1_FEATURES.md)). Without engagement, this chapter-results fallback runs only when `CONTENT_PIPELINE_ENABLED=true` and the chapter has adaptive content. It reuses the same evidence as practice:
 
 - If there are fewer than 10 counted answers, or any concept has none → **Default** (`reason: "more-evidence-needed"`).
 - Otherwise, overall correctness below 60% → **Beginner**, 60% to below 80% → **Default**, 80% or more → **Advanced** (`reason: "chapter-results"`).
@@ -89,12 +89,12 @@ flowchart TD
     P -->|no| N[contentVariant = null]
     P -->|yes| T{tier}
     T -->|default| B[status: base → original lesson]
-    T -->|beginner / advanced| L["newest ready row matching<br/>chapter, tier, source_hash, PROMPT_VERSION"]
+    T -->|beginner / advanced| L["newest ready, verified row matching<br/>chapter, tier, source_hash, PROMPT_VERSION"]
     L -->|found + valid| OK[status: ready → generated lesson]
     L -->|missing / invalid| U[status: unavailable → original lesson]
 ```
 
-`source_hash` is a SHA-256 of the chapter lesson plus its revision cards. Assessment questions, answers and user data are not part of the source. If the lesson changes, or `PROMPT_VERSION` in `services/content.py` is bumped, old generations stop matching, and the app falls back to the original lesson until the content is regenerated. The newest ready row wins across providers, so switching providers does not throw away content that is already prepared.
+`source_hash` is a SHA-256 of the chapter lesson plus its revision cards. Assessment questions, answers and user data are not part of the source. If the lesson changes, or `PROMPT_VERSION` in `services/content.py` is bumped, old generations stop matching, and the app falls back to the original lesson until the content is regenerated. The newest ready, verified row wins across providers, so switching providers does not throw away content that is already prepared.
 
 ### Generating (operator only)
 
@@ -105,11 +105,11 @@ flowchart TD
 3. It calls the provider (`request_lesson`). The provider can be `anthropic` (Messages API with a JSON schema) or `openai` / `openai-compatible` (Chat Completions with `response_format` set by `CONTENT_OUTPUT_MODE`). Output is capped at 6000 tokens, with a 10 s connect and 90 s read timeout, and redirects are not followed.
 4. It validates the output locally against `GeneratedLesson`: 2–8 sections, each with explanation, worked example and self-check, plus 2–8 takeaways, all plain text. The row becomes `ready`. A refusal, truncation, HTTP error or invalid JSON makes it `failed`, with an `error_code`.
 
-Failed rows are kept, and nothing is retried automatically. The script holds a session advisory lock so only one publisher runs at a time. `verified` stays `false` until an operator reviews every worked solution and curriculum boundary, then explicitly approves with `python -m scripts.review_content <generation-id> --approve`. Unreviewed variants cannot be served through the chapter endpoint or direct generation URL; students continue receiving the base lesson. Prompt version `lesson-v3` also checks that worked-example problems and self-checks reuse supplied authored problems, rejects unsupported Class 10 topics, and enforces plain text. These checks supplement human mathematical review.
+Failed rows are kept, and nothing is retried automatically. The script holds a session advisory lock so only one publisher runs at a time. `verified` stays `false` until an operator reviews every worked solution and curriculum boundary, then explicitly approves with `python -m scripts.review_content <generation-id> --approve`. Unreviewed variants cannot be served through the chapter endpoint or direct generation URL; students continue receiving the base lesson. Prompt version `lesson-v4` also checks that worked-example problems and self-checks reuse supplied authored problems, rejects unsupported Class 10 topics, and enforces plain text. These checks supplement human mathematical review.
 
 ### Rollout state
 
-The pipeline is disabled by default (`CONTENT_PIPELINE_ENABLED=false`). While it is disabled, the app does not touch `learning_content_generations`, so deploying the code before the V3 migration is safe. V3 is now applied by the Flyway pipeline. As of 24 September 2026, live generation has not been run against the app database. [CONTENT_PIPELINE.md](../CONTENT_PIPELINE.md) has the step-by-step rollout. All 14 practice banks were published to the app database on 17 September 2026.
+The pipeline is disabled by default (`CONTENT_PIPELINE_ENABLED=false`). While it is disabled, the app does not touch `learning_content_generations`, so deploying the code before the V3 migration is safe. V3 is now applied by the Flyway pipeline. On 2 October 2026 the actual app database was migrated through V6 after a V2 schema audit; live NIM generation and explicit mathematical review are being completed. Production feature activation is deferred. See [PHASE1_RELEASE.md](../PHASE1_RELEASE.md) for the release evidence. [CONTENT_PIPELINE.md](../CONTENT_PIPELINE.md) has the step-by-step rollout. All 14 practice banks were published to the app database on 17 September 2026.
 
 ## 4. Endpoints at a glance
 
