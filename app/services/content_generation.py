@@ -1,4 +1,4 @@
-"""Operator-only generation; student HTTP requests never invoke this module."""
+"""Validated provider adapter shared by operator runs and bounded HTTP requests."""
 from datetime import datetime, timezone
 import json
 import time

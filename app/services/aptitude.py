@@ -44,7 +44,7 @@ def calculate(db, user_id, course_id):
     days.update(utc(a.submitted_at).date() for a in attempts if utc(a.submitted_at) >= since)
     turns = db.query(DoubtTurn).filter_by(user_id=user_id, course_id=course_id).all()
     rated = [t for t in turns if t.helpful is not None and t.status == 'ready']
-    resolution = sum(t.helpful and not t.flagged for t in rated) / len(rated) if rated else .5
+    resolution = sum(t.helpful and not t.flagged for t in rated) / len(turns) if turns else .5
     review = 1 - sum(t.flagged for t in turns) / len(turns) if turns else .5
     signals = {'testPerformance': performance, 'consistency': min(1, len(days) / 30),
                'readingEngagement': sum(reading_scores) / len(reading_scores) if reading_scores else 0,
@@ -93,7 +93,10 @@ def profile_view(db, row):
         return {'tier': 'default', 'score': None, 'confidence': 0, 'evidenceCount': 0, 'progress': 0, 'reason': 'more-evidence-needed', 'signals': {}}
     lower, upper = thresholds(db, row.course_id)
     target = lower if row.tier == 'beginner' else upper if row.tier == 'default' else 1
-    progress = min(100, round(100 * row.score / target)) if target > 0 else 0
+    if row.tier == 'advanced':
+        progress = min(100, max(0, round(100 * (row.score - upper) / (1 - upper)))) if upper < 1 else 100
+    else:
+        progress = min(100, round(100 * row.score / target)) if target > 0 else 0
     return {'tier': row.tier, 'score': round(row.score, 4), 'confidence': round(row.confidence, 4), 'evidenceCount': row.evidence_count,
             'progress': progress, 'reason': 'five-signals' if row.signals.get('eligible') else 'more-evidence-needed',
             'signals': {key: round(row.signals[key], 4) for key in WEIGHTS}, 'updatedAt': row.updated_at}

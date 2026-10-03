@@ -59,7 +59,7 @@ python -m scripts.verify_learning_db
 python -m scripts.verify_adaptive_db --bank all
 ```
 
-`seed_adaptive` requires `DATABASE_URL_UNPOOLED`, and `seed_learning` uses it when set, falling back to `DATABASE_URL`. It must be a direct, non-`-pooler` host; for a local database, set it to the same value as `DATABASE_URL`. Re-running is safe: a published course or question whose stored document differs from the file makes the seed fail instead of overwriting it. To regenerate the JSON banks after editing a builder, run `python -m scripts.build_class10_banks` (chapters 3–14), `build_polynomials_bank` or `build_real_numbers_bank`, then run the tests before publishing. Details: [ADAPTIVE.md](../ADAPTIVE.md), [CLASS10_CONTENT.md](../CLASS10_CONTENT.md).
+`seed_adaptive` requires `DATABASE_URL_UNPOOLED`, and `seed_learning` uses it when set, falling back to `DATABASE_URL`. It must be a direct, non-`-pooler` host; for a local database, set it to the same value as `DATABASE_URL`. Re-running is safe: a published course or question whose stored document differs from the file makes the seed fail instead of overwriting it. To regenerate the JSON banks after editing a builder, run `python -m scripts.build_class10_banks` (chapters 3–14), `build_polynomials_bank` or `build_real_numbers_bank`, then run the tests before publishing. All 14 banks are covered by offline curriculum tests.
 
 3. **Adapted lessons** (optional; leave `CONTENT_PIPELINE_ENABLED=false` otherwise). With V3 applied by Flyway, inspect the source, then generate:
 
@@ -68,7 +68,7 @@ python -m scripts.generate_content --chapter all --tier both --dry-run
 python -m scripts.generate_content --chapter ch-01 --tier beginner --max-generations 1
 ```
 
-`generate_content` needs `DATABASE_URL_UNPOOLED` and the `CONTENT_*` provider variables. Each run makes at most `--max-generations` provider calls (default 1; 28 covers every chapter at both depths), reuses matching generations and stops at the first failure. After a crash, `--recover-pending` marks interrupted jobs failed. Full rollout procedure: [CONTENT_PIPELINE.md](../CONTENT_PIPELINE.md).
+`generate_content` needs `DATABASE_URL_UNPOOLED` and the `CONTENT_*` provider variables. Each run makes at most `--max-generations` provider calls (default 1; 28 covers every chapter at both depths), reuses matching generations and stops at the first failure. After a crash, `--recover-pending` marks interrupted jobs failed. Review and automatic-generation procedure appears below.
 
 ## Tests
 
@@ -161,11 +161,50 @@ Add a typed attribute to `Settings` in `app/core/config.py`, document it in `.en
 | `sqlalchemy` | ORM and connection pooling |
 | `psycopg2-binary` | PostgreSQL driver |
 | `pydantic`, `pydantic-settings` | Validation; settings from environment |
-| `passlib`, `bcrypt` | Password hashing (versions pinned together; see [04 – Authentication](04-authentication.md#2-password-storage)) |
+| `passlib`, `bcrypt` | Password hashing (versions pinned together; see [API reference](05-api-reference.md)) |
 | `python-jose[cryptography]` | JWT encode/decode |
 | `python-multipart` | Form and file-upload parsing |
 | `python-dotenv` | `.env` loading in the scripts (`pydantic-settings` handles it for the app) |
 | `email-validator` | Backs Pydantic's `EmailStr` |
 | `google-auth`, `requests` | Verifying Google ID tokens; `requests` also makes the lesson-generation provider calls |
 
-Next: [07 – Adaptive Learning](07-adaptive-learning.md).
+Back to [README](../README.md).
+
+## Automatic lesson generation
+
+After Flyway V9 and runtime-role provisioning, configure the backend only:
+
+```dotenv
+ENGAGEMENT_ENABLED=true
+TUTOR_ENABLED=true
+CONTENT_PIPELINE_ENABLED=true
+AUTOMATIC_LESSONS_ENABLED=true
+TIERED_TESTS_ENABLED=true
+LESSON_GENERATIONS_PER_DAY=12
+LESSON_REQUESTS_PER_USER_DAY=6
+CONTENT_PROVIDER=openai-compatible
+CONTENT_API_BASE_URL=https://api.groq.com/openai/v1
+CONTENT_MODEL=openai/gpt-oss-120b
+CONTENT_OUTPUT_MODE=json_schema
+CONTENT_STREAM=false
+CONTENT_REASONING_EFFORT=medium
+CONTENT_MAX_TOKENS=4096
+CONTENT_READ_TIMEOUT=90
+TUTOR_REASONING_EFFORT=medium
+TUTOR_MAX_TOKENS=1536
+```
+
+Set `CONTENT_API_KEY` securely. Remove NIM-specific thinking overrides when changing providers. Existing adapters also support NVIDIA NIM, OpenRouter, OpenAI and Anthropic; configure their endpoint/model/output options accordingly. Never expose provider settings as `VITE_*`.
+
+Opening a chapter retrieves current DB material. If server-selected Beginner/Advanced content is absent, the UI sends `POST /learning/courses/{course}/chapters/{chapter}/explanation` without a client-chosen tier. The request persists identity/source metadata, calls the provider, validates schema and curriculum, and saves a draft. Normal chapter retrieval remains fast and usable while generation runs. Reopening/checking status reuses existing work; `GET` status never invokes a provider. Default uses the authored lesson directly. Worked solutions always retain authored steps. Self-checks come from approved authored problems; an invented self-check is replaced with that section’s authored worked problem for independent reworking. Explanations still require curriculum validation and mathematical review.
+
+Draft publication requires explicit mathematical review:
+
+```bash
+python -m scripts.review_content <generation-id>
+python -m scripts.review_content <generation-id> --approve
+```
+
+Approval uses the direct owner `DATABASE_URL_UNPOOLED`, never the runtime role. Check every example, self-check, takeaway and NCERT scope before approval. Only verified current-source/current-prompt content is served. Failed or interrupted requests preserve original material, have a five-minute cooldown and at most two failures per cache identity in a rolling day. Global and per-user rolling-day limits bound requests; these do not remove provider quotas.
+
+Nightly aptitude workflow remains gated by `APTITUDE_NIGHTLY_ENABLED` plus `APTITUDE_DATABASE_URL` and `JWT_SECRET`. Schedule: 01:00 IST. Production Cloud Run deployment/activation is separate and remains deferred until authorized.

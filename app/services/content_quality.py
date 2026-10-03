@@ -32,6 +32,11 @@ def use_authored_examples(lesson, source):
         example = examples.get(re.sub(r'\s+', ' ', section['example']['problem'].strip()))
         if example:
             section['example'] = {'problem': example['problem'], 'steps': list(example['steps'])}
+            # Exercises are authored content, not model-created assessment items.
+            # Models often paraphrase/invent self-checks despite the prompt; use
+            # the selected checked problem for independent re-working instead.
+            if re.sub(r'\s+', ' ', section['checkYourself'].strip()) not in examples:
+                section['checkYourself'] = example['problem']
     return GeneratedLesson.model_validate(lesson).model_dump()
 
 

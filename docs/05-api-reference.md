@@ -141,7 +141,7 @@ Sub-modules are the *subjects* referenced by the learning API. Note the trailing
 
 ## Learning — `/learning`
 
-Auth: Bearer on **every** route. Every response carries `Cache-Control: no-store`. Any database failure returns `503 "Learning is temporarily unavailable. Please retry."`. JSON keys are camelCase. Full behavioural rules are in [LEARNING.md](../LEARNING.md); the adaptive practice policy and lesson-depth rules are summarised in [07 – Adaptive Learning](07-adaptive-learning.md).
+Auth: Bearer on **every** route. Every response carries `Cache-Control: no-store`. Any database failure returns `503 "Learning is temporarily unavailable. Please retry."`. JSON keys are camelCase. Full behavioural rules are in [Backend guide](../README.md); the adaptive practice policy and lesson-depth rules are summarised in [Backend guide](../README.md).
 
 Shared response fragments:
 
@@ -296,7 +296,7 @@ Errors: `404` as for insights; `409` no approved practice questions; `503` a sto
 ### `GET /learning/content/{generation_id}`
 Fetch a specific stored adapted lesson (e.g. from `contentVariant.generationId`).
 ```json
-{"id": "uuid", "courseId": "ncert-maths-10-v1", "chapterId": "ch-01", "tier": "beginner", "verified": false, "generated": GeneratedLesson}
+{"id": "uuid", "courseId": "ncert-maths-10-v1", "chapterId": "ch-01", "tier": "beginner", "verified": true, "generated": GeneratedLesson}
 ```
 Errors: `404` pipeline disabled, or generation missing / not `ready`; `410` the chapter source or prompt version has changed since generation (reopen the chapter); `503` stored content fails validation. Raw provider output, source snapshots and usage are never returned.
 
@@ -314,3 +314,11 @@ Auth: none. Serves uploaded avatar images from `UPLOADS_DIR`.
 | `/openapi.json` | OpenAPI 3 document |
 
 Next: [06 – Development](06-development.md).
+
+## Automatic explanations
+
+`POST /learning/courses/{course_id}/chapters/{chapter_id}/explanation` starts or reuses a missing explanation at server-derived depth. Requires authentication, enrollment, engagement and automatic/pipeline flags. No tier in the request body. Returns `{status, generationId, retryAfterSeconds?}`; status is `available`, `pending`, `awaiting-review` or `failed`. Draft content and provider metadata are excluded. `429` supplies `Retry-After` for quota/cooldown; `503` indicates disabled/unavailable generation. Existing lessons remain readable.
+
+`GET` on the same path checks current-source/current-tier generation status without inference. It may also return `unavailable`. It never returns unreviewed content. `GET /learning/content/{generation_id}` serves only verified, ready and current versions to enrolled students.
+
+When tiered tests are enabled, chapter attempts snapshot five approved questions at server-selected difficulty. `selection` includes `tier`, `policyVersion`, focus concepts and fresh/repeated counts. Draft reuse preserves the snapshot. Final tests retain one authored question per chapter and the same eligibility rule.

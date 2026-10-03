@@ -14,6 +14,8 @@ os.environ["JWT_SECRET"] = "local-regression-test-secret"
 os.environ["ENGAGEMENT_ENABLED"] = "false"
 os.environ["TUTOR_ENABLED"] = "false"
 os.environ["CONTENT_PIPELINE_ENABLED"] = "false"
+os.environ["AUTOMATIC_LESSONS_ENABLED"] = "false"
+os.environ["TIERED_TESTS_ENABLED"] = "false"
 
 from fastapi import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm

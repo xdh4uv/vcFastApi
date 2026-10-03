@@ -266,7 +266,7 @@ Enforces "at most one unsubmitted draft per user/course/test/kind" while still a
 
 **Optimistic concurrency** (`revision`): every draft save must include the revision the client last saw. A mismatch returns `409`, so a stale device cannot overwrite newer answers.
 
-**Advisory locks** serialise the operator scripts rather than requests. `seed_adaptive.py` takes a transaction-scoped `pg_advisory_xact_lock` before publishing banks. `generate_content.py` holds a session advisory lock on its direct connection so only one lesson publisher runs at a time. The content table also has a partial unique index, `uq_content_active_key ON (cache_key) WHERE status IN ('pending','ready')`, so two publishers can never both start the same generation.
+**Advisory locks** serialize publishers and automatic-generation reservations. `seed_adaptive.py` takes a transaction-scoped `pg_advisory_xact_lock` before publishing banks. `generate_content.py` holds a session advisory lock on its direct connection so only one lesson publisher runs at a time. The content table also has a partial unique index, `uq_content_active_key ON (cache_key) WHERE status IN ('pending','ready')`, so two publishers can never both start the same generation.
 
 ## 5. Schema changes and migrations
 
@@ -294,6 +294,8 @@ db/
 | V4 | Reading progress, engagement events and question timing. |
 | V5 | Tutor conversations and saved Notes. |
 | V6 | Enrollment backfill and aptitude profiles. |
+| V8 | Grants bounded draft writes and protects reviewed lessons with row policies plus a trigger. |
+| V9 | Adds the least-privilege runtime role; credentials are provisioned separately. |
 | V7 | Corrects the reviewed elevation/depression justification, assigns revised question IDs and retires old questions from future selection while preserving snapshots. |
 
 Flyway records applied versions in `public.flyway_schema_history` and checksums each file. Rules:
@@ -341,7 +343,7 @@ The seed scripts pre-date Flyway and can still apply their migration file. On a 
 | `scripts.seed_adaptive` | `--bank all --content-only`: publish all practice banks without running V2 |
 | `scripts.generate_content` | Omit `--migrate` / `--migrate-only`; V3 is applied by Flyway |
 
-Database roles and grants are described in [LEARNING.md](../LEARNING.md#database-ownership-and-migration). The historical rollout notes for V2 and V3 are in [ADAPTIVE.md](../ADAPTIVE.md) and [CONTENT_PIPELINE.md](../CONTENT_PIPELINE.md).
+Database roles are described below.
 
 ## 6. Course content as a JSON document
 
@@ -351,7 +353,7 @@ Attempts copy the questions into `learning_attempts.questions` when created. Gra
 
 The adaptive tables follow the same idea at a finer grain. Each `learning_concepts.material` row is one revision card and each `learning_practice_questions.content` row is one question, both validated by the Pydantic models in [app/schemas/adaptive.py](../app/schemas/adaptive.py). Published question documents are treated as immutable: re-running the seed with a changed document fails rather than overwriting it, so a corrected question gets a new ID. Adaptive attempts snapshot their selected questions and store the selection policy details in `selection_metadata`.
 
-`learning_content_generations` stores one row per generated lesson, including the source snapshot it was generated from, `source_hash`, prompt version, provider/model, provider usage, raw response and the validated `content`. Failed rows are kept for diagnosis. See [07 – Adaptive Learning](07-adaptive-learning.md#3-adapted-lesson-content).
+`learning_content_generations` stores one row per generated lesson, including the source snapshot it was generated from, `source_hash`, prompt version, provider/model, provider usage, raw response and the validated `content`. Failed rows are kept for diagnosis. See [Development](06-development.md#automatic-lesson-generation).
 
 ## 7. How tests use SQLite
 
@@ -365,4 +367,20 @@ create_engine("sqlite://", ..., execution_options={"schema_translate_map": {"pub
 
 Tests call router functions directly (`auth.signup(UserCreate(...), self.db)`) instead of going through HTTP, passing the session explicitly in place of the `Depends(get_db)` default. That keeps them fast and free of network setup, at the cost of not exercising request parsing, dependency resolution, or middleware. See [06 – Development](06-development.md#tests).
 
-Next: [04 – Authentication](04-authentication.md).
+Back to [README](../README.md).
+
+## Automatic generation and runtime permissions
+
+Use `vchitr_runtime` for the HTTP backend. V9 creates it without login credentials, superuser rights, role creation, replication or RLS bypass. It reads published course/question banks and writes student records. On `learning_content_generations` it may insert unverified drafts and update draft output/status fields. It cannot update `verified`, delete generations or modify reviewed rows. Owner-run review remains separate.
+
+The existing Neon `admin` role inherits `neon_superuser` and bypasses row security; it is unsuitable for automatic generation. The request path refuses to generate new drafts with that role. Runtime row security is a publication boundary; per-student ownership is still enforced by authenticated backend queries.
+
+Apply V8/V9 through Flyway. Provision a strong runtime password through secure operator tooling and set the backend's pooled `DATABASE_URL`; never put a password in migration files. Keep direct owner credentials only for migrations/review. Legacy `public.users` and `public.users_id_seq` belong to `admin` in this database, while learning tables belong to `neondb_owner`. If Flyway reports grant warnings, run these grants as the **actual public schema/table owner**:
+
+```sql
+GRANT USAGE ON SCHEMA public TO vchitr_runtime;
+GRANT SELECT, INSERT, UPDATE ON public.users TO vchitr_runtime;
+GRANT USAGE, SELECT ON SEQUENCE public.users_id_seq TO vchitr_runtime;
+```
+
+Automatic reservations use transaction advisory lock `71020801`, released before inference. Pending/ready cache keys remain unique. Recovery commits an interrupted request as failed before returning cooldown. Failed generations remain auditable; all generated source/provider/usage metadata stays private.

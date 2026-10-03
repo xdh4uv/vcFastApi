@@ -32,6 +32,6 @@ class ContentGeneration(Base):
     raw_response = Column(Text)
     usage = Column(document, nullable=False, default=dict)
     error_code = Column(String(80))
-    verified = Column(Boolean, nullable=False, default=False)
+    verified = Column(Boolean, nullable=False, server_default=text('false'))
     created_at = Column(DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc))
     completed_at = Column(DateTime(timezone=True))

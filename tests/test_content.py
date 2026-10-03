@@ -327,7 +327,7 @@ class ContentTests(unittest.TestCase):
         self.assertEqual(first.usage['input_tokens'], 100)
 
     def test_quality_rejects_new_exercises_scope_and_markup(self):
-        for field, value in [('checkYourself', 'If the product of zeroes of 2x²+bx−6 is −3, find b.'),
+        for field, value in [('example', {'problem': 'If the product of zeroes of 2x²+bx−6 is −3, find b.', 'steps': ['Use the product rule.', 'The value is undetermined.']}),
                              ('explanation', ['Use complex roots to solve this Class 10 problem.']),
                              ('explanation', ['Use \\(x^2\\) here.'])]:
             bad = deepcopy(LESSON)
@@ -388,7 +388,7 @@ class ContentTests(unittest.TestCase):
     def test_invalid_prose_can_be_repaired_but_provider_failure_cannot_be_approved(self):
         from scripts.review_content import approve
         bad = deepcopy(LESSON)
-        bad['sections'][0]['checkYourself'] = 'Invented ambiguous exercise'
+        bad['sections'][0]['explanation'] = ['Use complex roots beyond this chapter.']
         row, _ = self.create(provider=Mock(return_value=(json.dumps(bad), {}, 'end_turn')))
         self.assertEqual(row.status, 'failed')
         approve(self.db, row, self.source, deepcopy(LESSON))

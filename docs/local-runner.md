@@ -46,7 +46,7 @@ The defaults work as they are. Things you might change in `.env.docker`:
 | Variable | When to change it |
 | --- | --- |
 | `GOOGLE_CLIENT_ID`, `VITE_GOOGLE_CLIENT_ID` | To test "Sign in with Google". Use the same client ID in both, and ask a maintainer to add `http://localhost:5173` to the client's authorised JavaScript origins. Leave both blank to use email/password only. |
-| `CONTENT_PIPELINE_ENABLED` | Only if you are working on adapted lessons. See [07 – Adaptive Learning](07-adaptive-learning.md). |
+| `CONTENT_PIPELINE_ENABLED` | Only if you are working on adapted lessons. See [Backend guide](../README.md). |
 
 `.env.docker` is git-ignored. Database URLs are set by `docker-compose.yaml` itself and always point at the local container.
 

@@ -105,3 +105,40 @@ def select_questions(db, course_id, chapter_id, insights, attempts):
                 "repeatedQuestionIds": repeated, "freshCount": len(ids) - len(repeated),
                 "mode": "revision" if repeated else "fresh"}
     return questions, metadata
+
+
+def select_tier_questions(db, user_id, course_id, chapter_id, tier):
+    """Balanced five-question official test, with a frozen tier and policy snapshot."""
+    difficulty = {'beginner': 'foundation', 'default': 'standard', 'advanced': 'challenge'}[tier]
+    bank = db.query(PracticeQuestion).filter_by(course_id=course_id, chapter_id=chapter_id,
+                                               status='approved', difficulty=difficulty).order_by(PracticeQuestion.id).all()
+    if len(bank) < 5:
+        raise HTTPException(409, 'Five approved questions are required for this learning tier.')
+    attempts = db.query(LearningAttempt).filter_by(user_id=user_id, course_id=course_id, test_id=chapter_id).all()
+    seen = {q['id'] for attempt in attempts for q in attempt.questions}
+    groups = {}
+    for row in bank:
+        groups.setdefault(row.concept_id, []).append(row)
+    for rows in groups.values():
+        rows.sort(key=lambda row: (row.id in seen, row.id))
+    chosen = []
+    while len(chosen) < 5:
+        for concept in sorted(groups):
+            if groups[concept]:
+                chosen.append(groups[concept].pop(0))
+                if len(chosen) == 5:
+                    break
+    try:
+        questions = []
+        for row in chosen:
+            q = AdaptiveQuestion.model_validate(row.content)
+            if q.id != row.id or q.conceptId != row.concept_id or q.difficulty != difficulty:
+                raise ValueError('Question metadata mismatch')
+            questions.append(q.model_dump())
+    except (ValidationError, ValueError):
+        raise HTTPException(503, 'Practice questions could not be loaded.') from None
+    repeats = [q.id for q in chosen if q.id in seen]
+    return questions, {'policyVersion': 'chapter-tier-v1', 'tier': tier, 'difficultyMix': {difficulty: 5},
+                       'focusConcepts': list(dict.fromkeys(q['concept'] for q in questions)),
+                       'mode': 'revision' if repeats else 'fresh', 'freshCount': 5 - len(repeats),
+                       'repeatedQuestionIds': repeats}

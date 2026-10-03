@@ -5,6 +5,7 @@ import json
 from pydantic import ValidationError
 from ..models.contentModel import ContentGeneration
 from ..models.learningCourseModel import LearningConcept
+from ..models.aptitudeModel import AptitudeProfile
 from ..schemas.content import GeneratedLesson
 from .adaptive import load_insights
 
@@ -30,6 +31,18 @@ def explanation_depth(db, user_id, course_id, chapter_id, adaptive_available):
 
 def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
+
+
+def learning_depth(db, user_id, course_id, chapter_id, adaptive_available, engagement_enabled):
+    """Chapter evidence wins; eligible course evidence is the cold-start fallback."""
+    chapter = explanation_depth(db, user_id, course_id, chapter_id, adaptive_available)
+    if chapter['reason'] == 'chapter-results' or not engagement_enabled:
+        return chapter
+    profile = db.get(AptitudeProfile, (user_id, course_id))
+    if profile and profile.signals.get('eligible'):
+        return {'tier': profile.tier, 'evidenceCount': profile.evidence_count,
+                'percent': None, 'reason': 'five-signals'}
+    return chapter
 
 
 def source_document(db, course_id, chapter):

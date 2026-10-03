@@ -11,12 +11,13 @@ from ..core.database import get_db
 from ..core.security import get_current_user
 from ..core.config import settings
 from ..models.learningCourseModel import LearningAttempt, LearningCourse, LearningPreference, LearningProgress, LearningConcept
-from ..services.adaptive import load_insights, select_questions
-from ..services.content import cached_lesson, source_document, digest, PROMPT_VERSION, explanation_depth
+from ..services.adaptive import load_insights, select_questions, select_tier_questions
+from ..services.content import cached_lesson, source_document, digest, PROMPT_VERSION, learning_depth
 from ..models.contentModel import ContentGeneration
 from ..schemas.content import GeneratedLesson
 from ..services.engagement import reading_source, reading_view, record_event
 from ..models.engagementModel import AttemptTiming
+from ..models.engagementModel import ReadingProgress
 from ..models.aptitudeModel import Enrollment, AptitudeProfile
 from ..services.aptitude import recompute, profile_view
 from ..services.access import learning_access, require_course_access
@@ -154,8 +155,13 @@ def progress_view(db, user, course):
 def get_course(course_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
     course = load_course(db, course_id)
     aptitude = profile_view(db, db.get(AptitudeProfile, (user.id, course.id))) if settings.engagement_enabled else None
-    return {"aptitude": aptitude, "engagementEnabled": settings.engagement_enabled, "id": course.id, "title": course.title, "chapters": [{"id": c.id, "title": c.title} for c in course.chapters],
-            "progress": progress_view(db, user, course)}
+    reading = {row.chapter_id: row for row in db.query(ReadingProgress).filter_by(user_id=user.id, course_id=course.id).all()} if settings.engagement_enabled else {}
+    progress = progress_view(db, user, course)
+    read = set(progress['read'])
+    return {"aptitude": aptitude, "engagementEnabled": settings.engagement_enabled, "id": course.id, "title": course.title, "chapters": [{"id": c.id, "title": c.title,
+            "readingState": 'completed' if c.id in read else
+            'in-progress' if c.id in reading and any(reading[c.id].sections.values()) else 'not-started'} for c in course.chapters],
+            "progress": progress}
 
 
 def find_chapter(course, chapter_id):
@@ -171,12 +177,9 @@ def get_chapter(course_id: str, chapter_id: str, db: Session = Depends(learning_
     adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=chapter_id).first() is not None
     variant = None
     if settings.content_pipeline_enabled:
-        if settings.engagement_enabled:
-            profile = db.get(AptitudeProfile, (user.id, course_id))
-            depth = {"tier": profile.tier if profile else "default", "evidenceCount": profile.evidence_count if profile else 0, "percent": None, "reason": "five-signals" if profile and profile.signals.get("eligible") else "more-evidence-needed"}
-        else:
-            depth = explanation_depth(db, user.id, course_id, chapter_id, adaptive)
+        depth = learning_depth(db, user.id, course_id, chapter_id, adaptive, settings.engagement_enabled)
         variant = {**cached_lesson(db, course_id, chapter, depth['tier']), 'selection': depth}
+        variant['automaticGenerationEnabled'] = settings.automatic_lessons_enabled and settings.engagement_enabled
     result = {**chapter.model_dump(exclude={"questions", "finalQuestion"}), "questionCount": len(chapter.questions),
               "adaptiveAvailable": adaptive, "contentVariant": variant}
     result["readingProgress"] = reading_view(db, user.id, course_id, chapter_id, reading_source(result)) if settings.engagement_enabled else None
@@ -191,6 +194,39 @@ def mark_read(course_id: str, chapter_id: str, db: Session = Depends(learning_db
     progress.read = sorted(set(progress.read) | {chapter_id})
     db.commit()
     return progress_view(db, user, course)
+
+
+@router.post('/courses/{course_id}/chapters/{chapter_id}/explanation')
+def request_explanation(course_id: str, chapter_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
+    if not settings.engagement_enabled:
+        raise HTTPException(503, 'Automatic explanations are not enabled.')
+    from ..services.automatic_lessons import request_variant
+    course = load_course(db, course_id)
+    chapter = find_chapter(course, chapter_id)
+    db.query(User).filter_by(id=user.id).with_for_update().one()
+    adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=chapter_id).first() is not None
+    depth = learning_depth(db, user.id, course_id, chapter_id, adaptive, settings.engagement_enabled)
+    try:
+        return request_variant(db, user.id, source_document(db, course_id, chapter), chapter, depth['tier'])
+    except ValueError:
+        raise HTTPException(503, 'Explanation generation configuration is unavailable.') from None
+
+
+@router.get('/courses/{course_id}/chapters/{chapter_id}/explanation')
+def explanation_status(course_id: str, chapter_id: str, db: Session = Depends(learning_db), user: User = Depends(get_current_user)):
+    if not settings.engagement_enabled or not settings.content_pipeline_enabled:
+        raise HTTPException(404, 'Adapted explanations are not enabled.')
+    chapter = find_chapter(load_course(db, course_id), chapter_id)
+    adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=chapter_id).first() is not None
+    depth = learning_depth(db, user.id, course_id, chapter_id, adaptive, settings.engagement_enabled)
+    cached = cached_lesson(db, course_id, chapter, depth['tier'])
+    if depth['tier'] == 'default' or cached['status'] == 'ready':
+        return {'status': 'available', 'generationId': cached['generationId']}
+    source = source_document(db, course_id, chapter)
+    row = db.query(ContentGeneration).filter_by(course_id=course_id, chapter_id=chapter_id,
+        tier=depth['tier'], source_hash=digest(source), prompt_version=PROMPT_VERSION).order_by(ContentGeneration.created_at.desc()).first()
+    return {'status': 'awaiting-review' if row and row.status == 'ready' else row.status if row else 'unavailable',
+            'generationId': str(row.id) if row else None}
 
 
 def test_questions(db, user, course, test_id):
@@ -231,7 +267,14 @@ def start_attempt(course_id: str, test_id: str, db: Session = Depends(learning_d
     questions = test_questions(db, user, course, test_id)
     attempt = db.query(LearningAttempt).filter_by(user_id=user.id, course_id=course_id, test_id=test_id, submitted_at=None).filter(LearningAttempt.kind != "adaptive").first()
     if not attempt:
-        attempt = LearningAttempt(user_id=user.id, course_id=course_id, test_id=test_id, kind="final" if test_id == "final" else "chapter", questions=questions, answers={})
+        selection = {}
+        if settings.tiered_tests_enabled and test_id != 'final':
+            adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=test_id).first() is not None
+            if adaptive:
+                depth = learning_depth(db, user.id, course_id, test_id, adaptive, settings.engagement_enabled)
+                questions, selection = select_tier_questions(db, user.id, course_id, test_id, depth['tier'])
+                selection['reason'] = depth['reason']
+        attempt = LearningAttempt(user_id=user.id, course_id=course_id, test_id=test_id, kind="final" if test_id == "final" else "chapter", questions=questions, selection_metadata=selection, answers={})
         db.add(attempt)
     db.flush()
     if settings.engagement_enabled and not db.get(AttemptTiming, attempt.id):

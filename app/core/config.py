@@ -25,6 +25,10 @@ class Settings(BaseSettings):
     engagement_enabled: bool = False
     reading_test_threshold: int = Field(default=75, ge=1, le=100)
     content_pipeline_enabled: bool = False
+    automatic_lessons_enabled: bool = False
+    tiered_tests_enabled: bool = False
+    lesson_generations_per_day: int = Field(default=12, ge=1, le=100)
+    lesson_requests_per_user_day: int = Field(default=6, ge=1, le=30)
     content_api_base_url: Optional[str] = None
     content_provider: str = 'openai-compatible'
     content_output_mode: str = 'json_object'

@@ -10,7 +10,8 @@ from ..models.aptitudeModel import AptitudeProfile
 from ..services.aptitude import recompute
 from ..services.access import learning_access
 from ..schemas.tutor import DoubtRequest, FeedbackRequest, NoteRequest
-from ..services.content import source_document
+from ..services.content import source_document, learning_depth
+from ..models.learningCourseModel import LearningConcept
 from ..services.engagement import enabled, record_event, utc
 from ..services.tutor import answer_question
 from ..services.content_generation import GenerationError
@@ -64,8 +65,8 @@ def ask(course_id: str, chapter_id: str, body: DoubtRequest, db: Session = Depen
     previous = db.query(DoubtTurn).filter_by(user_id=user.id, course_id=course_id, chapter_id=chapter_id, status='ready').order_by(DoubtTurn.created_at.desc()).limit(4).all()
     previous.reverse()
     source = source_document(db, course_id, chapter)
-    profile = db.get(AptitudeProfile, (user.id, course_id)) if settings.engagement_enabled else None
-    tier = profile.tier if profile else 'default'
+    adaptive = db.query(LearningConcept.concept_id).filter_by(course_id=course_id, chapter_id=chapter_id).first() is not None
+    tier = learning_depth(db, user.id, course_id, chapter_id, adaptive, settings.engagement_enabled)['tier']
     turn = DoubtTurn(id=body.requestId, user_id=user.id, course_id=course_id, chapter_id=chapter_id, question=body.question, tier=tier)
     db.add(turn)
     record_event(db, user.id, course_id, chapter_id, 'QUESTION_ASKED', {'turnId': str(turn.id)})

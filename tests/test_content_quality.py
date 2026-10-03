@@ -8,6 +8,19 @@ LESSON = {'summary': 'Polynomials', 'sections': [{'title': 'Zeroes', 'explanatio
 
 
 class ContentQualityTests(unittest.TestCase):
+    def test_generated_self_checks_use_authored_problems_without_weakening_scope_checks(self):
+        from app.services.content_quality import use_authored_examples
+        from test_content import LESSON as complete_lesson
+        from test_learning import CONTENT
+        complete_source = {'courseId': CONTENT['id'], 'chapter': CONTENT['chapters'][0], 'revisionCards': []}
+        lesson = deepcopy(complete_lesson)
+        lesson['sections'][0]['checkYourself'] = 'Invented exercise with different numbers.'
+        normalized = use_authored_examples(lesson, complete_source)
+        self.assertEqual(normalized['sections'][0]['checkYourself'], normalized['sections'][0]['example']['problem'])
+        self.assertEqual(quality_issues(normalized, complete_source), [])
+        normalized['sections'][0]['explanation'] = ['Use complex numbers.']
+        self.assertIn('out_of_scope', {issue['type'] for issue in quality_issues(normalized, complete_source)})
+
     def test_known_scaling_error_and_unqualified_graph_claim_cannot_be_approved(self):
         for text, kind in [('Multiplying by any nonzero constant a yields a non-monic quadratic.', 'invalid_scaling_claim'),
                            ('A repeated zero means the graph touches and does not cross.', 'unqualified_repeated_zero')]:
